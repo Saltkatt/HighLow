@@ -1,14 +1,145 @@
 <template>
+<div>  
+    <header>
+        <h1>HighLow Project</h1>
+            <nav>
+                <ul>
+                    <li>Main Menu</li>
+                    <li>HighScore</li>
+                    <li>Statistics</li>
+                </ul>
+            </nav>
+    </header>
+
+    <div class="container1">
+        <h2>Moderator Location</h2>
+
+    </div>
+
+    <div class="container2">
+        <h2>Active Player Location</h2>
+    </div>
+
+    <div class="container3">
+        <h2>Inactive Player Location</h2>
+    </div>
+
+    <div class="container4">
+        <div class="round">
+            <h3>Round</h3>
+        </div>
+        <div class="time">
+            <h3>Time</h3>
+        </div>
+    </div>
+
+    <div class="container5">
+        <h3>User Input</h3>
+        <input type="number" placeholder="007">
+        <input type="submit" value="Submit">
+        
+
+    </div>
+
+
+<div>
+
+</div>
+</div>
+
+
+
     
 </template>
 
 <script>
 export default {
+    name: "Main"
 
 }
 </script>
 
-<style>
+<style scoped>
+header {
+    background-color: blueviolet;
+    padding-top: 2px;
+}
+nav {
+    background-color: gainsboro;
+    padding: 5px;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.container1{
+    background-color: chartreuse;
+    padding: 10px;
+    margin: auto;
+}
+
+.container2{
+    background-color: orange;
+    padding: 10px;
+    margin: auto;
+}
+
+.container3{
+    background-color: crimson;
+    padding: 10px;
+    margin: auto;
+}
+
+.container4{
+    display: grid;
+    grid-template-columns: auto auto;
+    background-color: deeppink;
+    padding: 10px;
+}
+
+.container5{
+    background-color:violet;
+    padding: 10px;
+    margin: auto;
+}
+
+.round{
+    background-color: honeydew;
+}
+
+.time{
+    background-color: turquoise;
+}
+input[type=number]{
+    width: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 30%;
+    background-color: goldenrod;
+    border: none;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+
+}
+
 
 </style>
 
