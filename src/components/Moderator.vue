@@ -2,7 +2,7 @@
     <div>
 
     </div>
-    
+
 </template>
 
 <script>
@@ -20,7 +20,7 @@ export default {
                 respons="Too Low!";
                 else{
                     respons="Too High!";
-                }   
+                }
 
             }
 
