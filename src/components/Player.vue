@@ -1,5 +1,33 @@
 <template>
+        <div id="placeholder">
     
+        <div id="cards">
+            Cards
+        </div>
+        
+        <div id="pointForRandom">
+            
+        </div>
+        
+        <div id="randomNumber">
+            25
+        </div>
+
+        <div id="okButton">
+            OK
+        </div>
+
+    </div>
+
+    
+    <div id="card">
+        <figure class="front">Front Side</p></figure>
+        <figure class="back">Back Side</p></figure>
+    </div>
+
+
+    <br>https://codepen.io/bravotanmoy/pen/NbKgJB
+    <br>https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/brightness
 </template>
 
 <script>
