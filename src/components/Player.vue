@@ -33,6 +33,36 @@
 <script>
 export default {
     name: "Player"
+    /*
+        function createRandomNumber() {
+        ranNum = Math.floor(Math.random()*1000);
+        document.getElementById("randomNumber").innerHTML = ranNum;
+        //alert('random...');
+    }
+    
+    function registerCard() {
+        cardsPlace = document.getElementById("cards");
+        
+        newCard = document.createElement('div');
+        newCard.setAttribute("id", "card");
+        newCard.innerHTML = `
+            <figure class='front'>#</p></figure>
+            <figure class='back'>#</p></figure>
+            `;
+        
+        cardsPlace.appendChild(newCard)
+    }
+    
+    document.getElementById("pointForRandom").addEventListener("mouseover", function() {
+        createRandomNumber();
+    })
+
+        document.getElementById("okButton").addEventListener("click", function() {
+        registerCard();
+    })
+    
+    
+    */
 
 }
 </script>
