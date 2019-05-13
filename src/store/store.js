@@ -50,6 +50,9 @@ export const store = new Vuex.Store({
         // increaseDataOne: state => {
         // state.dataOne++;
         // }
+        addToActivePlayers: function(state, payload) {
+          state.activePlayers.push(payload);
+        }
     },
     actions: {
         // increaseDataOne: context => {
