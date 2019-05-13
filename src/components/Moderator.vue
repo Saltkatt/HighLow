@@ -16,7 +16,7 @@ export default {
     methods:{
         hiLow: function(guess){
             var respons=null;
-            if(guess<answer){
+            if(this.$store.guess<this.$store.answer){
                 respons="Too Low!";
                 else{
                     respons="Too High!";
