@@ -1,7 +1,6 @@
 <template>
 <div>  
     <header>
-        <h1>HighLow Project</h1>
             <nav>
                 <ul>
                     <li>Main Menu</li>
@@ -11,10 +10,9 @@
             </nav>
     </header>
 
-    <div class="container1">
-        <h2>Moderator Location</h2>
+    <Moderator></Moderator>
 
-    </div>
+   
 
     <div class="container2">
         <h2>Active Player Location</h2>
@@ -26,10 +24,10 @@
 
     <div class="container4">
         <div class="round">
-            <h3>Round</h3>
+            <h3>Round: 2</h3>
         </div>
-        <div class="time">
-            <h3>Time</h3>
+        <div class="time" >
+            <h3>Time: 10</h3>
         </div>
     </div>
 
@@ -53,17 +51,34 @@
 </template>
 
 <script>
+import Moderator from '../components/Moderator'
+
 export default {
-    name: "Main"
+    name: "Main",
+    components: {
+        Moderator
+    },
+    methods: {
+        /* secondCounter(){
+            var second = 10;
+            function incrementSeconds(){
+                second -= 1;
+                if(second == -1){
+                    second = 10;
+                }
+                console.log(second)
+                
+            }
+            var cancel = setInterval(incrementSeconds, 1000);
+            return second;
+        }*/
+    } 
 
 }
 </script>
 
 <style scoped>
-header {
-    background-color: blueviolet;
-    padding-top: 2px;
-}
+
 nav {
     background-color: gainsboro;
     padding: 5px;
