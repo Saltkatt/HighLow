@@ -1,12 +1,15 @@
 <template>
   <div id="app">
-    <Main></Main>
+    <!-- <Main></Main> -->
+    <Moderator></Moderator>
+
   </div>
 </template>
 
 <script>
 
 import Main from './components/Main.vue'
+import Moderator from './components/Moderator'
 import Bot from './components/Bot.vue'
 import Player from './components/Player.vue'
 
@@ -14,6 +17,7 @@ import Player from './components/Player.vue'
 export default {
   name: 'app',
   components: {
+    Moderator,
     Player,
     Main,
     Bot
