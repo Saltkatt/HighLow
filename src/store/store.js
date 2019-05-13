@@ -9,8 +9,10 @@ import martinAsset from "../assets/martin.jpg";
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
+    //Prevents changes in components without store involvement
+    strict: true,
     state: {
-      //Array med frågor och svar som hämtas av moderatorn
+      //Array with questions and answers which the moderator gets from the store
       questionBank: [
         {
           question: 'Hur högt är Mount Everest i antal meter räknat?',
@@ -33,7 +35,7 @@ export const store = new Vuex.Store({
           answer: 23148
         },
       ],
-      //Botar som ska hämtas ifrån bot-componen
+      //Array with bots
       bots: [
         {
           id: 1,
@@ -64,7 +66,11 @@ export const store = new Vuex.Store({
           image: martinAsset
         }
       ],
+      //This is the guess of players/bots, and moderator will get this number
+      guessNumber: 0,
+      //If moderator says that the guess is too low, then it will become lowestNumber
       lowestNumber: 0,
+      //If moderator says that the guess is too high, then it will become highestNumber
       highestNumber: 0
     },
     getters: {
@@ -75,9 +81,10 @@ export const store = new Vuex.Store({
         // }
     },
     mutations: {
-        // increaseDataOne: state => {
-        // state.dataOne++;
-        // }
+      //This function pushes the player into the "activePlayers array"
+        addToActivePlayers: function(state, payload) {
+          state.activePlayers.push(payload);
+        }
     },
     actions: {
         // increaseDataOne: context => {
