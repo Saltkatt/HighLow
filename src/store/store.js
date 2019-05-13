@@ -1,6 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+//images
+import kalleAsset from "../assets/kalle.jpg";
+import kajsaAsset from "../assets/kajsa.jpg";
+import martinAsset from "../assets/martin.jpg";
+
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
@@ -29,18 +34,41 @@ export const store = new Vuex.Store({
         },
       ],
       //Botar som ska hämtas ifrån bot-componen
-      botar: [
+      bots: [
         {
           id: 1,
           name: 'RoboCop',
+          image: kalleAsset
         },
         {
           id: 2,
           name: 'Terminator',
+          image: martinAsset
         },
       ],
+      //Players & bots in the active game
+      activePlayers: [
+        {
+          id: 0,
+          name: 'Player',
+          image: kajsaAsset
+        },
+        {
+          id: 1,
+          name: 'Robocop',
+          image: kalleAsset
+        },
+        {
+          id: 2,
+          name: 'Terminator',
+          image: martinAsset
+        }
+      ],
+      lowestNumber: 0,
+      highestNumber: 0
     },
     getters: {
+
         // totalData: state => {
         // let totalData = state.data1 + state.data2;
         // return totalData;
