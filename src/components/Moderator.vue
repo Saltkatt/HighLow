@@ -6,28 +6,37 @@
 </template>
 
 <script>
+import moderatorImage from "../assets/logo.png";
 export default {
 
     data(){
         return{
-            talk:
+            moderator[
+                {name:"Moderator",image:moderatorImage}
+            ]
+
         }
     },
     methods:{
+        // Receive guess from xx end send respons
         hiLow: function(guess){
-            var respons=null;
-            if(this.$store.guess<this.$store.answer){
-                respons="Too Low!";
-                else{
-                    respons="Too High!";
-                }   
+            const respons=null;
+                if(guess==this.$store.state.answer)
+                    respons="Correct!";
+                else if(guess<this.$store.state.answer){
+                    respons="Too Low!";
+                        // Save guess to array in store
+                        else if(guess<this.$store.state.answer){
+                            respons="Too Low!";
+                            // Save guess to array in store
+                        }   
 
-            }
+                }
 
             return respons
         },
          Talk: function(msg){
-            this.talk=msg;
+            
 
             return msg
         },
