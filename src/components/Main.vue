@@ -27,7 +27,7 @@
             <h3>Round: 2</h3>
         </div>
         <div class="time" >
-            <h3>Time: 10</h3>
+            <h3>Time: {{seconds}}</h3>
         </div>
     </div>
 
@@ -58,20 +58,28 @@ export default {
     components: {
         Moderator
     },
+    created() {
+        this.secondCounter()
+    },
+    data() {
+        return {
+            seconds: 20
+        }
+    },
     methods: {
-        /* secondCounter(){
-            var second = 10;
+        secondCounter(){
+            // var second = 10;
             function incrementSeconds(){
-                second -= 1;
-                if(second == -1){
-                    second = 10;
+                this.seconds -= 1;
+                if(this.seconds == -1){
+                    this.seconds = 10;
                 }
-                console.log(second)
+                console.log(this.seconds)
                 
             }
-            var cancel = setInterval(incrementSeconds, 1000);
+            var cancel = setInterval(incrementSeconds.bind(this), 1000);
             return second;
-        }*/
+        }
     } 
 
 }
