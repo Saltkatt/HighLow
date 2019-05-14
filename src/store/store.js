@@ -108,4 +108,5 @@ export const store = new Vuex.Store({
         // }, 2000)
         // })
     }
+    //Test
 })
