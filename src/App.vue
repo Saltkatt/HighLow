@@ -13,17 +13,13 @@
 <script>
 
 import Main from './components/Main.vue'
-import Bot from './components/Bot.vue'
-import Player from './components/Player.vue'
 import PlayerInteract from './components/PlayerInteract.vue'
 
 
 export default {
   name: 'app',
   components: {
-    Player,
     Main,
-    Bot,
     PlayerInteract
 
   }
