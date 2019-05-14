@@ -1,5 +1,6 @@
 <template>
     <div>
+<<<<<<< HEAD
         <div class="grid-container">
             <div class="grid-item question-box">
                 <h3>Q:</h3>
@@ -16,6 +17,12 @@
 
         
         
+=======
+        <div class="moderator-container">
+            <img v-bind:src="
+
+        </div>
+>>>>>>> test
 
     </div>
 
