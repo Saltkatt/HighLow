@@ -1,75 +1,69 @@
 <template>
-        <div id="placeholder">
-    
+    <div id="placeholder">
         <div id="cards">
             Cards
         </div>
-        
-        <div id="pointForRandom">
-            
+        <div id="pointForRandom" ref="pointForRandom">
         </div>
-        
         <div id="randomNumber">
             25
         </div>
-
         <div id="okButton">
             OK
         </div>
 
+        <div id="card">
+            <figure class="front">Front Side</p></figure>
+            <figure class="back">Back Side</p></figure>
+        </div>
+
+        <br>https://codepen.io/bravotanmoy/pen/NbKgJB
+        <br>https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/brightness
     </div>
-
-    
-    <div id="card">
-        <figure class="front">Front Side</p></figure>
-        <figure class="back">Back Side</p></figure>
-    </div>
-
-
-    <br>https://codepen.io/bravotanmoy/pen/NbKgJB
-    <br>https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/brightness
 </template>
 
 <script>
 export default {
-    name: "Player"
-    /*
-        function createRandomNumber() {
-        ranNum = Math.floor(Math.random()*1000);
-        document.getElementById("randomNumber").innerHTML = ranNum;
-        //alert('random...');
-    }
+    name: "Player",
+    methods: {
+        createRandomNumber() {
+            ranNum = Math.floor(Math.random()*1000);
+            document.getElementById("randomNumber").innerHTML = ranNum;
+            alert('random...');
+        },
     
-    function registerCard() {
-        cardsPlace = document.getElementById("cards");
-        
-        newCard = document.createElement('div');
-        newCard.setAttribute("id", "card");
-        newCard.innerHTML = `
-            <figure class='front'>#</p></figure>
-            <figure class='back'>#</p></figure>
-            `;
-        
-        cardsPlace.appendChild(newCard)
-    }
+        registerCard() {
+            cardsPlace = document.getElementById("cards");            
+            newCard = document.createElement('div');
+            newCard.setAttribute("id", "card");
+            newCard.innerHTML = `
+                <figure class='front'>#</p></figure>
+                <figure class='back'>#</p></figure>
+                `;            
+            cardsPlace.appendChild(newCard)
+        },
     
-    document.getElementById("pointForRandom").addEventListener("mouseover", function() {
-        createRandomNumber();
-    })
+        // document.getElementById("pointForRandom").addEventListener("mouseover", function() {
+        //     createRandomNumber();
+        // })
 
-        document.getElementById("okButton").addEventListener("click", function() {
-        registerCard();
-    })
-    
-    
-    */
-
+        // document.getElementById("okButton").addEventListener("click", function() {
+            //     registerCard();
+        //  })
+    },
+    mounted() {
+        console.log("--" + this.$refs["pointForRandom"]);
+        this.$refs["pointForRandom"].addEventListener("mouseover", function() {
+            this.createRandomNumber;            
+        })
+    }
 }
 </script>
 
-<style>
+<style scoped>
 
-       
+        
+        
             #placeholder {
                 display: grid;
                 border: 1px solid green;
@@ -170,7 +164,6 @@ figure {
 }
 #card:hover {transform:rotateY(180deg);}
         
-        
-        
-        
+
+
 </style>

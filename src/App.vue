@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Main></Main>
+    <!-- <Player></Player> -->
   </div>
 </template>
 
