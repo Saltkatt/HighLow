@@ -1,6 +1,9 @@
 <template>
     <div>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Resolve conflict with Moderator.vue
         <div class="grid-container">
             <div class="grid-item question-box">
                 <h3>Q:</h3>
@@ -13,6 +16,7 @@
             </div>
             
             
+<<<<<<< HEAD
         </div>
 
         
@@ -21,8 +25,13 @@
         <div class="moderator-container">
             <img v-bind:src="
 
+=======
+>>>>>>> Resolve conflict with Moderator.vue
         </div>
 >>>>>>> test
+
+        
+        
 
     </div>
 
