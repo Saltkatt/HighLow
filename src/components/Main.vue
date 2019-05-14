@@ -11,16 +11,7 @@
     </header>
 
     <Moderator></Moderator>
-
-   
-
-    <div class="container2">
-        <h2>Active Player Location</h2>
-    </div>
-
-    <div class="container3">
-        <h2>Inactive Player Location</h2>
-    </div>
+    <players></players>
 
     <div class="container4">
         <div class="round">
@@ -52,11 +43,13 @@
 
 <script>
 import Moderator from '../components/Moderator'
+import players from '../components/Players'
 
 export default {
     name: "Main",
     components: {
-        Moderator
+        Moderator,
+        players
     },
     created() {
         this.secondCounter()
