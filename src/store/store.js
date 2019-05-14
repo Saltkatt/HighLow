@@ -74,7 +74,6 @@ export const store = new Vuex.Store({
       highestNumber: 0
     },
     getters: {
-
         // totalData: state => {
         // let totalData = state.data1 + state.data2;
         // return totalData;
@@ -84,6 +83,22 @@ export const store = new Vuex.Store({
       //This function pushes the player into the "activePlayers array"
         addToActivePlayers: function(state, payload) {
           state.activePlayers.push(payload);
+        },
+        //Changes the value of lowestNumber if payload is larger
+        setLowestNumber: function(state, payload) {
+          if (payload > state.lowestNumber) {
+            state.lowestNumber = payload;
+          }
+        },
+        //changes the value of highestNumber if payload is lesser
+        setHighestNumber: function(state, payload) {
+          if (payload < state.highestNumber) {
+            state.highestNumber = payload;
+          }
+        },
+        //changes the guessNumber
+        setGuessNumber: function(state, payload) {
+          state.guessNumber = payload;
         }
     },
     actions: {
