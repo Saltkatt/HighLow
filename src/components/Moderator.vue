@@ -1,5 +1,9 @@
 <template>
     <div>
+        <div class="moderator-container">
+            <img v-bind:src="
+
+        </div>
 
     </div>
     
