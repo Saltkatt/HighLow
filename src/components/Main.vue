@@ -1,7 +1,7 @@
 <template>
 <div>  
     <header>
-        <h1>HighLow Project</h1>
+        <!-- Navigation Bar -->
             <nav>
                 <ul>
                     <li>Main Menu</li>
@@ -11,59 +11,69 @@
             </nav>
     </header>
 
-    <div class="container1">
-        <h2>Moderator Location</h2>
-
-    </div>
-
-    <div class="container2">
-        <h2>Active Player Location</h2>
-    </div>
-
-    <div class="container3">
-        <h2>Inactive Player Location</h2>
-    </div>
+    <Moderator></Moderator>
+    <players></players>
 
     <div class="container4">
         <div class="round">
-            <h3>Round</h3>
+            <h3>Round: 2</h3>
         </div>
-        <div class="time">
-            <h3>Time</h3>
+        <div class="time" >
+            <h3>Time: </h3>
         </div>
     </div>
 
+    <!-- User input  -->
     <div class="container5">
         <h3>User Input</h3>
         <input type="number" placeholder="007">
-        <input type="submit" value="Submit">
-        
+        <input type="submit" value="Submit"> 
 
     </div>
-
-
-<div>
-
 </div>
-</div>
-
-
-
     
 </template>
 
 <script>
+import Moderator from '../components/Moderator'
+import players from '../components/Players'
+
 export default {
-    name: "Main"
+    name: "Main",
+    components: {
+        Moderator,
+        players
+    },
+   /*  created() {
+        this.secondCounter()
+    }, */
+    data() {
+        return {
+            seconds: 20
+        }
+    },
+    methods: {
+        //Countdown funktion currently implemented by created()
+        /* secondCounter(){
+            // var second = 10;
+            function incrementSeconds(){
+                this.seconds -= 1;
+                if(this.seconds == -1){
+                    this.seconds = 10;
+                }
+                console.log(this.seconds)
+                
+            }
+            var cancel = setInterval(incrementSeconds.bind(this), 1000);
+            return second;
+        } */
+    } 
 
 }
 </script>
 
 <style scoped>
-header {
-    background-color: blueviolet;
-    padding-top: 2px;
-}
+
 nav {
     background-color: gainsboro;
     padding: 5px;
@@ -139,7 +149,6 @@ input[type=submit] {
     cursor: pointer;
 
 }
-
 
 </style>
 

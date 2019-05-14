@@ -1,11 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+//images
+import kalleAsset from "../assets/kalle.jpg";
+import kajsaAsset from "../assets/kajsa.jpg";
+import martinAsset from "../assets/martin.jpg";
+
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
+    //Prevents changes in components without store involvement
+    strict: true,
     state: {
-      //Array med frågor och svar som hämtas av moderatorn
+      //Array with questions and answers which the moderator gets from the store
       questionBank: [
         {
           question: 'Hur högt är Mount Everest i antal meter räknat?',
@@ -28,28 +35,75 @@ export const store = new Vuex.Store({
           answer: 23148
         },
       ],
-      //Botar som ska hämtas ifrån bot-componen
-      botar: [
+      //Array with bots
+      bots: [
         {
           id: 1,
           name: 'RoboCop',
+          image: kalleAsset
         },
         {
           id: 2,
           name: 'Terminator',
+          image: martinAsset
         },
       ],
+      //Players & bots in the active game
+      activePlayers: [
+        {
+          id: 0,
+          name: 'Player',
+          image: kajsaAsset,
+          isMyTurn: false
+        },
+        {
+          id: 1,
+          name: 'Robocop',
+          image: kalleAsset,
+          isMyTurn: false
+        },
+        {
+          id: 2,
+          name: 'Terminator',
+          image: martinAsset,
+          isMyTurn: false
+        }
+      ],
+      //This is the guess of players/bots, and moderator will get this number
+      guessNumber: 0,
+      //If moderator says that the guess is too low, then it will become lowestNumber
+      lowestNumber: Number.MIN_SAFE_INTEGER,
+      //If moderator says that the guess is too high, then it will become highestNumber
+      highestNumber: Number.MAX_SAFE_INTEGER,
     },
     getters: {
+        getQuestionBank: (state) => state.questionBank
         // totalData: state => {
         // let totalData = state.data1 + state.data2;
         // return totalData;
         // }
     },
     mutations: {
-        // increaseDataOne: state => {
-        // state.dataOne++;
-        // }
+      //This function pushes the player into the "activePlayers array"
+        addToActivePlayers: function(state, payload) {
+          state.activePlayers.push(payload);
+        },
+        //Changes the value of lowestNumber if payload is larger
+        setLowestNumber: function(state, payload) {
+          if (payload > state.lowestNumber) {
+            state.lowestNumber = payload;
+          }
+        },
+        //changes the value of highestNumber if payload is lesser
+        setHighestNumber: function(state, payload) {
+          if (payload < state.highestNumber) {
+            state.highestNumber = payload;
+          }
+        },
+        //changes the guessNumber
+        setGuessNumber: function(state, payload) {
+          state.guessNumber = payload;
+        }
     },
     actions: {
         // increaseDataOne: context => {
