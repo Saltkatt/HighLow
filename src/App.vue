@@ -1,5 +1,9 @@
 <template>
   <div id="app">
+
+    <!-- <Main></Main> -->
+    <!-- <Player></Player> -->
+    <PlayerInteract></PlayerInteract>
     <div class="wrapper">
       <Main></Main>
     </div>
@@ -11,6 +15,7 @@
 import Main from './components/Main.vue'
 import Bot from './components/Bot.vue'
 import Player from './components/Player.vue'
+import PlayerInteract from './components/PlayerInteract.vue'
 
 
 export default {
@@ -18,7 +23,8 @@ export default {
   components: {
     Player,
     Main,
-    Bot
+    Bot,
+    PlayerInteract
 
   }
 }
