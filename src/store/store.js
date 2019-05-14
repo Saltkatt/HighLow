@@ -53,17 +53,20 @@ export const store = new Vuex.Store({
         {
           id: 0,
           name: 'Player',
-          image: kajsaAsset
+          image: kajsaAsset,
+          isMyTurn: false
         },
         {
           id: 1,
           name: 'Robocop',
-          image: kalleAsset
+          image: kalleAsset,
+          isMyTurn: false
         },
         {
           id: 2,
           name: 'Terminator',
-          image: martinAsset
+          image: martinAsset,
+          isMyTurn: false
         }
       ],
       //This is the guess of players/bots, and moderator will get this number
