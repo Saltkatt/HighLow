@@ -74,6 +74,7 @@ export const store = new Vuex.Store({
       highestNumber: 0
     },
     getters: {
+        getQuestionBank: (state) => state.questionBank
         // totalData: state => {
         // let totalData = state.data1 + state.data2;
         // return totalData;
