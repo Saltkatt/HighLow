@@ -49,11 +49,11 @@ export default {
             }
             else if(guess < answer) {
                 respons = "Too low!";
-                //save to array
+                //save to array setLowestNumber
             }
             else if (guess > answer) {
                 respons = "Too high";
-                //save to array
+                //save to array setHighestNumber
             } 
         
             return this.talk(respons)
