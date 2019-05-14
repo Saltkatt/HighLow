@@ -49,11 +49,12 @@ export default {
             }
             else if(guess < answer) {
                 respons = "Too low!";
-                //save to array setLowestNumber
+                this.$store.commit('setLowestNumber', guess)
             }
             else if (guess > answer) {
                 respons = "Too high";
-                //save to array setHighestNumber
+                this.$store.commit('setHighestNumber', guess)
+
             } 
         
             return this.talk(respons)
