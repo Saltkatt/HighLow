@@ -16,6 +16,10 @@
 
         
         
+        <div class="moderator-container">
+            <img v-bind:src="
+
+        </div>
 
     </div>
 
@@ -23,7 +27,6 @@
 
 <script>
 import moderatorImage from '../assets/logo.png';
-
 export default {
     name: "Moderator",
     data() {
@@ -36,9 +39,7 @@ export default {
             ]
             
         }
-
     },
-
     methods:{
         //Receives guess from XXX and checks correct, too high or too low. Sends response.
         hiLow: function(guess){
@@ -54,21 +55,16 @@ export default {
             else if (guess > answer) {
                 respons = "Too high";
                 this.$store.commit('setHighestNumber', guess)
-
             } 
         
             return this.talk(respons)
         },
          talk: function(msg){
-
             return msg
         },
-
     }
     
-
 }
-
 </script>
 
 <style>
@@ -103,12 +99,10 @@ export default {
 }
 .modContainer{
     background-color: aquamarine;
-
 }
 img{
     float: center;
     width: 50px;
     height: 50px;
 }
-
 </style>
