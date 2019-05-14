@@ -40,12 +40,12 @@ export default {
         this.players[i].isMyTurn = false
       }
       this.players[this.turn].isMyTurn = true;
-      
-      
+
+
     },
 
   },
-  
+
   computed: {
     players() {
       return this.$store.state.activePlayers;
@@ -121,7 +121,7 @@ img {
 }
 
 .bubble {
-  
+
   padding: 10px;
   border: 1px solid black;
   border-radius: 12px;
