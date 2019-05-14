@@ -1,5 +1,6 @@
 <template>
-        <div id="placeholder">
+<div class="main">
+    <div id="placeholder">
     
         <div id="cards">
             Cards
@@ -26,8 +27,8 @@
     </div>
 
 
-    <br>https://codepen.io/bravotanmoy/pen/NbKgJB
-    <br>https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/brightness
+</div>
+    
 </template>
 
 <script>
@@ -69,60 +70,59 @@ export default {
 
 <style>
 
-       
-            #placeholder {
-                display: grid;
-                border: 1px solid green;
-                grid-template-columns: 1fr 1fr 1fr 1fr;
-                grid-auto-rows:200px;
+    #placeholder {
+        display: grid;
+        border: 1px solid green;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-auto-rows:200px;
+        width: 90%;
+        padding: 5px;
+        background-color: greenyellow;
+        height: 100px;
+    }
+        
+    #cards {
+        margin: 10px;
+        width: 100%;
+        height: 90px;
+        padding: 0px;
+        background-color: palegreen;
+    }
+        
+    #pointForRandom {
+        margin: 10px;
+        width: 150px;
+        height: 90px;
+        padding: 0px;
+        background-color: darkseagreen;
+    }
 
-                width: 90%;
-                padding: 5px;
-                background-color: greenyellow;
-                height: 100px;
-            }
+    #randomNumber {
+        margin: 10px;
+        width: 150px;
+        height: 90px;
+        padding: 0px;
+        background-color: darkseagreen;   
+        text-align: center;
+        font-size: 50px;
+        font-family: Tahoma;
+    }
         
-            #cards {
-                margin: 10px;
-                width: 100%;
-                height: 90px;
-                padding: 0px;
-                background-color: palegreen;
-            }
+    #okButton {
+        margin: 10px;
+        width: 150px;
+        height: 90px;
+        padding: 0px;
+        background-color: gold;   
+        text-align: center;
+        font-size: 50px;
+        font-family: Tahoma;
+    }
         
-            #pointForRandom {
-                margin: 10px;
-                width: 150px;
-                height: 90px;
-                padding: 0px;
-                background-color: darkseagreen;
-            }
-
-            #randomNumber {
-                margin: 10px;
-                width: 150px;
-                height: 90px;
-                padding: 0px;
-                background-color: darkseagreen;   
-                text-align: center;
-                font-size: 50px;
-                font-family: Tahoma;
-            }
-        
-            #okButton {
-                margin: 10px;
-                width: 150px;
-                height: 90px;
-                padding: 0px;
-                background-color: gold;   
-                text-align: center;
-                font-size: 50px;
-                font-family: Tahoma;
-            }
-        #okButton:hover {
-            /* brightness(0.4);  /* 40% brightness */
-            filter: brightness(120%);
-        }
+    #okButton:hover {
+        /* brightness(0.4);  /* 40% brightness */
+        filter: brightness(120%);
+    }
         
         
         
@@ -173,4 +173,4 @@ figure {
         
         
         
-</style>
+</style> 
