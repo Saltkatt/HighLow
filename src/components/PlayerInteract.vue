@@ -1,13 +1,14 @@
 <template>
     <div id="placeholder">
         <div id="title">
-            User Input
+            Gissa:
         </div>
         <div id="textBox">
-            <input name="thisNumber" type="number" v-bind="number">
+            <input id="numberField" name="thisNumber" type="number" v-bind="number"
+            min="1" max="500000" step="10">
         </div>
         <div id="submit">
-            <input type="submit" value="Ok" @click="sendNumber(number)">
+            <input id="okButton" type="submit" value="Ok" @click="sendNumber(number)">
         </div>
     </div>
 </template>
@@ -30,9 +31,6 @@ export default {
 </script>
 
 <style scoped>
-
-        
-        
             #placeholder {
                 display: grid;
                 border: 1px solid green;
@@ -43,33 +41,6 @@ export default {
                 padding: 5px;
                 background-color: greenyellow;
                 height: 100px;
-            }
-        
-            #cards {
-                margin: 10px;
-                width: 100%;
-                height: 90px;
-                padding: 0px;
-                background-color: palegreen;
-            }
-        
-            #pointForRandom {
-                margin: 10px;
-                width: 150px;
-                height: 90px;
-                padding: 0px;
-                background-color: darkseagreen;
-            }
-
-            #randomNumber {
-                margin: 10px;
-                width: 150px;
-                height: 90px;
-                padding: 0px;
-                background-color: darkseagreen;   
-                text-align: center;
-                font-size: 50px;
-                font-family: Tahoma;
             }
         
             #okButton {
@@ -86,52 +57,13 @@ export default {
             /* brightness(0.4);  /* 40% brightness */
             filter: brightness(120%);
         }
-        
-        
-        
-        
-#card {
-  border:solid 1px #000;
-  width: 50px;
-  height: 50px;
-  /*position: absolute;*/
-    display: inline-block;
-  -webkit-transition: -webkit-transform 0.4s;
-  -moz-transition: -moz-transform 0.4s;
-  -o-transition: -o-transform 0.4s;
-  transition: transform 0.4;
-  -webkit-transform-style: preserve-3d;
-  -moz-transform-style: preserve-3d;
-  -o-transform-style: preserve-3d;
-  transform-style: preserve-3d;
-}
 
-figure {
-  display: block;
-  height: 100%;
-  width: 100%;
-  line-height: 50px;
-  color: white;
-  text-align: center;
-  font-weight: bold;
-  font-size: 15px;
-  position: absolute;
-  margin: 0;
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  -o-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
-.front {background: red;}
-
-.back {
-  background: blue;
-  -webkit-transform: rotateY( 180deg);
-  -moz-transform: rotateY( 180deg);
-  -o-transform: rotateY( 180deg);
-  transform: rotateY( 180deg);
-}
-#card:hover {transform:rotateY(180deg);}
+        #numberField {
+            width:200px;
+            height: 90px;
+            font-size: 50px;
+            
+        }
         
 
 
