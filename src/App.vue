@@ -2,8 +2,7 @@
   <div id="app">
 
     <!-- <Main></Main> -->
-    <!-- <Player></Player> -->
-    
+
     <div class="wrapper">
       <Main></Main>
     </div>
@@ -13,7 +12,6 @@
 <script>
 
 import Main from './components/Main.vue'
-
 
 
 export default {

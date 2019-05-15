@@ -11,8 +11,11 @@
             </nav>
     </header>
 
+    <!-- Moderator component -->
     <Moderator></Moderator>
+    <!-- Player and Bots -->
     <players></players>
+
 
     <div class="container4">
         <div class="round">
@@ -23,9 +26,10 @@
         </div>
     </div>
 
+
     <!-- User input  -->
     <div class="container5">
-        <playerinteract></playerinteract> 
+        <PlayerInteract></PlayerInteract> 
 
     </div>
 </div>
@@ -35,14 +39,16 @@
 <script>
 import Moderator from '../components/Moderator'
 import players from '../components/Players'
-import playerinteract from '../components/PlayerInteract'
+
+import PlayerInteract from '../components/PlayerInteract.vue'
 
 export default {
     name: "Main",
     components: {
         Moderator,
         players,
-        playerinteract
+        PlayerInteract,
+
     },
    /*  created() {
         this.secondCounter()
