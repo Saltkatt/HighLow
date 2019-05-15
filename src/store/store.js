@@ -54,7 +54,7 @@ export const store = new Vuex.Store({
           id: 0,
           name: 'Player',
           image: kajsaAsset,
-          isMyTurn: false
+          isMyTurn: true
         },
         {
           id: 1,
@@ -103,6 +103,10 @@ export const store = new Vuex.Store({
         //changes the guessNumber
         setGuessNumber: function(state, payload) {
           state.guessNumber = payload;
+        },
+        //
+        changePlayerTurn: function(state, payload) {
+          state.activePlayers[payload].isMyTurn = !state.activePlayers[payload].isMyTurn;
         }
     },
     actions: {
