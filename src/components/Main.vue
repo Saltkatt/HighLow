@@ -3,12 +3,12 @@
     <header>
         <!-- Navigation Bar -->
             <nav>
+                <!-- Render menuOptions from data--> 
                 <ul>
-                    <li>Main Menu</li>
-                    <li>HighScore</li>
-                    <li>Statistics</li>
+                    <li v-for="(item, index) in menuOptions" :key="index">{{item}}</li>
                 </ul>
             </nav>
+                
     </header>
 
     <!-- Moderator component -->
@@ -55,7 +55,10 @@ export default {
     }, */
     data() {
         return {
-            seconds: 20
+            seconds: 20,
+            menuOptions:  [
+             'Start Game','Rules','HighScore' 
+             ]
         }
     },
     methods: {
@@ -89,7 +92,7 @@ ul {
     padding: 0;
 }
 li {
-    display: inline-block;
+    display: inline;
     margin: 0 10px;
 }
 
