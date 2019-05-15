@@ -2,6 +2,7 @@
   <div id="app">
 
     <!-- <Main></Main> -->
+
     <div class="wrapper">
       <Main></Main>
     </div>
@@ -12,10 +13,12 @@
 
 import Main from './components/Main.vue'
 
+
 export default {
   name: 'app',
   components: {
     Main
+
   }
 }
 </script>

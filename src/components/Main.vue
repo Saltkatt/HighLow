@@ -26,8 +26,12 @@
         </div>
     </div>
 
-    <!-- <Player></Player> -->
-    <PlayerInteract></PlayerInteract>
+
+    <!-- User input  -->
+    <div class="container5">
+        <PlayerInteract></PlayerInteract> 
+
+    </div>
 </div>
     
 </template>
@@ -35,6 +39,7 @@
 <script>
 import Moderator from '../components/Moderator'
 import players from '../components/Players'
+
 import PlayerInteract from '../components/PlayerInteract.vue'
 
 export default {
@@ -43,6 +48,7 @@ export default {
         Moderator,
         players,
         PlayerInteract,
+
     },
    /*  created() {
         this.secondCounter()
