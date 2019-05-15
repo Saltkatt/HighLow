@@ -1,56 +1,62 @@
 <template>
   <div>
-
-<div>Hur många bultar finns det i Ölandsbron?</div>
-
-
-    <div class="grid-container" v-for="(person, index) in persons" v-bind:key="index" v-bind:class="{myTurn: person.isMyTurn}">
+    <div
+      class="grid-container"
+      v-for="(player, index) in players"
+      v-bind:key="index"
+      v-bind:class="{myTurn: player.isMyTurn}"
+    >
       <div class="grid1">
-        <img v-bind:src="person.image">
+        <img v-bind:src="player.image">
       </div>
-      <div class="grid2">{{ person.name }}</div>
+      <div class="grid2">{{ player.name }}</div>
       <div class="grid3">
-        <div class="bubble">This is very difficult. My guess is... {{ person.guess }}</div>
+        <div
+          class="bubble"
+          v-show="player.isMyTurn"
+        >This is very difficult. My guess is... {{ Math.floor((highest-lowest)/2) }}</div>
       </div>
     </div>
     <button @click="changePlayer">Change player</button>
-
-
-
   </div>
 </template>
 
 <script>
-import kalleAsset from "../assets/kalle.jpg";
-import kajsaAsset from "../assets/kajsa.jpg";
-import martinAsset from "../assets/martin.jpg";
-
 export default {
   data() {
     return {
-      persons: [
-        { name: "Kalle", image: kalleAsset, guess: 15, isMyTurn: false },
-        { name: "Anna", image: kajsaAsset, guess: 34000, isMyTurn: false  },
-        { name: "Martin", image: martinAsset, guess: 654, isMyTurn: false  }
-      ],
-      turn: -1,
+      turn: 0
     };
   },
 
   methods: {
-    changePlayer: function(){
-      this.turn++;
-      if(this.turn == 3){
+    changePlayer: function() {
+      if (this.turn == this.players.length) {
         this.turn = 0;
       }
-      for(let i = 0; i < this.persons.length; i++){
-        this.persons[i].isMyTurn = false
+
+      this.$store.commit("changePlayerTurn", this.turn);
+      this.turn++;
+      if (this.turn == 3) {
+        this.turn = 0;
       }
-      this.persons[this.turn].isMyTurn = true;
-      
+      this.$store.commit("changePlayerTurn", this.turn);
+    }
+  },
+
+  computed: {
+    players() {
+      return this.$store.state.activePlayers;
+    },
+
+    lowest() {
+      return this.$store.state.lowestNumber;
+    },
+
+    highest() {
+      return this.$store.state.highestNumber;
     }
   }
-
 };
 </script>
 
@@ -69,10 +75,9 @@ export default {
   grid-template-areas: "grid1 grid1 grid3 grid3 grid3 grid3" "grid1 grid1 grid3 grid3 grid3 grid3" "grid2 grid2 grid3 grid3 grid3 grid3";
 }
 
-.myTurn{
+.myTurn {
   opacity: 1;
-  border: 4px solid gold;
-  margin: 0px;
+  border: 2px solid gold;
 }
 
 .grid1 {
@@ -112,7 +117,6 @@ img {
 }
 
 .bubble {
-  margin: 5px;
   padding: 10px;
   border: 1px solid black;
   border-radius: 12px;
@@ -120,5 +124,9 @@ img {
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
+}
+
+button {
+  margin-top: 5px;
 }
 </style>

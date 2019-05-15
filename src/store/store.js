@@ -53,27 +53,35 @@ export const store = new Vuex.Store({
         {
           id: 0,
           name: 'Player',
-          image: kajsaAsset
+          image: kajsaAsset,
+          isMyTurn: true
         },
         {
           id: 1,
           name: 'Robocop',
-          image: kalleAsset
+          image: kalleAsset,
+          isMyTurn: false
         },
         {
           id: 2,
           name: 'Terminator',
-          image: martinAsset
+          image: martinAsset,
+          isMyTurn: false
         }
       ],
       //This is the guess of players/bots, and moderator will get this number
       guessNumber: 0,
       //If moderator says that the guess is too low, then it will become lowestNumber
-      lowestNumber: 0,
+      lowestNumber: null,
       //If moderator says that the guess is too high, then it will become highestNumber
-      highestNumber: 0
+      highestNumber: null,
     },
     getters: {
+        //Get QuestionBank
+        getQuestionBank: (state) => state.questionBank,
+        //Get guessNumber
+        getGuess: (state) => state.guessNumber
+
         // totalData: state => {
         // let totalData = state.data1 + state.data2;
         // return totalData;
@@ -99,6 +107,10 @@ export const store = new Vuex.Store({
         //changes the guessNumber
         setGuessNumber: function(state, payload) {
           state.guessNumber = payload;
+        },
+        //
+        changePlayerTurn: function(state, payload) {
+          state.activePlayers[payload].isMyTurn = !state.activePlayers[payload].isMyTurn;
         }
     },
     actions: {

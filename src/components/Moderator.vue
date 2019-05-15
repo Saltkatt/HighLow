@@ -2,20 +2,17 @@
     <div>
         <div class="grid-container">
             <div class="grid-item question-box">
-                <h3>Q:</h3>
+                <p>Q: {{questions()}}</p>
+                <button class="btn" @click="onBtnClick">New Q {{count}}</button>
             </div>
             <div class="grid-item item1">
-                <div class="talkContainer">{{hiLow(20)}}</div>
+                <div class="talkContainer">{{hiLow(this.getGuess)}}</div>
             </div>
             <div class="grid-item modImage">
                 <img v-bind:src="image">
             </div>
             
-            
         </div>
-
-        
-        
 
     </div>
 
@@ -23,24 +20,87 @@
 
 <script>
 import moderatorImage from '../assets/logo.png';
+import { mapGetters } from 'vuex';
 export default {
+
     name: "Moderator",
     data() {
         return {
             image: moderatorImage,
             rules: [
                 {
-                    
+                    rule1: "All questions have numerical answers and I expect you answer using digits."
+                },
+                {
+                    rule2: "Everyone will have one opportunity to answer once per round."
+                },
+                {
+                    rule3: "The game will continue until someone has answered correctly."
                 }
-            ]
+            ],
+            phrases: [
+                {
+                    phrase1: "This was a difficult one"
+                },
+                {
+                    phrase2: "Hurry up slowpoke!!"
+                }
+            ],
+            count: 0
             
         }
     },
     methods:{
+        
+        //talk() conveys information such hiLow() respons, rules, and phrases 
+        //which allows moderator to interact with player.
+         talk: function(msg){
+
+            return msg
+        },
+
+        onBtnClick(){
+            this.count++;
+            this.questions()
+            this.answers()
+
+        }, 
+        //Retrieves questions from the questionBank array
+        questions(){
+            var q = this.getQuestionBank;
+            
+            for(var i = 0; i < q.length; i++){
+                
+                if(this.count == q.length) {
+                this.count = 0;
+                }
+                console.log(q[i + this.count].question )
+                return q[i + this.count].question 
+                
+            } 
+            
+
+            
+        },
+        //Retrieves answers from questionBank array 
+        answers(){
+            var q = this.getQuestionBank;
+           
+            for(var i = 0; i < q.length; i++){
+                 if(this.count == q.length) {
+                this.count = 0;
+                }
+            console.log(q[i + this.count].answer)
+                return q[i + this.count].answer
+            } 
+            
+        },
+
+        //Retrieves answer from answer()
         //Receives guess from XXX and checks correct, too high or too low. Sends response.
         hiLow: function(guess){
             var respons = null;
-            var answer = 15;
+            var answer = this.answers();
             if(guess == answer){
                 respons = "Correct!";
             }
@@ -55,10 +115,9 @@ export default {
         
             return this.talk(respons)
         },
-         talk: function(msg){
-            return msg
-        },
-    }
+
+    },
+    computed: mapGetters(['getQuestionBank', 'getGuess'])
     
 }
 </script>
@@ -74,6 +133,7 @@ export default {
 }
 .grid-item{
     background-color: lavender;
+    font-family: 'Courier New', Courier, monospace;
     text-align: center;
     padding: 5px;
     font-size: 25px;
@@ -82,6 +142,7 @@ export default {
     grid-column: 1 / span 2;
     grid-row: 2 / span 2 ;
     background-color:lavender;
+    padding-top: 2%;
 }
 .modImage{
     grid-column: 3;
