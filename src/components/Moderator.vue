@@ -3,9 +3,10 @@
         <div class="grid-container">
             <div class="grid-item question-box">
                 <p>Q: {{questions()}}</p>
+                <button class="btn" @click="onBtnClick">New Q {{count}}</button>
             </div>
             <div class="grid-item item1">
-                <div class="talkContainer">{{hiLow(8848)}}</div>
+                <div class="talkContainer">{{hiLow(this.getGuess)}}</div>
             </div>
             <div class="grid-item modImage">
                 <img v-bind:src="image">
@@ -44,7 +45,8 @@ export default {
                 {
                     phrase2: "Hurry up slowpoke!!"
                 }
-            ]
+            ],
+            count: 0
             
         }
     },
@@ -56,23 +58,42 @@ export default {
 
             return msg
         },
+
+        onBtnClick(){
+            this.count++;
+            this.questions()
+            this.answers()
+
+        }, 
         //Retrieves questions from the questionBank array
         questions(){
             var q = this.getQuestionBank;
-            console.log(q)
             
             for(var i = 0; i < q.length; i++){
-                console.log(q[0].question)
-                return q[i].question
+                
+                if(this.count == q.length) {
+                this.count = 0;
+                }
+                console.log(q[i + this.count].question )
+                return q[i + this.count].question 
+                
             } 
+            
+
+            
         },
         //Retrieves answers from questionBank array 
         answers(){
             var q = this.getQuestionBank;
+           
             for(var i = 0; i < q.length; i++){
-            console.log(q[0].answer)
-            return q[i].answer
+                 if(this.count == q.length) {
+                this.count = 0;
+                }
+            console.log(q[i + this.count].answer)
+                return q[i + this.count].answer
             } 
+            
         },
 
         //Retrieves answer from answer()
@@ -80,7 +101,6 @@ export default {
         hiLow: function(guess){
             var respons = null;
             var answer = this.answers();
-            console.log(answer)
             if(guess == answer){
                 respons = "Correct!";
             }
@@ -97,7 +117,7 @@ export default {
         },
 
     },
-    computed: mapGetters(['getQuestionBank'])
+    computed: mapGetters(['getQuestionBank', 'getGuess'])
     
 }
 </script>
