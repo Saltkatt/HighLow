@@ -25,9 +25,7 @@
 
     <!-- User input  -->
     <div class="container5">
-        <h3>User Input</h3>
-        <input type="number" placeholder="007">
-        <input type="submit" value="Submit"> 
+        <playerinteract></playerinteract> 
 
     </div>
 </div>
@@ -37,12 +35,14 @@
 <script>
 import Moderator from '../components/Moderator'
 import players from '../components/Players'
+import playerinteract from '../components/PlayerInteract'
 
 export default {
     name: "Main",
     components: {
         Moderator,
-        players
+        players,
+        playerinteract
     },
    /*  created() {
         this.secondCounter()
