@@ -13,26 +13,13 @@
             
         </div>
 
-<<<<<<< HEAD
-        
-        
-        <div class="moderator-container">
-            <img v-bind:src="
-
-        </div>
-
-=======
->>>>>>> c96944d3107993d4613bd4d8d1390dbd37a49419
     </div>
 
 </template>
 
 <script>
 import moderatorImage from '../assets/logo.png';
-<<<<<<< HEAD
-=======
 import { mapGetters } from 'vuex';
->>>>>>> c96944d3107993d4613bd4d8d1390dbd37a49419
 export default {
 
     name: "Moderator",
@@ -108,16 +95,9 @@ export default {
         
             return this.talk(respons)
         },
-<<<<<<< HEAD
-         talk: function(msg){
-            return msg
-        },
-    }
-=======
 
     },
     computed: mapGetters(['getQuestionBank'])
->>>>>>> c96944d3107993d4613bd4d8d1390dbd37a49419
     
 }
 </script>
