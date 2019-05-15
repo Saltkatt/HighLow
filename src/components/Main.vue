@@ -1,6 +1,7 @@
 <template>
 <div>  
     <header>
+        <!-- Navigation Bar -->
             <nav>
                 <ul>
                     <li>Main Menu</li>
@@ -18,26 +19,18 @@
             <h3>Round: 2</h3>
         </div>
         <div class="time" >
-            <h3>Time: {{seconds}}</h3>
+            <h3>Time: </h3>
         </div>
     </div>
 
+    <!-- User input  -->
     <div class="container5">
         <h3>User Input</h3>
         <input type="number" placeholder="007">
-        <input type="submit" value="Submit">
-        
+        <input type="submit" value="Submit"> 
 
     </div>
-
-
-<div>
-
 </div>
-</div>
-
-
-
     
 </template>
 
@@ -51,16 +44,17 @@ export default {
         Moderator,
         players
     },
-    created() {
+   /*  created() {
         this.secondCounter()
-    },
+    }, */
     data() {
         return {
             seconds: 20
         }
     },
     methods: {
-        secondCounter(){
+        //Countdown funktion currently implemented by created()
+        /* secondCounter(){
             // var second = 10;
             function incrementSeconds(){
                 this.seconds -= 1;
@@ -72,7 +66,7 @@ export default {
             }
             var cancel = setInterval(incrementSeconds.bind(this), 1000);
             return second;
-        }
+        } */
     } 
 
 }
@@ -155,7 +149,6 @@ input[type=submit] {
     cursor: pointer;
 
 }
-
 
 </style>
 

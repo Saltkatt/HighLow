@@ -37,7 +37,7 @@ export default {
 
       this.$store.commit("changePlayerTurn", this.turn);
       this.turn++;
-      if (this.turn == 2) {
+      if (this.turn == 3) {
         this.turn = 0;
       }
       this.$store.commit("changePlayerTurn", this.turn);
