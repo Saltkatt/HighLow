@@ -58,6 +58,33 @@ export default {
 
             return msg
         },
+        PlayGame(){
+	        while(gameState){ // Gamestate måste deklareras
+                //logic(activePlayers[0]) //Anropar Compenent bots method logic(id), argument id för spelare/bot så Component vet vilken logik som skall returneras
+                const guess=5; // Endast test, värdet skall hämtas från metod ovan, skall raderas när logic() är på plats
+                this.hiLow(guess) //// -HighLow/ ge respons
+                //- Skicka tidåtkomst till Store, skall detta skickas via hilow()?
+	            //-gamestate=false (Endast när gissning är rätt och spel skall avslutas) Skall detta ske via hilow()?
+	            this.nextRound()//- Change next player too activePLayer[0].
+	
+	}
+// anropar sida för avslutat spel, presentation av vem som vunnit
+    },
+    nextRound(){
+        // Sortera array activePLayer[]
+        const hold=activePLayer[activePLayer.length-1] // sparar ner värdet av activePLayers högsta index
+        // activePLayer[activePLayer.length-1]=activePLayer[0];//Placerar första index till sista
+        
+        const i; // Deklarerar variabel till for-loop 
+
+        for (i=0;i<activePLayer.length-1;i++){
+            activePLayer[i]=activePLayer[i+1];
+        }
+
+        activePLayer[activePLayer.length-2]=hold;
+
+    },
+        
 
         onBtnClick(){
             this.count++;
