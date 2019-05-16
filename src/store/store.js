@@ -72,12 +72,16 @@ export const store = new Vuex.Store({
       //This is the guess of players/bots, and moderator will get this number
       guessNumber: 0,
       //If moderator says that the guess is too low, then it will become lowestNumber
-      lowestNumber: Number.MIN_SAFE_INTEGER,
+      lowestNumber: null,
       //If moderator says that the guess is too high, then it will become highestNumber
-      highestNumber: Number.MAX_SAFE_INTEGER,
+      highestNumber: null,
     },
     getters: {
-        getQuestionBank: (state) => state.questionBank
+        //Get QuestionBank
+        getQuestionBank: (state) => state.questionBank,
+        //Get guessNumber
+        getGuess: (state) => state.guessNumber
+
         // totalData: state => {
         // let totalData = state.data1 + state.data2;
         // return totalData;

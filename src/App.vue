@@ -2,8 +2,7 @@
   <div id="app">
 
     <!-- <Main></Main> -->
-    <!-- <Player></Player> -->
-    <PlayerInteract></PlayerInteract>
+
     <div class="wrapper">
       <Main></Main>
     </div>
@@ -13,14 +12,12 @@
 <script>
 
 import Main from './components/Main.vue'
-import PlayerInteract from './components/PlayerInteract.vue'
 
 
 export default {
   name: 'app',
   components: {
-    Main,
-    PlayerInteract
+    Main
 
   }
 }
