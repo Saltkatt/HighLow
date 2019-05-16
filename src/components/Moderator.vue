@@ -81,7 +81,7 @@ export default {
             activePLayer[i]=activePLayer[i+1];
         }
 
-        activePLayer[activePLayer.length-2]=hold;
+        activePLayer[activePLayer.length-2]=hold; // Lägg in spelare med högst index på nästhögsta index
 
     },
         
