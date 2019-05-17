@@ -21,9 +21,14 @@ export default {
             number: 0
         }
     },
+    mounted() {
+        // alert("set focus");
+        document.getElementById("numberField").focus();
+        
+    },
     methods: {
         sendNumber (number) {
-            this.$store.commit('setGuessNumber', number)
+            hiLow(number);
         },
     
     },
