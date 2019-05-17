@@ -1,49 +1,47 @@
 <template>
   <div>
-
-
-
-
-    <div class="grid-container" v-for="(player, index) in players" v-bind:key="index" v-bind:class="{myTurn: player.isMyTurn}">
+    <div
+      class="grid-container"
+      v-for="(player, index) in players"
+      v-bind:key="index"
+      v-bind:class="{myTurn: player.isMyTurn}"
+    >
       <div class="grid1">
         <img v-bind:src="player.image">
       </div>
       <div class="grid2">{{ player.name }}</div>
       <div class="grid3">
-        <div class="bubble" v-show="player.isMyTurn">This is very difficult. My guess is... {{ Math.floor((highest-lowest)/2) }}</div>
+        <div
+          class="bubble"
+          v-show="player.isMyTurn"
+        >This is very difficult. My guess is... {{ Math.floor((highest-lowest)/2) }}</div>
       </div>
     </div>
     <button @click="changePlayer">Change player</button>
-
-
-
   </div>
 </template>
 
 <script>
-
-
 export default {
   data() {
     return {
-      turn: -1,
+      turn: 0
     };
   },
 
   methods: {
-    changePlayer: function(){
-      this.turn++;
-      if(this.turn == this.players.length){
+    changePlayer: function() {
+      if (this.turn == this.players.length) {
         this.turn = 0;
       }
-      for(let i = 0; i < this.players.length; i++){
-        this.players[i].isMyTurn = false
+
+      this.$store.commit("changePlayerTurn", this.turn);
+      this.turn++;
+      if (this.turn == 3) {
+        this.turn = 0;
       }
-      this.players[this.turn].isMyTurn = true;
-
-
-    },
-
+      this.$store.commit("changePlayerTurn", this.turn);
+    }
   },
 
   computed: {
@@ -57,10 +55,8 @@ export default {
 
     highest() {
       return this.$store.state.highestNumber;
-    },
-
+    }
   }
-
 };
 </script>
 
@@ -79,7 +75,7 @@ export default {
   grid-template-areas: "grid1 grid1 grid3 grid3 grid3 grid3" "grid1 grid1 grid3 grid3 grid3 grid3" "grid2 grid2 grid3 grid3 grid3 grid3";
 }
 
-.myTurn{
+.myTurn {
   opacity: 1;
   border: 2px solid gold;
 }
@@ -121,7 +117,6 @@ img {
 }
 
 .bubble {
-
   padding: 10px;
   border: 1px solid black;
   border-radius: 12px;
@@ -131,7 +126,7 @@ img {
   font-size: 14px;
 }
 
-button{
-  margin-top:5px;
+button {
+  margin-top: 5px;
 }
 </style>
