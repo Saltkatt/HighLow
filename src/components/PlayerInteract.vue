@@ -4,8 +4,10 @@
             Gissa:
         </div>
         <div id="textBox">
-            <input id="numberField" name="thisNumber" type="number" v-bind="number"
-            min="1" max="500000" step="10">
+            <input id="numberField" name="thisNumber" type="number"
+                min="1" max="500000" step="10"
+                v-bind="number" 
+            >
         </div>
         <div id="submit">
             <input id="okButton" type="submit" value="Ok" @click="sendNumber(number)">
@@ -22,18 +24,22 @@ export default {
         }
     },
     mounted() {
-        // alert("set focus");
+        alert("set focus");
         document.getElementById("numberField").focus();
         
     },
-    methods: {
+    methods: {        
         sendNumber (number) {
             //check if number in correct format:
             //patt = /^[0-9]*$/g
 
-            hiLow(number);
+            // hiLow(number);
         },
-    
+
+        checkIfNumber () {
+            alert(number);
+        }
+
     },
 }
 </script>
