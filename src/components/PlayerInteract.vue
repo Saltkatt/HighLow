@@ -28,6 +28,9 @@ export default {
     },
     methods: {
         sendNumber (number) {
+            //check if number in correct format:
+            //patt = /^[0-9]*$/g
+
             hiLow(number);
         },
     
