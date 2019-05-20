@@ -51,6 +51,11 @@ export default {
   },
 
   methods: {
+    //This function calls for "openWinnerBox" in Store
+    open: function() {
+        this.$store.commit('openWinnerBox');
+    },
+
     //talk() conveys information such hiLow() respons, rules, and phrases
     //which allows moderator to interact with player.
     talk: function(msg) {
@@ -93,6 +98,8 @@ export default {
       }
 
       return this.talk(respons);
+      //Open modal box
+      this.open();
     }
   },
   computed: {
