@@ -30,6 +30,25 @@ export default {
   },
 
   methods: {
+    // takes players id to do correct logic.
+    logic(id) {
+      switch (id) {
+        case 0:
+          //returns player logic
+          break;
+
+          case 1:
+          //returns bot logic
+          break;
+
+          case 2:
+          //returns another bot logic
+          break;
+      
+        default:
+          break;
+      }
+    },
     changePlayer: function() {
       if(this.turn == 1 || this.turn == 2){
         makeGuess();
