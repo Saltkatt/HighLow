@@ -1,5 +1,6 @@
 <template>
     <div id="placeholder">
+
         <!-- <div id="textBox"> -->
             <input id="numberField" placeholder="0000" name="thisNumber" type="number" v-bind="number"
             min="-500000" max="500000" step="1">
@@ -7,6 +8,7 @@
         <!-- <div id="submit"> -->
             <input id="okButton" type="submit" value="OK" @click="sendNumber(number)">
         <!-- </div> -->
+
     </div>
 </template>
 
@@ -15,14 +17,24 @@ export default {
     data() {
         return {
             name: "Player",
-            number: 0
+            number: null
         }
     },
-    methods: {
-        sendNumber (number) {
-            this.$store.commit('setGuessNumber', number)
+    mounted() {
+        // alert("set focus");
+        document.getElementById("numberField").focus();
+        
+    },
+    methods: {        
+        sendNumber () {
+            // var reg = /^\d+$/;
+            // var numStr = this.number.toString();
+            // if (this.numStr == null) { alert ("Input is not all numbers"); }
+            
+            // alert (this.number);
+            this.$store.commit("setGuessNumber", this.number);
         },
-    
+
     },
 }
 </script>
