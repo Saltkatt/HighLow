@@ -14,7 +14,7 @@
     <!-- Moderator component -->
     <Moderator></Moderator>
     <!-- Player and Bots -->
-    <players></players>
+    <Players></Players>
 
 
     <div class="container4">
@@ -38,7 +38,7 @@
 
 <script>
 import Moderator from '../components/Moderator'
-import players from '../components/Players'
+import Players from '../components/Players.vue'
 
 import PlayerInteract from '../components/PlayerInteract.vue'
 
@@ -46,7 +46,7 @@ export default {
     name: "Main",
     components: {
         Moderator,
-        players,
+        Players,
         PlayerInteract,
 
     },
