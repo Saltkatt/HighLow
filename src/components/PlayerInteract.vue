@@ -4,8 +4,10 @@
             Gissa:
         </div>
         <div id="textBox">
-            <input id="numberField" name="thisNumber" type="number" v-bind="number"
-            min="1" max="500000" step="10">
+            <input id="numberField" name="thisNumber" 
+                type="number" min="1" max="500000" step="10"
+                v-model="number" 
+            >
         </div>
         <div id="submit">
             <input id="okButton" type="submit" value="Ok" @click="sendNumber(number)">
@@ -18,14 +20,24 @@ export default {
     data() {
         return {
             name: "Player",
-            number: 0
+            number,
         }
     },
-    methods: {
-        sendNumber (number) {
-            this.$store.commit('setGuessNumber', number)
+    mounted() {
+        // alert("set focus");
+        document.getElementById("numberField").focus();
+        
+    },
+    methods: {        
+        sendNumber () {
+            // var reg = /^\d+$/;
+            // var numStr = this.number.toString();
+            // if (this.numStr == null) { alert ("Input is not all numbers"); }
+            
+            // alert (this.number);
+            this.$store.commit("setGuessNumber", this.number);
         },
-    
+
     },
 }
 </script>
