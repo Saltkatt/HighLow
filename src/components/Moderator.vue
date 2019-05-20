@@ -7,9 +7,9 @@
       </div>
       <div class="grid-item item1" v-show="getLastGuess != null">
         <!-- <div class="talkContainer">{{hiLow(this.getGuess)}}</div> -->
-        <div v-show="getLastGuess < getCorrectAnswer">The guess is TOO LOW</div>
-        <div v-show="getLastGuess > getCorrectAnswer">The guess is TOO HIGH</div>
-        <div v-show="getLastGuess == getCorrectAnswer">The guess is CORRECT</div>
+        <div v-if="getLastGuess < getCorrectAnswer">The guess is TOO LOW</div>
+        <div v-if="getLastGuess > getCorrectAnswer">The guess is TOO HIGH</div>
+        <div v-if="getLastGuess == getCorrectAnswer">The guess is CORRECT {{open()}}</div>
       </div>
       <div class="grid-item modImage">
         <img v-bind:src="image">
@@ -89,6 +89,8 @@ export default {
       var answer = this.answers();
       if (guess == answer) {
         respons = "Correct!";
+        //Open modal box
+        this.open();
       } else if (guess < answer) {
         respons = "Too low!";
         this.$store.commit("setLowestNumber", guess);
@@ -98,8 +100,7 @@ export default {
       }
 
       return this.talk(respons);
-      //Open modal box
-      this.open();
+
     }
   },
   computed: {
