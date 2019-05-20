@@ -63,6 +63,9 @@ div {
 }
 
 .playerArea{
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto auto auto;
   margin: 10px;
   border: 1px solid black;
   background: lightskyblue;
@@ -77,13 +80,27 @@ div {
   margin: 5px;
 }
 .myTurn{
+  grid-column: 1 / span 3;
+  grid-row: 1;
   border: 1px solid black;
   background: greenyellow;
   padding: 10px;
   opacity: 1;
   margin: 5px;
 }
+.player:nth-child(2){
+  grid-column: 1 / span 3;
+  grid-row: 2;
+}
+
+.player:nth-child(3){
+  grid-column: 1 /span 3;
+  grid-row: 3;
+}
+
 .container4{
+    grid-column: 1 / span 3;
+    grid-row: 4;
     display: grid;
     grid-template-columns: auto auto;
     background-color: deeppink;
@@ -99,8 +116,10 @@ div {
 }
 
 #placeholder {
-            box-sizing: border-box;
-        }
+  grid-column: 1 / span 3;
+  grid-row: 5;
+  box-sizing: border-box;
+}
         #numberField {
             margin: auto;
             padding: 16px 32px;
