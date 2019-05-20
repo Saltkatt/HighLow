@@ -20,7 +20,7 @@ export default {
     data() {
         return {
             name: "Player",
-            number,
+            number: null
         }
     },
     mounted() {
