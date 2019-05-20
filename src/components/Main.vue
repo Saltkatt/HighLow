@@ -17,21 +17,11 @@
     <Players></Players>
 
 
-    <div class="container4">
-        <div class="round">
-            <h3>Round: 2</h3>
-        </div>
-        <div class="time" >
-            <h3>Time: </h3>
-        </div>
-    </div>
+    
 
 
     <!-- User input  -->
-    <div class="container5">
-        <PlayerInteract></PlayerInteract> 
-
-    </div>
+    
 </div>
     
 </template>
