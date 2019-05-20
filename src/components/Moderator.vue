@@ -76,19 +76,6 @@ export default {
 
     //     }
 
-    // },
-    //Retrieves answers from questionBank array
-    answers() {
-      var q = this.getQuestionBank;
-
-      for (var i = 0; i < q.length; i++) {
-        if (this.count == q.length) {
-          this.count = 0;
-        }
-        console.log(q[i + this.count].answer);
-        return q[i + this.count].answer;
-      }
-    },
 
     //Retrieves answer from answer()
     //Receives guess from XXX and checks correct, too high or too low. Sends response.

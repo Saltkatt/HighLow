@@ -109,7 +109,7 @@ li {
 }
 
 .container5{
-    background-color:violet;
+    background-color:lavender;
     padding: 10px;
     margin: auto;
 }
@@ -121,30 +121,8 @@ li {
 .time{
     background-color: turquoise;
 }
-input[type=number]{
-    width: 50%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
 
-input[type=submit] {
-    width: 30%;
-    background-color: goldenrod;
-    border: none;
-    color: white;
-    padding: 15px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
 
-}
 
 </style>
 
