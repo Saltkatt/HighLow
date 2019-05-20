@@ -15,12 +15,6 @@
     <Moderator></Moderator>
     <!-- Player and Bots -->
     <Players></Players>
-
-
-    
-
-
-    <!-- User input  -->
     
 </div>
     
