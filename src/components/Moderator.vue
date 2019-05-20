@@ -7,9 +7,9 @@
       </div>
       <div class="grid-item item1" v-show="getLastGuess != null">
         <!-- <div class="talkContainer">{{hiLow(this.getGuess)}}</div> -->
-        <div v-show="getLastGuess < getCorrectAnswer">The guess is TOO LOW</div>
-        <div v-show="getLastGuess > getCorrectAnswer">The guess is TOO HIGH</div>
-        <div v-show="getLastGuess == getCorrectAnswer">The guess is CORRECT</div>
+        <div v-if="getLastGuess < getCorrectAnswer">The guess is TOO LOW</div>
+        <div v-if="getLastGuess > getCorrectAnswer">The guess is TOO HIGH</div>
+        <div v-if="getLastGuess == getCorrectAnswer">The guess is CORRECT {{open()}}</div>
       </div>
       <div class="grid-item modImage">
         <img v-bind:src="image">
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import moderatorImage from "../assets/logo.png";
+import moderatorImage from "../assets/Moderator.jpg";
 import { mapGetters } from "vuex";
 export default {
   name: "Moderator",
@@ -51,6 +51,11 @@ export default {
   },
 
   methods: {
+    //This function calls for "openWinnerBox" in Store
+    open: function() {
+        this.$store.commit('openWinnerBox');
+    },
+
     //talk() conveys information such hiLow() respons, rules, and phrases
     //which allows moderator to interact with player.
     talk: function(msg) {
@@ -84,6 +89,8 @@ export default {
       var answer = this.answers();
       if (guess == answer) {
         respons = "Correct!";
+        //Open modal box
+        this.open();
       } else if (guess < answer) {
         respons = "Too low!";
         this.$store.commit("setLowestNumber", guess);
@@ -93,6 +100,7 @@ export default {
       }
 
       return this.talk(respons);
+
     }
   },
   computed: {
@@ -148,7 +156,7 @@ export default {
 .modImage {
   grid-column: 3;
   grid-row: 2 / span 2;
-  background-color: chartreuse;
+  
 }
 .question-box {
   grid-column: 1 / span 3;
@@ -160,7 +168,7 @@ export default {
 }
 img {
   float: center;
-  width: 50px;
-  height: 50px;
+  width: 40%;
+  height: 40% ;
 }
 </style>
