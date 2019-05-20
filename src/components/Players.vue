@@ -6,14 +6,33 @@
     v-bind:key="index" 
     v-bind:class="{myTurn: player.isMyTurn}">
       {{player.name}}s answer is ...
-      <div v-show="player.isHuman && player.isMyTurn">
+      <!-- <div v-show="player.isHuman && player.isMyTurn">
           <input type="number" v-model.number.lazy="player.guess">
             <input type="submit" @click="makeGuess(player)" :disabled="!player.isMyTurn">
-      </div>
+      </div> -->
       <div v-show="!player.isHuman">
           {{player.guess}}
       </div>
       
+    </div>
+    <div class="container4">
+        <div class="round">
+            <h3>Round: 2</h3>
+        </div>
+        <div class="time" >
+            <h3>Time: </h3>
+        </div>
+    </div>
+    <div id="placeholder">
+
+        <!-- <div id="textBox"> -->
+            <input id="numberField" placeholder="0000" name="thisNumber" type="number" v-model.number.lazy="players[0].guess"
+            min="-500000" max="500000" step="1">
+        <!-- </div> -->
+        <!-- <div id="submit"> -->
+            <input id="okButton" type="submit" value="OK" @click="makeGuess(players[0])" :disabled="!players[0].isMyTurn">
+        <!-- </div> -->
+
     </div>
   </div>
 </template>
@@ -64,4 +83,47 @@ div {
   opacity: 1;
   margin: 5px;
 }
+.container4{
+    display: grid;
+    grid-template-columns: auto auto;
+    background-color: deeppink;
+    padding: 10px;
+}
+
+.round{
+    background-color: honeydew;
+}
+
+.time{
+    background-color: turquoise;
+}
+
+#placeholder {
+            box-sizing: border-box;
+        }
+        #numberField {
+            margin: auto;
+            padding: 16px 32px;
+            width: 60%;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        #okButton {
+            background-color: gold;
+            border: 1px solid black;
+            border-radius: 8px;
+            padding: 16px 32px;
+            width:25%;
+            display: inline-block;
+            font-size: 16px;
+            margin: auto;
+            cursor: pointer;
+        }
+        #okButton:hover {
+            /* brightness(0.4);  /* 40% brightness */
+            filter: brightness(120%);
+        }
 </style>
