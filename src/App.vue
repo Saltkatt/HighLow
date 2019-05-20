@@ -47,6 +47,9 @@ export default {
         background-color: navy;
         color: antiquewhite;
     }
+    .wrapper{
+      overflow: auto;
+    }
 
 }
 

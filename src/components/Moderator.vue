@@ -76,7 +76,6 @@ export default {
                 if(this.count == q.length) {
                 this.count = 0;
                 }
-                console.log(q[i + this.count].question )
                 return q[i + this.count].question 
                 
             } 
@@ -92,7 +91,6 @@ export default {
                  if(this.count == q.length) {
                 this.count = 0;
                 }
-            console.log(q[i + this.count].answer)
                 return q[i + this.count].answer
             } 
             
