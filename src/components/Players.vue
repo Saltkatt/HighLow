@@ -30,7 +30,31 @@ export default {
   },
 
   methods: {
+    // takes players id to do correct logic.
+    logic(id) {
+      switch (id) {
+        case 0:
+          //returns player logic
+          break;
+
+          case 1:
+          //returns bot logic
+          break;
+
+          case 2:
+          //returns another bot logic
+          break;
+      
+        default:
+          break;
+      }
+    },
     changePlayer: function() {
+      if(this.turn == 1 || this.turn == 2){
+        makeGuess();
+      }
+
+
       if (this.turn == this.players.length) {
         this.turn = 0;
       }
@@ -41,6 +65,23 @@ export default {
         this.turn = 0;
       }
       this.$store.commit("changePlayerTurn", this.turn);
+    },
+
+    makeGuess: function(){
+      var lowest = lowest();
+      var highest = highest();
+      setTimeout(function(){ 
+        if(lowest == null || highest == null){
+          this.$store.commit("setGuessNumber", 50)
+        }
+        else{
+        var guess = (highest - lowest)/2;
+        this.$store.commit("setGuessNumber", guess)
+        }
+        
+
+      }, 3000);
+
     }
   },
 

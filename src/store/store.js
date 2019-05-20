@@ -77,11 +77,10 @@ export const store = new Vuex.Store({
       highestNumber: null,
     },
     getters: {
-        getQuestionBank: (state) => state.questionBank
-        // totalData: state => {
-        // let totalData = state.data1 + state.data2;
-        // return totalData;
-        // }
+        //Get QuestionBank
+        getQuestionBank: (state) => state.questionBank,
+        //Get guessNumber
+        getGuess: (state) => state.guessNumber
     },
     mutations: {
       //This function pushes the player into the "activePlayers array"
@@ -104,7 +103,7 @@ export const store = new Vuex.Store({
         setGuessNumber: function(state, payload) {
           state.guessNumber = payload;
         },
-        //
+        //changes the active players turn
         changePlayerTurn: function(state, payload) {
           state.activePlayers[payload].isMyTurn = !state.activePlayers[payload].isMyTurn;
         }
