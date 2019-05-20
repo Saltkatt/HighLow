@@ -1,15 +1,14 @@
 <template>
     <div id="placeholder">
-        <div id="title">
-            Gissa:
-        </div>
-        <div id="textBox">
-            <input id="numberField" name="thisNumber" type="number" v-bind="number"
-            min="1" max="500000" step="10">
-        </div>
-        <div id="submit">
-            <input id="okButton" type="submit" value="Ok" @click="sendNumber(number)">
-        </div>
+
+        <!-- <div id="textBox"> -->
+            <input id="numberField" placeholder="0000" name="thisNumber" type="number" v-bind="number"
+            min="-500000" max="500000" step="1">
+        <!-- </div> -->
+        <!-- <div id="submit"> -->
+            <input id="okButton" type="submit" value="OK" @click="sendNumber(number)">
+        <!-- </div> -->
+
     </div>
 </template>
 
@@ -18,52 +17,60 @@ export default {
     data() {
         return {
             name: "Player",
-            number: 0
+            number: null
         }
     },
-    methods: {
-        sendNumber (number) {
-            this.$store.commit('setGuessNumber', number)
+    mounted() {
+        // alert("set focus");
+        document.getElementById("numberField").focus();
+        
+    },
+    methods: {        
+        sendNumber () {
+            // var reg = /^\d+$/;
+            // var numStr = this.number.toString();
+            // if (this.numStr == null) { alert ("Input is not all numbers"); }
+            
+            // alert (this.number);
+            this.$store.commit("setGuessNumber", this.number);
         },
-    
+
     },
 }
 </script>
 
 <style scoped>
-            #placeholder {
-                display: grid;
-                border: 1px solid green;
-                grid-template-columns: 1fr 1fr 1fr 1fr;
-                grid-auto-rows:200px;
+        #placeholder {
+            box-sizing: border-box;
+        }
 
-                width: 90%;
-                padding: 5px;
-                background-color: greenyellow;
-                height: 100px;
-            }
+        #numberField {
+            margin: auto;
+            padding: 16px 32px;
+            width: 60%;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            cursor: pointer;
+        }
         
-            #okButton {
-                margin: 10px;
-                width: 150px;
-                height: 90px;
-                padding: 0px;
-                background-color: gold;   
-                text-align: center;
-                font-size: 50px;
-                font-family: Tahoma;
-            }
+        #okButton {
+            background-color: gold;
+            border: 1px solid black;
+            border-radius: 8px;
+            padding: 16px 32px;
+            width:25%;
+            display: inline-block;
+            font-size: 16px;
+            margin: auto;
+            cursor: pointer;
+        }
         #okButton:hover {
             /* brightness(0.4);  /* 40% brightness */
             filter: brightness(120%);
         }
 
-        #numberField {
-            width:200px;
-            height: 90px;
-            font-size: 50px;
-            
-        }
+       
         
 
 

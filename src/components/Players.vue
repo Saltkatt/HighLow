@@ -1,132 +1,129 @@
 <template>
-  <div>
-    <div
-      class="grid-container"
-      v-for="(player, index) in players"
-      v-bind:key="index"
-      v-bind:class="{myTurn: player.isMyTurn}"
-    >
-      <div class="grid1">
-        <img v-bind:src="player.image">
+  <div class="playerArea">
+    <div 
+    class="player" 
+    v-for="(player, index) in players" 
+    v-bind:key="index" 
+    v-bind:class="{myTurn: player.isMyTurn}">
+      {{player.name}}s answer is ...
+      <!-- <div v-show="player.isHuman && player.isMyTurn">
+          <input type="number" v-model.number.lazy="player.guess">
+            <input type="submit" @click="makeGuess(player)" :disabled="!player.isMyTurn">
+      </div> -->
+      <div v-show="!player.isHuman">
+          {{player.guess}}
       </div>
-      <div class="grid2">{{ player.name }}</div>
-      <div class="grid3">
-        <div
-          class="bubble"
-          v-show="player.isMyTurn"
-        >This is very difficult. My guess is... {{ Math.floor((highest-lowest)/2) }}</div>
-      </div>
+      
     </div>
-    <button @click="changePlayer">Change player</button>
+    <div class="container4">
+        <div class="round">
+            <h3>Round: 2</h3>
+        </div>
+        <div class="time" >
+            <h3>Time: </h3>
+        </div>
+    </div>
+    <div id="placeholder">
+
+        <!-- <div id="textBox"> -->
+            <input id="numberField" placeholder="0000" name="thisNumber" type="number" v-model.number.lazy="players[0].guess"
+            min="-500000" max="500000" step="1">
+        <!-- </div> -->
+        <!-- <div id="submit"> -->
+            <input id="okButton" type="submit" value="OK" @click="makeGuess(players[0])" :disabled="!players[0].isMyTurn">
+        <!-- </div> -->
+
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      turn: 0
-    };
-  },
-
+ 
   methods: {
-    changePlayer: function() {
-      if (this.turn == this.players.length) {
-        this.turn = 0;
-      }
-
-      this.$store.commit("changePlayerTurn", this.turn);
-      this.turn++;
-      if (this.turn == 3) {
-        this.turn = 0;
-      }
-      this.$store.commit("changePlayerTurn", this.turn);
-    }
+    makeGuess(player) {
+      this.$store.commit("updateLastGuess", player.guess);
+      this.$store.commit("submitGuessToStore", player);
+      this.$store.commit("switchTurn", player)
+    },
+    
   },
 
   computed: {
     players() {
       return this.$store.state.activePlayers;
     },
-
-    lowest() {
-      return this.$store.state.lowestNumber;
-    },
-
-    highest() {
-      return this.$store.state.highestNumber;
-    }
   }
 };
 </script>
 
 <style scoped>
-.grid-container {
-  opacity: 0.2;
-  height: 60px;
-  margin: 5px;
+div {
+  font-size: 18px;
+}
+
+.playerArea{
+  margin: 10px;
   border: 1px solid black;
-  border-radius: 12px;
-  padding: 8px;
-  background: lightcyan;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-template-areas: "grid1 grid1 grid3 grid3 grid3 grid3" "grid1 grid1 grid3 grid3 grid3 grid3" "grid2 grid2 grid3 grid3 grid3 grid3";
+  background: lightskyblue;
+  
 }
 
-.myTurn {
-  opacity: 1;
-  border: 2px solid gold;
-}
-
-.grid1 {
-  grid-area: grid1;
-  background: lightcyan;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 2px;
-}
-
-.grid2 {
-  grid-area: grid2;
-  background: lightcyan;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 12px;
-}
-
-.grid3 {
-  grid-area: grid3;
-  background: lightcyan;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  max-height: 100%;
-  border: 2px solid black;
-  border-radius: 6px;
-}
-
-.bubble {
+.player{
+  border: 1px solid black;
+  background: greenyellow;
   padding: 10px;
+  opacity: 0.2;
+  margin: 5px;
+}
+.myTurn{
   border: 1px solid black;
-  border-radius: 12px;
-  background: lightpink;
-  text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 14px;
+  background: greenyellow;
+  padding: 10px;
+  opacity: 1;
+  margin: 5px;
+}
+.container4{
+    display: grid;
+    grid-template-columns: auto auto;
+    background-color: deeppink;
+    padding: 10px;
 }
 
-button {
-  margin-top: 5px;
+.round{
+    background-color: honeydew;
 }
+
+.time{
+    background-color: turquoise;
+}
+
+#placeholder {
+            box-sizing: border-box;
+        }
+        #numberField {
+            margin: auto;
+            padding: 16px 32px;
+            width: 60%;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        #okButton {
+            background-color: gold;
+            border: 1px solid black;
+            border-radius: 8px;
+            padding: 16px 32px;
+            width:25%;
+            display: inline-block;
+            font-size: 16px;
+            margin: auto;
+            cursor: pointer;
+        }
+        #okButton:hover {
+            /* brightness(0.4);  /* 40% brightness */
+            filter: brightness(120%);
+        }
 </style>
