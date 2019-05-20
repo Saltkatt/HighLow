@@ -14,31 +14,21 @@
     <!-- Moderator component -->
     <Moderator></Moderator>
     <!-- Player and Bots -->
-    <players></players>
+    <Players></Players>
 
 
-    <div class="container4">
-        <div class="round">
-            <h3>Round: 2</h3>
-        </div>
-        <div class="time" >
-            <h3>Time: </h3>
-        </div>
-    </div>
+    
 
 
     <!-- User input  -->
-    <div class="container5">
-        <PlayerInteract></PlayerInteract> 
-
-    </div>
+    
 </div>
     
 </template>
 
 <script>
 import Moderator from '../components/Moderator'
-import players from '../components/Players'
+import Players from '../components/Players.vue'
 
 import PlayerInteract from '../components/PlayerInteract.vue'
 
@@ -46,7 +36,7 @@ export default {
     name: "Main",
     components: {
         Moderator,
-        players,
+        Players,
         PlayerInteract,
 
     },
