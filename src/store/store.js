@@ -61,6 +61,8 @@ export const store = new Vuex.Store({
       lowestNumber: 0,
       //If moderator says that the guess is too high, then it will become highestNumber
       highestNumber: 10000,
+      //A boolean value to show or not show the modal box (winnerBox) when someone guessed correctly
+      isWinnerBoxVisible: false,
     },
     getters: {
         //Get QuestionBank
@@ -78,8 +80,8 @@ export const store = new Vuex.Store({
         else if ((player.guess > state.questionBank[0].answer && player.guess < state.highestNumber) || (player.guess > state.questionBank[0].answer && state.highestNumber == null)) {
           state.highestNumber = player.guess;
         }
-  
-  
+
+
       },
       //This function pushes the player into the "activePlayers array"
         addToActivePlayers: function(state, payload) {
@@ -97,6 +99,14 @@ export const store = new Vuex.Store({
             state.highestNumber = payload;
           }
         },
+        //close modal box
+        closeWinnerBox: function(state) {
+            state.isWinnerBoxVisible = false;
+        },
+        //open modal box
+        openWinnerBox: function(state) {
+            state.isWinnerBoxVisible = true;
+        },
         //changes the guessNumber
         updateLastGuess(state, guess) {
           state.guessNumber = guess;
@@ -111,7 +121,7 @@ export const store = new Vuex.Store({
             state.activePlayers[player.id].isMyTurn = !state.activePlayers[player.id].isMyTurn;
             state.activePlayers[player.id + 1].isMyTurn = !state.activePlayers[player.id + 1].isMyTurn;
           }
-    
+
           for (let i = 0; i < state.activePlayers.length; i++) {
             if (state.activePlayers[i].isMyTurn == true && state.activePlayers[i].isHuman == false) {
               this.dispatch('makeBotDecision', state.activePlayers[i])
@@ -123,7 +133,7 @@ export const store = new Vuex.Store({
       makeBotDecision(context, player) {
 
         let randomTime = 1000 + Math.floor(Math.random() * 8000);
-  
+
         setTimeout(function () {
           switch (player.id) {
             case 1:
@@ -132,18 +142,18 @@ export const store = new Vuex.Store({
             case 2:
               player.guess = context.state.lowestNumber + (Math.floor(Math.random() * (context.state.highestNumber - context.state.lowestNumber)))
               break;
-              
+
           }
-  
+
           context.commit("updateLastGuess", player.guess);
           context.commit("submitGuessToStore", player);
           setTimeout(function () {
-  
-  
+
+
             context.commit("switchTurn", player)
           }, 3000)
         }, randomTime);
-  
+
       }
     }
 })

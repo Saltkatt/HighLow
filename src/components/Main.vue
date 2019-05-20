@@ -1,5 +1,5 @@
 <template>
-<div>  
+<div>
     <header>
         <!-- Navigation Bar -->
             <nav>
@@ -10,26 +10,30 @@
                 </ul>
             </nav>
     </header>
-
+    <!-- Modal box component -->
+    <WinnerBox></WinnerBox>
     <!-- Moderator component -->
     <Moderator></Moderator>
     <!-- Player and Bots -->
     <Players></Players>
-    
+
 </div>
-    
+
 </template>
 
 <script>
 import Moderator from '../components/Moderator'
 import Players from '../components/Players.vue'
+import WinnerBox from '../components/WinnerBox.vue'
+
 
 export default {
     name: "Main",
     components: {
         Moderator,
         Players,
-       
+        WinnerBox,
+
 
     },
    /*  created() {
@@ -50,12 +54,12 @@ export default {
                     this.seconds = 10;
                 }
                 console.log(this.seconds)
-                
+
             }
             var cancel = setInterval(incrementSeconds.bind(this), 1000);
             return second;
         } */
-    } 
+    }
 
 }
 </script>
@@ -117,4 +121,3 @@ li {
 
 
 </style>
-
