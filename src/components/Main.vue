@@ -1,5 +1,5 @@
 <template>
-<div>  
+<div>
     <header>
         <!-- Navigation Bar -->
             <nav>
@@ -10,44 +10,30 @@
             </nav>
                 
     </header>
-
+    <!-- Modal box component -->
+    <WinnerBox></WinnerBox>
     <!-- Moderator component -->
     <Moderator></Moderator>
     <!-- Player and Bots -->
-    <players></players>
+    <Players></Players>
 
-
-    <div class="container4">
-        <div class="round">
-            <h3>Round: 2</h3>
-        </div>
-        <div class="time" >
-            <h3>Time: </h3>
-        </div>
-    </div>
-
-
-    <!-- User input  -->
-    <div class="container5">
-        <PlayerInteract></PlayerInteract> 
-
-    </div>
 </div>
-    
+
 </template>
 
 <script>
 import Moderator from '../components/Moderator'
-import players from '../components/Players'
+import Players from '../components/Players.vue'
+import WinnerBox from '../components/WinnerBox.vue'
 
-import PlayerInteract from '../components/PlayerInteract.vue'
 
 export default {
     name: "Main",
     components: {
         Moderator,
-        players,
-        PlayerInteract,
+        Players,
+        WinnerBox,
+
 
     },
    /*  created() {
@@ -71,12 +57,12 @@ export default {
                     this.seconds = 10;
                 }
                 console.log(this.seconds)
-                
+
             }
             var cancel = setInterval(incrementSeconds.bind(this), 1000);
             return second;
         } */
-    } 
+    }
 
 }
 </script>
@@ -122,7 +108,7 @@ li {
 }
 
 .container5{
-    background-color:violet;
+    background-color:lavender;
     padding: 10px;
     margin: auto;
 }
@@ -134,30 +120,7 @@ li {
 .time{
     background-color: turquoise;
 }
-input[type=number]{
-    width: 50%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
 
-input[type=submit] {
-    width: 30%;
-    background-color: goldenrod;
-    border: none;
-    color: white;
-    padding: 15px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
 
-}
 
 </style>
-
