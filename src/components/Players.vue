@@ -87,8 +87,6 @@ div {
   display: inline-block;
   position: relative; right:  20%;
 
-
-
 }
 .myTurn{
   grid-column: 1 / span 3;
