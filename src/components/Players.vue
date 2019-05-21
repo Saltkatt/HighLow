@@ -84,31 +84,35 @@ div {
 }
 
 .playerimg{
-  display: inline-block;
-  position: relative; right:  20%;
+  /* display: inline-block;
+  position: relative; 
+  right:  50%; */
 
-
-
+  float: left;
 }
 .myTurn{
-  grid-column: 1 / span 3;
-  grid-row: 1;
   border: 1px solid black;
   background: greenyellow;
   padding: 10px;
   opacity: 1;
   margin: 5px;
+  
+}
+
+.player:nth-child(1){
+  grid-column: 1 / span 3;
+  grid-row: 1;
 }
 .player:nth-child(2){
   grid-column: 1 / span 3;
   grid-row: 2;
 }
-
 .player:nth-child(3){
   grid-column: 1 /span 3;
   grid-row: 3;
 }
 
+/* Round and Time container */
 .container4{
     grid-column: 1 / span 3;
     grid-row: 4;
@@ -125,6 +129,8 @@ div {
 .time{
     background-color: turquoise;
 }
+
+/* Input field and submit button */
 
 #placeholder {
   grid-column: 1 / span 3;
