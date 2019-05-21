@@ -168,7 +168,7 @@ export default {
 }
 img {
   float: center;
-  width: 40%;
-  height: 40% ;
+  width: 100%;
+  height: 100% ;
 }
 </style>
