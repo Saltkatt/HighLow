@@ -128,6 +128,7 @@ export const store = new Vuex.Store({
             state.activePlayers[player.id + 1].isMyTurn = !state.activePlayers[player.id + 1].isMyTurn;
           }
 
+          // check if it is a bot's turn. If true - the "makeBotDecision" method runs 
           for (let i = 0; i < state.activePlayers.length; i++) {
             if (state.activePlayers[i].isMyTurn == true && state.activePlayers[i].isHuman == false) {
               this.dispatch('makeBotDecision', state.activePlayers[i])
