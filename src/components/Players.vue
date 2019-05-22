@@ -50,9 +50,9 @@ export default {
 
     }
   },
-  /*  created(){
+ /*  created(){
     this.secondCounter()
-  },  */
+  },   */
     
 
   methods: {
@@ -62,6 +62,7 @@ export default {
         this.seconds -= 1
         if(this.seconds == -1){
           this.seconds = 10;
+
         }
         console.log(this.seconds)
       }
@@ -189,5 +190,13 @@ div {
 #okButton:hover {
   /* brightness(0.4);  /* 40% brightness */
   filter: brightness(120%);
+}
+@media screen and (max-width:500px){
+  #numberField{
+    width: 80%;
+  }
+  #okButton {
+    width: 80%;
+  }
 }
 </style>
