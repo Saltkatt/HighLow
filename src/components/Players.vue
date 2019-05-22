@@ -23,7 +23,7 @@
             <h3>Round: 2</h3>
         </div>
         <div class="time" >
-            <h3>Time: {{this.seconds}}</h3>
+            <h3>Time: {{seconds}} </h3>
         </div>
     </div>
     <div id="placeholder">
@@ -42,9 +42,6 @@
 
 <script>
 export default {
-  created(){
-    this.secondCounter()
-  }, 
   
   data(){
     return{
@@ -53,15 +50,24 @@ export default {
 
     }
   },
+  /*  created(){
+    this.secondCounter()
+  },  */
+    
 
   methods: {
     //Ten second count down.
     secondCounter(){
       function incrementSeconds(){
         this.seconds -= 1
+        if(this.seconds == -1){
+          this.seconds = 10;
+        }
+        console.log(this.seconds)
       }
       var cancel = setInterval(incrementSeconds.bind(this), 1000);
       return this.seconds;
+
     },
 
     makeGuess(player) {
@@ -76,7 +82,7 @@ export default {
     players() {
       return this.$store.state.activePlayers;
     },
-    
+   
   }
 };
 </script>
@@ -157,6 +163,7 @@ div {
   grid-column: 1 / span 3;
   grid-row: 5;
   box-sizing: border-box;
+  padding: 10px;
 }
 #numberField {
   margin: auto;
@@ -173,7 +180,7 @@ div {
   border: 1px solid black;
   border-radius: 8px;
   padding: 16px 32px;
-  width:25%;
+  width:30%;
   display: inline-block;
   font-size: 16px;
   margin: auto;
