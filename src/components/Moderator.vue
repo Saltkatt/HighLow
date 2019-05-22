@@ -9,7 +9,7 @@
         <!-- <div class="talkContainer">{{hiLow(this.getGuess)}}</div> -->
         <div v-show="getLastGuess < getCorrectAnswer">The guess is TOO LOW</div>
         <div v-show="getLastGuess > getCorrectAnswer">The guess is TOO HIGH</div>
-        <div v-show="getLastGuess == getCorrectAnswer">The guess is CORRECT</div>
+        <div v-show="getLastGuess == getCorrectAnswer"></div>
       </div>
       <div class="grid-item modImage">
         <img v-bind:src="image">
@@ -160,7 +160,7 @@ export default {
 }
 img {
   float: center;
-  width: 40%;
-  height: 40% ;
+  width: 100%;
+  height: 100% ;
 }
 </style>
