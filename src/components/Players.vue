@@ -23,7 +23,7 @@
             <h3>Round: 2</h3>
         </div>
         <div class="time" >
-            <h3>Time: {{seconds}}</h3>
+            <h3>Time: {{this.seconds}}</h3>
         </div>
     </div>
     <div id="placeholder">
@@ -42,17 +42,18 @@
 
 <script>
 export default {
-  name: Players,
+  created(){
+    this.secondCounter()
+  }, 
+  
   data(){
     return{
-      
+
       seconds: 10
 
     }
   },
 
-
- 
   methods: {
     //Ten second count down.
     secondCounter(){
@@ -60,7 +61,7 @@ export default {
         this.seconds -= 1
       }
       var cancel = setInterval(incrementSeconds.bind(this), 1000);
-      return second;
+      return this.seconds;
     },
 
     makeGuess(player) {
@@ -75,6 +76,7 @@ export default {
     players() {
       return this.$store.state.activePlayers;
     },
+    
   }
 };
 </script>
