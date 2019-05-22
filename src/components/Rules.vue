@@ -5,6 +5,7 @@
         <button class="button-close" v-on:click="showRules">x</button>
       </div>
       <div class="modalContent">
+        <p>RULES</p>
         <p>1. All questions have numerical answers and I expect you answer using digits.</p>
         <p>2. Everyone will have one opportunity to answer once per round.</p>
         <p>3. The game will continue until someone has answered correctly.</p>
@@ -31,16 +32,17 @@ export default {
 
 <style>
 .modalBox {
-position: absolute;
-
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  border: 1px solid black;
 }
 
 .modalContent {
+  text-align: left;
   background-color: #fefefe;
   margin: auto;
-  padding: 20px;
-  width: 80%;
-  height: 90%;
+  padding: 50px;
   color: black;
   font-size: 18px;
 }
