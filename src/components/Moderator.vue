@@ -7,9 +7,9 @@
       </div>
       <div class="grid-item item1" v-show="getLastGuess != null">
         <!-- <div class="talkContainer">{{hiLow(this.getGuess)}}</div> -->
-        <div v-if="getLastGuess < getCorrectAnswer">The guess is TOO LOW</div>
-        <div v-if="getLastGuess > getCorrectAnswer">The guess is TOO HIGH</div>
-        <div v-if="getLastGuess == getCorrectAnswer">The guess is CORRECT {{open()}}</div>
+        <div v-show="getLastGuess < getCorrectAnswer">The guess is TOO LOW</div>
+        <div v-show="getLastGuess > getCorrectAnswer">The guess is TOO HIGH</div>
+        <div v-show="getLastGuess == getCorrectAnswer"></div>
       </div>
       <div class="grid-item modImage">
         <img v-bind:src="image">
@@ -28,6 +28,7 @@ import { mapGetters } from "vuex";
 >>>>>>> master
 export default {
   name: "Moderator",
+  
   data() {
     return {
       image: moderatorImage,
@@ -56,6 +57,7 @@ export default {
   },
 
   methods: {
+<<<<<<< HEAD
     //This function calls for "openWinnerBox" in Store
     open: function() {
         this.$store.commit('openWinnerBox');
@@ -92,6 +94,8 @@ export default {
     },
         
 =======
+=======
+>>>>>>> 88bb775f17c868f356025cce0c2762b39710fa96
     //talk() conveys information such hiLow() respons, rules, and phrases
     //which allows moderator to interact with player.
     talk: function(msg) {
@@ -104,35 +108,21 @@ export default {
       this.questions();
       this.answers();
     },
-    //Retrieves questions from the questionBank array
-    // questions(){
-    //     var q = this.getQuestionBank;
-
-    //     for(var i = 0; i < q.length; i++){
-
-    //         if(this.count == q.length) {
-    //         this.count = 0;
-    //         }
-    //         console.log(q[i + this.count].question )
-    //         return q[i + this.count].question
-
-    //     }
-
-
-    //Retrieves answer from answer()
-    //Receives guess from XXX and checks correct, too high or too low. Sends response.
+    
+    //Retrieves answer from Store
+    //Receives guess from  and checks correct, too high or too low. Sends response.
     hiLow: function(guess) {
       var respons = null;
       var answer = this.answers();
       if (guess == answer) {
         respons = "Correct!";
-        //Open modal box
-        this.open();
       } else if (guess < answer) {
-        respons = "Too low!";
+        respons = "Too Low"
+        //Sends guess to mutation in Store
         this.$store.commit("setLowestNumber", guess);
       } else if (guess > answer) {
-        respons = "Too high";
+        respons = "Too High"
+        //Sends guess to mutation in Store
         this.$store.commit("setHighestNumber", guess);
       }
 
@@ -160,6 +150,7 @@ export default {
         },
 =======
     }
+
   },
   computed: {
     // ...mapGetters(['getQuestionBank', 'getGuess']),
@@ -233,7 +224,7 @@ export default {
 }
 img {
   float: center;
-  width: 40%;
-  height: 40% ;
+  width: 100%;
+  height: 100% ;
 }
 </style>
