@@ -63,6 +63,7 @@ export const store = new Vuex.Store({
       highestNumber: 10000,
       //A boolean value to show or not show the modal box (winnerBox) when someone guessed correctly
       isWinnerBoxVisible: false,
+      showRules: false,
 
       phrases: [
         "This is very easy! My guess is... ",
@@ -135,6 +136,10 @@ export const store = new Vuex.Store({
             }
           }
         },
+
+        showRules(state){
+          state.showRules = !state.showRules;
+        }
     },
     actions: {
       makeBotDecision(context, player) {
