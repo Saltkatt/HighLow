@@ -14,7 +14,7 @@
             <input type="submit" @click="makeGuess(player)" :disabled="!player.isMyTurn">
       </div> -->
       <div v-show="!player.isHuman">
-          {{player.guess}}
+           {{player.guess}}
       </div>
       
     </div>
@@ -49,6 +49,11 @@ export default {
       this.$store.commit("submitGuessToStore", player);
       this.$store.commit("switchTurn", player)
     },
+
+     randomPhrase(){
+      let randomNumber = Math.random() * 3;
+      return this.$store.state.phrases[randomNumber]
+    }
     
   },
 

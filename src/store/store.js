@@ -63,6 +63,12 @@ export const store = new Vuex.Store({
       highestNumber: 10000,
       //A boolean value to show or not show the modal box (winnerBox) when someone guessed correctly
       isWinnerBoxVisible: false,
+
+      phrases: [
+        "This is very easy! My guess is... ",
+        "Tricky one! Let's guess...",
+        "Not the most interesting question. I say..."
+      ]
     },
     getters: {
         //Get QuestionBank
