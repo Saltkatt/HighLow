@@ -114,7 +114,6 @@ div {
   display: grid;
   grid-template-columns: auto auto auto;
   grid-template-rows: auto auto auto auto auto;
-  margin: 10px;
   border: 1px solid black;
   background: lightskyblue;
 }
