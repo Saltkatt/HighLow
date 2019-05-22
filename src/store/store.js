@@ -36,24 +36,27 @@ export const store = new Vuex.Store({
         },
       ],
       //Array with bots
-      // bots: [
-      //   {
-      //     id: 1,
-      //     name: 'RoboCop',
-      //     image: kalleAsset
-      //   },
-      //   {
-      //     id: 2,
-      //     name: 'Terminator',
-      //     image: martinAsset
-      //   },
-      // ],
+      bots: [
+        {
+          id: 1,
+          name: 'Anna',
+          guess: null,
+          image: require("@/assets/kajsa.jpg"),
+          isMyTurn: false,
+          isHuman: false
+        },
+        {
+          id: 2,
+          name: 'Pelle',
+          guess: null,
+          image: require("@/assets/martin.jpg"),
+          isMyTurn: false,
+          isHuman: false
+        },
+      ],
       //Players & bots in the active game
       activePlayers: [
-        { id: 0, name: "Player", guess: null, image: require("@/assets/kalle.jpg"), isMyTurn: true, isHuman: true },
-        { id: 1, name: "Anna", guess: null, image: require("@/assets/kajsa.jpg"), isMyTurn: false, isHuman: false },
-        { id: 2, name: "Pelle", guess: null, image: require("@/assets/martin.jpg"), isMyTurn: false, isHuman: false },
-      
+        { id: 0, name: "Player", guess: null, image: require("@/assets/kalle.jpg"), isMyTurn: true, isHuman: true }
       ],
       //This is the guess of players/bots, and moderator will get this number
       guessNumber: null,
