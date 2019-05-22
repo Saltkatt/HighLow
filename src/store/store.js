@@ -50,7 +50,7 @@ export const store = new Vuex.Store({
       // ],
       //Players & bots in the active game
       activePlayers: [
-        { id: 0, name: "Kalle", guess: null, image: require("@/assets/kalle.jpg"), isMyTurn: true, isHuman: true },
+        { id: 0, name: "Player", guess: null, image: require("@/assets/kalle.jpg"), isMyTurn: true, isHuman: true },
         { id: 1, name: "Anna", guess: null, image: require("@/assets/kajsa.jpg"), isMyTurn: false, isHuman: false },
         { id: 2, name: "Pelle", guess: null, image: require("@/assets/martin.jpg"), isMyTurn: false, isHuman: false },
       
@@ -128,6 +128,12 @@ export const store = new Vuex.Store({
             }
           }
         },
+        // submit game setup. player name, bots, question
+        gameSetup(state, playerName) {
+          if (playerName != null) { // if playerName is not null
+            state.activePlayers[0].name = playerName; // changes the players name
+          }
+        }
     },
     actions: {
       makeBotDecision(context, player) {

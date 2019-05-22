@@ -10,6 +10,8 @@
                 </ul>
             </nav>
     </header>
+    <!-- StartMenu component -->
+    <StartMenu/>
     <!-- Modal box component -->
     <WinnerBox></WinnerBox>
     <!-- Moderator component -->
@@ -18,14 +20,13 @@
     <Players></Players>
 
 </div>
-
 </template>
 
 <script>
 import Moderator from '../components/Moderator'
 import Players from '../components/Players.vue'
 import WinnerBox from '../components/WinnerBox.vue'
-
+import StartMenu from '../components/StartMenu.vue'
 
 export default {
     name: "Main",
@@ -33,8 +34,7 @@ export default {
         Moderator,
         Players,
         WinnerBox,
-
-
+        StartMenu
     },
    /*  created() {
         this.secondCounter()
@@ -60,7 +60,6 @@ export default {
             return second;
         } */
     }
-
 }
 </script>
 
