@@ -23,7 +23,7 @@
             <h3>Round: 2</h3>
         </div>
         <div class="time" >
-            <h3>Time: </h3>
+            <h3>Time: {{seconds}}</h3>
         </div>
     </div>
     <div id="placeholder">
@@ -42,8 +42,27 @@
 
 <script>
 export default {
+  name: Players,
+  data(){
+    return{
+      
+      seconds: 10
+
+    }
+  },
+
+
  
   methods: {
+    //Ten second count down.
+    secondCounter(){
+      function incrementSeconds(){
+        this.seconds -= 1
+      }
+      var cancel = setInterval(incrementSeconds.bind(this), 1000);
+      return second;
+    },
+
     makeGuess(player) {
       this.$store.commit("updateLastGuess", player.guess);
       this.$store.commit("submitGuessToStore", player);
