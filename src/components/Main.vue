@@ -17,12 +17,6 @@
     <!-- Player and Bots -->
     <Players></Players>
 
-
-
-
-
-    <!-- User input  -->
-
 </div>
 
 </template>
@@ -31,15 +25,15 @@
 import Moderator from '../components/Moderator'
 import Players from '../components/Players.vue'
 import WinnerBox from '../components/WinnerBox.vue'
-import PlayerInteract from '../components/PlayerInteract.vue'
+
 
 export default {
     name: "Main",
     components: {
         Moderator,
         Players,
-        PlayerInteract,
         WinnerBox,
+
 
     },
    /*  created() {

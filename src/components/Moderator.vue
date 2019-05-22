@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import moderatorImage from "../assets/logo.png";
+import moderatorImage from "../assets/Moderator.jpg";
 import { mapGetters } from "vuex";
 export default {
   name: "Moderator",
@@ -156,7 +156,7 @@ export default {
 .modImage {
   grid-column: 3;
   grid-row: 2 / span 2;
-  background-color: chartreuse;
+  
 }
 .question-box {
   grid-column: 1 / span 3;
@@ -168,7 +168,7 @@ export default {
 }
 img {
   float: center;
-  width: 50px;
-  height: 50px;
+  width: 100%;
+  height: 100% ;
 }
 </style>
