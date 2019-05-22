@@ -23,6 +23,7 @@ import moderatorImage from "../assets/Moderator.jpg";
 import { mapGetters } from "vuex";
 export default {
   name: "Moderator",
+  
   data() {
     return {
       image: moderatorImage,
@@ -69,7 +70,7 @@ export default {
     },
     
     //Retrieves answer from Store
-    //Receives guess from XXX and checks correct, too high or too low. Sends response.
+    //Receives guess from  and checks correct, too high or too low. Sends response.
     hiLow: function(guess) {
       var respons = null;
       var answer = this.answers();
@@ -78,16 +79,18 @@ export default {
         //Open modal box
         this.open();
       } else if (guess < answer) {
-        respons = "Too low!";
+        respons = "Too Low"
+        //Sends guess to mutation in Store
         this.$store.commit("setLowestNumber", guess);
       } else if (guess > answer) {
-        respons = "Too high";
+        respons = "Too High"
+        //Sends guess to mutation in Store
         this.$store.commit("setHighestNumber", guess);
       }
 
       return this.talk(respons);
 
-    }
+    } 
   },
   computed: {
     // ...mapGetters(['getQuestionBank', 'getGuess']),
