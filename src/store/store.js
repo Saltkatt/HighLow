@@ -1,11 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-//images
-import kalleAsset from "../assets/kalle.jpg";
-import kajsaAsset from "../assets/kajsa.jpg";
-import martinAsset from "../assets/martin.jpg";
-import walleAsset from "../assets/walle.jpg";
 
 Vue.use(Vuex);
 
