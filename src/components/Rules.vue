@@ -2,9 +2,10 @@
   <div class="modalBox" v-show="isRulesClicked">
     <div>
       <div class="header">
-        <button class="button-close" v-on:click="showRules">x</button>
+        
       </div>
       <div class="modalContent">
+          <button class="button-close" v-on:click="showRules">x</button>
         <p>RULES</p>
         <p>1. All questions have numerical answers and I expect you answer using digits.</p>
         <p>2. Everyone will have one opportunity to answer once per round.</p>
@@ -32,28 +33,35 @@ export default {
 
 <style>
 .modalBox {
+  width: 100%;
+  height: 100%;
   position: absolute;
-  left: 10%;
-  right: 10%;
+  
+
   border: 1px solid black;
+
+  background-color: #fefefe;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .modalContent {
   text-align: left;
-  background-color: #fefefe;
-  margin: auto;
+  background-color: #fff;
   padding: 50px;
   color: black;
   font-size: 18px;
+  margin: 10% auto;
+  width: 60%;
+  height: 80%;
 }
 
 .button-close {
-  margin: 24px;
+  margin: 0px;
   cursor: pointer;
   float: right;
   border: none;
-  font-size: 20px;
-  padding: 20px;
+  font-size: 28px;
+  padding: 0px;
   font-weight: bold;
   color: #4aae9b;
   background: transparent;
