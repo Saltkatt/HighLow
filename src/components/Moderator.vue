@@ -67,22 +67,8 @@ export default {
       this.questions();
       this.answers();
     },
-    //Retrieves questions from the questionBank array
-    // questions(){
-    //     var q = this.getQuestionBank;
-
-    //     for(var i = 0; i < q.length; i++){
-
-    //         if(this.count == q.length) {
-    //         this.count = 0;
-    //         }
-    //         console.log(q[i + this.count].question )
-    //         return q[i + this.count].question
-
-    //     }
-
-
-    //Retrieves answer from answer()
+    
+    //Retrieves answer from Store
     //Receives guess from XXX and checks correct, too high or too low. Sends response.
     hiLow: function(guess) {
       var respons = null;
