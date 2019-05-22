@@ -64,6 +64,13 @@ export const store = new Vuex.Store({
       highestNumber: 10000,
       //A boolean value to show or not show the modal box (winnerBox) when someone guessed correctly
       isWinnerBoxVisible: false,
+      showRules: false,
+
+      phrases: [
+        "This is very easy! My guess is... ",
+        "Tricky one! Let's guess...",
+        "Not the most interesting question. I say..."
+      ]
     },
     getters: {
         //Get QuestionBank
@@ -123,12 +130,17 @@ export const store = new Vuex.Store({
             state.activePlayers[player.id + 1].isMyTurn = !state.activePlayers[player.id + 1].isMyTurn;
           }
 
+          // check if it is a bot's turn. If true - the "makeBotDecision" method runs 
           for (let i = 0; i < state.activePlayers.length; i++) {
             if (state.activePlayers[i].isMyTurn == true && state.activePlayers[i].isHuman == false) {
               this.dispatch('makeBotDecision', state.activePlayers[i])
             }
           }
         },
+
+        showRules(state){
+          state.showRules = !state.showRules;
+        }
     },
     actions: {
       makeBotDecision(context, player) {
