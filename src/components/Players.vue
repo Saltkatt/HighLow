@@ -13,12 +13,14 @@
       <div v-show="!player.isHuman">{{player.guess}}</div>
     </div>
     <div class="container4">
-      <div class="round">
-        <h3>Round: 2</h3>
-      </div>
-      <div class="time">
-        <h3>Time:</h3>
-      </div>
+
+        <div class="round">
+            <h3>Round: 2</h3>
+        </div>
+        <div class="time" >
+            <h3>Time: {{seconds}} </h3>
+        </div>
+
     </div>
     <div id="placeholder">
       <input
@@ -44,7 +46,34 @@
 
 <script>
 export default {
+  
+  data(){
+    return{
+
+      seconds: 10
+
+    }
+  },
+ /*  created(){
+    this.secondCounter()
+  },   */
+    
+
   methods: {
+    //Ten second count down.
+    secondCounter(){
+      function incrementSeconds(){
+        this.seconds -= 1
+        if(this.seconds == -1){
+          this.seconds = 10;
+
+        }
+        console.log(this.seconds)
+      }
+      var cancel = setInterval(incrementSeconds.bind(this), 1000);
+      return this.seconds;
+
+    },
 
     // this method is called when the submit button is clicked and calls three mutations in store
     makeGuess(player) {
@@ -69,7 +98,9 @@ export default {
   computed: {
     players() {
       return this.$store.state.activePlayers;
+
     }
+
   }
 };
 </script>
@@ -147,6 +178,7 @@ div {
   grid-column: 1 / span 3;
   grid-row: 5;
   box-sizing: border-box;
+  padding: 10px;
 }
 #numberField {
   margin: auto;
@@ -163,7 +195,8 @@ div {
   border: 1px solid black;
   border-radius: 8px;
   padding: 16px 32px;
-  width: 25%;
+  width:30%;
+
   display: inline-block;
   font-size: 16px;
   margin: auto;
@@ -172,5 +205,13 @@ div {
 #okButton:hover {
   /* brightness(0.4);  /* 40% brightness */
   filter: brightness(120%);
+}
+@media screen and (max-width:500px){
+  #numberField{
+    width: 80%;
+  }
+  #okButton {
+    width: 80%;
+  }
 }
 </style>

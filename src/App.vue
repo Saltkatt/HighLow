@@ -35,10 +35,12 @@ export default {
   
 }
 /* Desktop */
+
 @media screen and (min-width: 401px){
   body{
     margin: 0px;
   }
+
   .wrapper{
     max-width: 100%;
     margin: 0px;
@@ -47,7 +49,7 @@ export default {
   }
 }
 /* Small screen */
-@media screen and (max-width:400px){
+@media screen and (max-width:500px){
     body{
       
         background-color: navy;
@@ -56,7 +58,7 @@ export default {
     .wrapper{
       overflow: auto;
     }
-
+    
 }
 
 </style>
