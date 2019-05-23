@@ -157,6 +157,10 @@ export const store = new Vuex.Store({
               player.guess = context.state.lowestNumber + (Math.floor(
                 (context.state.highestNumber - context.state.lowestNumber) * 0.1))
               break;
+            case 4: 
+              // This bots logic: increments answer by one.
+              player.guess = answer++;
+              break;
 
           }
 
