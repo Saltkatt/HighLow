@@ -46,7 +46,7 @@
 
 <script>
 export default {
-  
+
   data(){
     return{
 
@@ -57,7 +57,7 @@ export default {
  /*  created(){
     this.secondCounter()
   },   */
-    
+
 
   methods: {
     //Ten second count down.
@@ -110,9 +110,14 @@ div {
   font-size: 18px;
 }
 
+/* This sets all the images to the same dimentions */
+img {
+    width: 50px;
+    height: 50px;
+}
 .playerArea {
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto auto auto; /*Was 3, now 4 */
   grid-template-rows: auto auto auto auto auto;
   border: 1px solid black;
   background: lightskyblue;
@@ -128,7 +133,7 @@ div {
 
 .playerimg {
   /* display: inline-block;
-  position: relative; 
+  position: relative;
   right:  50%; */
 
   float: left;
@@ -141,23 +146,31 @@ div {
   margin: 5px;
 }
 
+/* Bot 1 */
 .player:nth-child(1) {
-  grid-column: 1 / span 3;
+  grid-column: 1 / span 4;
   grid-row: 1;
 }
+/* Bot 2 */
 .player:nth-child(2) {
-  grid-column: 1 / span 3;
+  grid-column: 1 / span 4;
   grid-row: 2;
 }
+/* Bot 3 */
 .player:nth-child(3) {
-  grid-column: 1 / span 3;
+  grid-column: 1 / span 4;
   grid-row: 3;
+}
+/* Bot 4 */
+.player:nth-child(4) {
+    grid-column: 1 / span 4;
+    grid-row: 4;
 }
 
 /* Round and Time container */
 .container4 {
   grid-column: 1 / span 3;
-  grid-row: 4;
+  grid-row: 5;
   display: grid;
   grid-template-columns: auto auto;
   background-color: deeppink;
@@ -176,7 +189,7 @@ div {
 
 #placeholder {
   grid-column: 1 / span 3;
-  grid-row: 5;
+  grid-row: 6; 
   box-sizing: border-box;
   padding: 10px;
 }
