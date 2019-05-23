@@ -84,7 +84,7 @@ export const store = new Vuex.Store({
           state.highestNumber = player.guess;
         }
 
-
+        
       },
       //This function pushes the player into the "activePlayers array"
         addToActivePlayers: function(state, payload) {
@@ -113,6 +113,7 @@ export const store = new Vuex.Store({
         //changes the guessNumber
         updateLastGuess(state, guess) {
           state.guessNumber = guess;
+         
         },
         //changes the active players turn
         switchTurn(state, player) {
@@ -131,6 +132,7 @@ export const store = new Vuex.Store({
               this.dispatch('makeBotDecision', state.activePlayers[i])
             }
           }
+          
         },
 
         showRules(state){
@@ -138,6 +140,59 @@ export const store = new Vuex.Store({
         }
     },
     actions: {
+      playGame(context, player){
+      var i=0;
+      var gamestate=true;
+      startGame(){
+        while(gamestate){
+        var player=context.state.activePlayers[i];
+        //start timer
+        if(player.id==0){
+          makeGuess(){
+            if(guessNumber==0||time==!0){
+              setTimeout(makeGuess,100);
+              }
+              //Stop timer
+          }
+        }
+        if (player.id==!0){
+          context.commit("makeBotDecisione", player); // ToDO behöver returnera samt skriva till guessNumber samt stoppa timer
+        }
+
+        hiLow: function() {
+          var guess=context.state.guessNumber;
+          var respons = null;
+          if (guess == answer) { // Skapa variabel answer
+            respons = "Correct!";
+            gamestate=false;  // skall denna hinna ge respons bör det sättas en fördröjning
+          } else if (guess < answer) {
+            respons = "Too Low"
+            // Send data to method submitGuessToStore
+            
+          } else if (guess > answer) {
+            respons = "Too High"
+            // Send data to method submitGuessToStore
+          } else if (guess == null) {
+            respons = "Times up!"
+            
+          }
+          // Skicka respons till talk-variabel som moderator lyssnar på
+          //skicka antal gissningar till player[]
+          context.state.guessNumber=null;
+    
+        }
+
+        //switchTurn
+        //i++
+
+            
+        }
+      }
+        
+          }
+        } 
+
+      },
       makeBotDecision(context, player) {
 
         let randomTime = 1000 + Math.floor(Math.random() * 8000);
