@@ -15,25 +15,29 @@ export const store = new Vuex.Store({
       //Array with questions and answers which the moderator gets from the store
       questionBank: [
         {
-          question: 'Hur högt är Mount Everest i antal meter räknat?',
-          answer: 8848
-        },
-        {
-          question: 'Hur många trappsteg är i ITHS trappuppgång?',
-          answer: 135
-        },
-        {
-          question: 'Hur högt är Eiffel-tornet i antal meter räknat?',
-          answer: 324
-        },
-        {
-          question: 'Hur många kort finns i en vanlig kortlek?',
-          answer: 32
-        },
-        {
-          question: 'Hur många dollar tjänar Bill Gates per minut?',
-          answer: 23148
-        },
+          iths: [
+            {
+              question: 'Hur högt är Mount Everest i antal meter räknat?',
+              answer: 8848
+            },
+            {
+              question: 'Hur många trappsteg är i ITHS trappuppgång?',
+              answer: 135
+            },
+            {
+              question: 'Hur högt är Eiffel-tornet i antal meter räknat?',
+              answer: 324
+            },
+            {
+              question: 'Hur många kort finns i en vanlig kortlek?',
+              answer: 32
+            },
+            {
+              question: 'Hur många dollar tjänar Bill Gates per minut?',
+              answer: 23148
+            },
+          ]
+        }
       ],
       //Array with bots
       bots: [
