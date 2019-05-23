@@ -60,6 +60,19 @@ export default {
     
 
   methods: {
+
+    countDown(players){
+      
+      if (this.guessNumber = null){
+        this.secondCounter()
+      }
+      else {
+        this.seconds = 10;
+        this.$store.commit('switchTurn', player)
+      }
+    },
+
+
     //Ten second count down.
     secondCounter(){
       function incrementSeconds(){
@@ -94,8 +107,9 @@ export default {
     }
   },
 
-  // getting the activePlayers from the array in store
+  
   computed: {
+    // getting the activePlayers from the array in store
     players() {
       return this.$store.state.activePlayers;
 
