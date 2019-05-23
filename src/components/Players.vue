@@ -86,6 +86,9 @@ export default {
 
       // the third commit switches player
       this.$store.commit("switchTurn", player);
+
+      //Increases active players guesses with +1
+      this.$store.commit("updateGuesses", player);
     },
 
     randomPhrase() {
@@ -189,7 +192,7 @@ img {
 
 #placeholder {
   grid-column: 1 / span 3;
-  grid-row: 6; 
+  grid-row: 6;
   box-sizing: border-box;
   padding: 10px;
 }

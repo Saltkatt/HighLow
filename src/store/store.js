@@ -46,10 +46,10 @@ export const store = new Vuex.Store({
       // ],
       //Players & bots in the active game
       activePlayers: [
-        { id: 0, name: "Kalle", guess: null, image: require("@/assets/kalle.jpg"), isMyTurn: true, isHuman: true },
-        { id: 1, name: "Anna", guess: null, image: require("@/assets/kajsa.jpg"), isMyTurn: false, isHuman: false },
-        { id: 2, name: "Pelle", guess: null, image: require("@/assets/martin.jpg"), isMyTurn: false, isHuman: false },
-        { id: 3, name: "Wall-E", guess: null, image: require("@/assets/walle.jpg"), isMyTurn: false, isHuman: false},
+        { id: 0, name: "Kalle", guess: null, image: require("@/assets/kalle.jpg"), isMyTurn: true, isHuman: true, guesses: 0 },
+        { id: 1, name: "Anna", guess: null, image: require("@/assets/kajsa.jpg"), isMyTurn: false, isHuman: false, guesses: 0 },
+        { id: 2, name: "Pelle", guess: null, image: require("@/assets/martin.jpg"), isMyTurn: false, isHuman: false, guesses: 0 },
+        { id: 3, name: "Wall-E", guess: null, image: require("@/assets/walle.jpg"), isMyTurn: false, isHuman: false, guesses: 0 },
       ],
       //This is the guess of players/bots, and moderator will get this number
       guessNumber: null,
@@ -125,7 +125,7 @@ export const store = new Vuex.Store({
             state.activePlayers[player.id + 1].isMyTurn = !state.activePlayers[player.id + 1].isMyTurn;
           }
 
-          // check if it is a bot's turn. If true - the "makeBotDecision" method runs 
+          // check if it is a bot's turn. If true - the "makeBotDecision" method runs
           for (let i = 0; i < state.activePlayers.length; i++) {
             if (state.activePlayers[i].isMyTurn == true && state.activePlayers[i].isHuman == false) {
               this.dispatch('makeBotDecision', state.activePlayers[i])
@@ -135,6 +135,10 @@ export const store = new Vuex.Store({
 
         showRules(state){
           state.showRules = !state.showRules;
+        },
+        //Adds +1 to guesses in active players
+        addGuesses(state, player) {
+            state.activePlayers.guesses++;
         }
     },
     actions: {
@@ -153,7 +157,7 @@ export const store = new Vuex.Store({
               player.guess = context.state.lowestNumber + (Math.floor(Math.random() * (context.state.highestNumber - context.state.lowestNumber)))
               break;
             case 3:
-              //This bots logic: highestNumber - lowestNumber * 10% 
+              //This bots logic: highestNumber - lowestNumber * 10%
               player.guess = context.state.lowestNumber + (Math.floor(
                 (context.state.highestNumber - context.state.lowestNumber) * 0.1))
               break;
