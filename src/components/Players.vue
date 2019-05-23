@@ -154,11 +154,16 @@ div {
   grid-column: 1 / span 3;
   grid-row: 3;
 }
+.player:nth-child(4){
+  grid-column: 1 / spans 3;
+  grid-row: 4;
+
+}
 
 /* Round and Time container */
 .container4 {
   grid-column: 1 / span 3;
-  grid-row: 4;
+  grid-row: 5;
   display: grid;
   grid-template-columns: auto auto;
   background-color: deeppink;
@@ -177,7 +182,7 @@ div {
 
 #placeholder {
   grid-column: 1 / span 3;
-  grid-row: 5;
+  grid-row: 6;
   box-sizing: border-box;
   padding: 10px;
 }
