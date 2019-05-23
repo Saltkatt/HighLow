@@ -5,13 +5,18 @@
             <nav>
                 <!-- Render menuOptions from data--> 
                 <ul>
-                    <li v-for="(item, index) in menuOptions" :key="index">{{item}}</li>
+                    <li>Main Menu</li>
+                    <li>HighScore</li>
+                    <li>Statistics</li>
+                    <button class="rulesButton" @click="showRules()">?</button>
                 </ul>
+                
             </nav>
                 
     </header>
     <!-- Modal box component -->
     <WinnerBox></WinnerBox>
+    <Rules></Rules>
     <!-- Moderator component -->
     <Moderator></Moderator>
     <!-- Player and Bots -->
@@ -25,6 +30,7 @@
 import Moderator from '../components/Moderator'
 import Players from '../components/Players.vue'
 import WinnerBox from '../components/WinnerBox.vue'
+import Rules from '../components/Rules.vue'
 
 
 export default {
@@ -33,6 +39,7 @@ export default {
         Moderator,
         Players,
         WinnerBox,
+        Rules
 
 
     },
@@ -62,6 +69,11 @@ export default {
             var cancel = setInterval(incrementSeconds.bind(this), 1000);
             return second;
         } */
+
+        showRules(){
+            
+            this.$store.commit("showRules");
+        }
     }
 
 }
@@ -120,6 +132,15 @@ li {
 .time{
     background-color: turquoise;
 }
+
+.rulesButton{
+    background: yellow;
+    margin-right: 5%;
+    float: right;
+    border-radius: 12px;
+}
+
+.rulesButton:focus { outline: none; }
 
 
 
