@@ -11,7 +11,6 @@
         class="bot" 
         v-for="bot in bots" 
         :key="bot.id"
-  
         >
             <div class="botImage">
                 <img v-bind:src="bot.image">
