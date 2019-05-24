@@ -1,5 +1,6 @@
 <template>
 <div>
+    <Rules></Rules>
     <header>
         <!-- Navigation Bar -->
             <nav>
@@ -17,8 +18,9 @@
 
     <!-- Modal box component -->
     <WinnerBox></WinnerBox>
-
+    
     <Rules></Rules>
+
     <!-- Moderator component -->
     <Moderator></Moderator>
     
@@ -63,8 +65,9 @@ export default {
 <style scoped>
 
 nav {
+    font-size: 18px;
     background-color: gainsboro;
-    padding: 5px;
+    padding: 2px;
 }
 ul {
     list-style-type: none;
@@ -77,7 +80,9 @@ li {
 
 .rulesButton{
     background: yellow;
-    margin-right: 5%;
+    padding: 5px 10px 5px 10px;
+    margin: 0% 5% 0% 0%;
+    
     float: right;
     border-radius: 12px;
 }
