@@ -13,7 +13,7 @@
     <!-- StartMenu component -->
     <StartMenu/>
     <!-- Modal box component -->
-    <WinnerBox></WinnerBox>
+    <!-- <WinnerBox></WinnerBox> -->
     <!-- Moderator component -->
     <Moderator></Moderator>
     <!-- Player and Bots -->

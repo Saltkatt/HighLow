@@ -4,12 +4,15 @@
         <!-- Name input max length 15 -->
         <label id="nameInputLabel" for="nameInput">Name:</label>
         <input id="nameInput" name="nameInput" type="text" maxlength="15" placeholder="Enter your name..." v-model="nameValue">
+        <!-- @click="selectBot" -->
     </div>
     <div>
-        <div 
+        <div
         class="bot" 
         v-for="bot in bots" 
-        :key="bot.id">
+        :key="bot.id"
+  
+        >
             <div class="botImage">
                 <img v-bind:src="bot.image">
             </div>
@@ -28,7 +31,7 @@
     </div>
 <div>
     <!-- Submit game setup to store -->
-    <button @click="sendToStore(nameValue, categoryValue)">Submit</button>
+    <button @click="setupGame(nameValue, categoryValue, botList)">Submit</button>
 </div>
 </div>
 
@@ -46,8 +49,20 @@ export default {
         }
     },
     methods: {
-        sendToStore(nameValue, categoryValue) {
-            this.$store.commit('gameSetup', nameValue);
+        selectBot: function() {
+            alert("selected bot. add bot. change style");
+            },
+
+        setupGame(nameValue, categoryValue, BotIdArray) {
+        //update: add setupGame function
+            alert("setup");
+            this.$store.commit({
+                    type:'gameSetup', 
+                    userName: nameValue,
+                    userCategory: categoryValue,
+                    userSelectedBots: BotIdArray
+                }); //BL: have function setupGame in store
+
             // Todo: add bot selection and send to store.
             // send categoryValue to store, make a getter for category,
             // current question variable to store a question from that category
@@ -62,6 +77,12 @@ export default {
 </script>
 
 <style scoped>
+
+/* update: add selected bot style */
+.selectedBot {
+    background: green;
+}
+
 .main {
     background: #3b3b3b;
     color: azure;
