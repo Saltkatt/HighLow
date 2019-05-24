@@ -178,26 +178,8 @@ img {
 /* Fourth player row */
 .player:nth-child(4){
   grid-column: 4;
-  
-
-
-/* Round and Time container */
-.container4 {
-  grid-column: 1 / span 4;
-  grid-row: 5;
-  display: grid;
-  grid-template-columns: auto auto;
-  background-color: deeppink;
-  padding: 10px;
 }
 
-.round {
-  background-color: honeydew;
-}
-
-.time {
-  background-color: turquoise;
-}
 
 /* Input field and submit button */
 
