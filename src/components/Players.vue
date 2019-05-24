@@ -6,22 +6,14 @@
       v-bind:key="index"
       v-bind:class="{myTurn: player.isMyTurn}"
     >
-      {{player.name}}s answer is ...
-      <div class="playerimg">
+    <div class="playerimg">
         <img v-bind:src="player.image">
-      </div>
+    </div>
+      {{player.name}}s answer is ...
+      
       <div v-show="!player.isHuman">{{player.guess}}</div>
     </div>
-    <div class="container4">
-
-        <div class="round">
-            <h3>Round: 2</h3>
-        </div>
-        <div class="time" >
-            <h3>Time: {{seconds}} </h3>
-        </div>
-
-    </div>
+    
     <div id="placeholder">
       <input
         id="numberField"
@@ -46,35 +38,7 @@
 
 <script>
 export default {
-
-  data(){
-    return{
-
-      seconds: 10
-
-    }
-  },
- /*  created(){
-    this.secondCounter()
-  },   */
-
-
   methods: {
-    //Ten second count down.
-    secondCounter(){
-      function incrementSeconds(){
-        this.seconds -= 1
-        if(this.seconds == -1){
-          this.seconds = 10;
-
-        }
-        console.log(this.seconds)
-      }
-      var cancel = setInterval(incrementSeconds.bind(this), 1000);
-      return this.seconds;
-
-    },
-
     // this method is called when the submit button is clicked and calls three mutations in store
     makeGuess(player) {
 
@@ -97,12 +61,13 @@ export default {
     }
   },
 
-  // getting the activePlayers from the array in store
+  
   computed: {
+    // getting the activePlayers from the array in store
     players() {
       return this.$store.state.activePlayers;
-
-    }
+    },
+   
 
   }
 };
@@ -120,8 +85,7 @@ img {
 }
 .playerArea {
   display: grid;
-  grid-template-columns: auto auto auto auto; /*Was 3, now 4 */
-  grid-template-rows: auto auto auto auto auto;
+  margin: 10px;
   border: 1px solid black;
   background: lightskyblue;
 }
@@ -135,11 +99,9 @@ img {
 }
 
 .playerimg {
-  /* display: inline-block;
-  position: relative;
-  right:  50%; */
 
-  float: left;
+  width: 50%;
+  float: center;
 }
 .myTurn {
   border: 1px solid black;
@@ -149,49 +111,31 @@ img {
   margin: 5px;
 }
 
-/* Bot 1 */
+/* First player row */
 .player:nth-child(1) {
-  grid-column: 1 / span 4;
-  grid-row: 1;
+  grid-column: 1
 }
-/* Bot 2 */
+/* Second player row */
 .player:nth-child(2) {
-  grid-column: 1 / span 4;
-  grid-row: 2;
+  grid-column: 2;
+ 
 }
-/* Bot 3 */
+/* Third player row */
 .player:nth-child(3) {
-  grid-column: 1 / span 4;
-  grid-row: 3;
+  grid-column: 3;
+  
 }
-/* Bot 4 */
-.player:nth-child(4) {
-    grid-column: 1 / span 4;
-    grid-row: 4;
-}
-
-/* Round and Time container */
-.container4 {
-  grid-column: 1 / span 3;
-  grid-row: 5;
-  display: grid;
-  grid-template-columns: auto auto;
-  background-color: deeppink;
-  padding: 10px;
+/* Fourth player row */
+.player:nth-child(4){
+  grid-column: 4;
 }
 
-.round {
-  background-color: honeydew;
-}
 
-.time {
-  background-color: turquoise;
-}
 
 /* Input field and submit button */
 
 #placeholder {
-  grid-column: 1 / span 3;
+  grid-column: 1 / span 4;
   grid-row: 6;
   box-sizing: border-box;
   padding: 10px;
@@ -229,5 +173,30 @@ img {
   #okButton {
     width: 80%;
   }
+  /* First player row */
+.player:nth-child(1) {
+  grid-column: 1 / span 3;
+  grid-row: 1;
+}
+/* Second player row */
+.player:nth-child(2) {
+  grid-column: 1 / span 3;
+  grid-row: 2;
+}
+/* Third player row */
+.player:nth-child(3) {
+  grid-column: 1 / span 3;
+  grid-row: 3;
+}
+/* Fourth player row */
+.player:nth-child(4){
+  grid-column: 1 / spans 3;
+  grid-row: 4;
+
+}
+
+.playerimg {
+  float: left;
+}
 }
 </style>
