@@ -12,13 +12,19 @@
                 
             </nav>
     </header>
+
+    <RoundTime></RoundTime>
+
     <!-- Modal box component -->
     <WinnerBox></WinnerBox>
+
     <Rules></Rules>
     <!-- Moderator component -->
     <Moderator></Moderator>
+    
     <!-- Player and Bots -->
     <Players></Players>
+    
 
 </div>
 
@@ -29,6 +35,8 @@ import Moderator from '../components/Moderator'
 import Players from '../components/Players.vue'
 import WinnerBox from '../components/WinnerBox.vue'
 import Rules from '../components/Rules.vue'
+import RoundTime from '../components/RoundTime'
+
 
 
 export default {
@@ -37,16 +45,10 @@ export default {
         Moderator,
         Players,
         WinnerBox,
-        Rules
-
-
+        Rules,
+        RoundTime,
     },
   
-    data() {
-        return {
-            seconds: 20
-        }
-    },
     methods: {
        
         showRules(){

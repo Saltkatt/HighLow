@@ -13,16 +13,7 @@
       
       <div v-show="!player.isHuman">{{player.guess}}</div>
     </div>
-    <div class="container4">
-
-        <div class="round">
-            <h3>Round: 2</h3>
-        </div>
-        <div class="time" >
-            <h3>Time: {{seconds}} </h3>
-        </div>
-
-    </div>
+    
     <div id="placeholder">
       <input
         id="numberField"
@@ -48,21 +39,16 @@
 <script>
 export default {
   
+  
   data(){
     return{
-
-      seconds: 10
-
+        
     }
   },
- /*  created(){
-    this.secondCounter()
-  },   */
-    
 
   methods: {
-
-    countDown(players){
+    
+    /* countDown(players){
       
       if (this.guessNumber = null){
         this.secondCounter()
@@ -71,7 +57,7 @@ export default {
         this.seconds = 10;
         this.$store.commit('switchTurn', player)
       }
-    },
+    }, */
 
 
     //Ten second count down.
@@ -100,6 +86,7 @@ export default {
 
       // the third commit switches player
       this.$store.commit("switchTurn", player);
+
     },
 
     randomPhrase() {
@@ -113,8 +100,8 @@ export default {
     // getting the activePlayers from the array in store
     players() {
       return this.$store.state.activePlayers;
-
-    }
+    },
+   
 
   }
 };
@@ -170,24 +157,6 @@ div {
 .player:nth-child(4){
   grid-column: 4;
   
-}
-
-/* Round and Time container */
-.container4 {
-  grid-column: 1 / span 4;
-  grid-row: 5;
-  display: grid;
-  grid-template-columns: auto auto;
-  background-color: deeppink;
-  padding: 10px;
-}
-
-.round {
-  background-color: honeydew;
-}
-
-.time {
-  background-color: turquoise;
 }
 
 /* Input field and submit button */
