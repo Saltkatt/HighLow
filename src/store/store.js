@@ -75,13 +75,19 @@ export const store = new Vuex.Store({
     },
     mutations: {
 
-      submitGuessToStore(state, player) {
-        state.activePlayers[player.id].guess = player.guess;
-        if ((player.guess < state.questionBank[0].answer && player.guess > state.lowestNumber) || (player.guess < state.questionBank[0].answer && state.lowestNumber == null)) {
-          state.lowestNumber = player.guess;
+      submitGuessToStore(state, highLow,guess) {
+        switch(highLow){
+          case low:
+            if (guess>state.lowestNumber){
+              state.lowestNumber=guess;
+
+              }
+          case high:
+            if(guess<state.highestNumber){
+             state.highestNumber=guess; 
+            }  
         }
-        else if ((player.guess > state.questionBank[0].answer && player.guess < state.highestNumber) || (player.guess > state.questionBank[0].answer && state.highestNumber == null)) {
-          state.highestNumber = player.guess;
+       return;
         }
 
         
@@ -121,17 +127,19 @@ export const store = new Vuex.Store({
           if (state.activePlayers[player.id].id == state.activePlayers.length - 1) {
             state.activePlayers[player.id].isMyTurn = !state.activePlayers[player.id].isMyTurn;
             state.activePlayers[0].isMyTurn = !state.activePlayers[0].isMyTurn;
+            //i=0;
           } else {
             state.activePlayers[player.id].isMyTurn = !state.activePlayers[player.id].isMyTurn;
             state.activePlayers[player.id + 1].isMyTurn = !state.activePlayers[player.id + 1].isMyTurn;
+            //i++
           }
-
+          
           // check if it is a bot's turn. If true - the "makeBotDecision" method runs 
-          for (let i = 0; i < state.activePlayers.length; i++) {
+          /*for (let i = 0; i < state.activePlayers.length; i++) {
             if (state.activePlayers[i].isMyTurn == true && state.activePlayers[i].isHuman == false) {
               this.dispatch('makeBotDecision', state.activePlayers[i])
             }
-          }
+          }*/
           
         },
 
@@ -143,23 +151,22 @@ export const store = new Vuex.Store({
       playGame(context, player){
       var i=0;
       var gamestate=true;
-      startGame(){
+      //function startGame (){
         while(gamestate){
-        var player=context.state.activePlayers[i];
-        //start timer
-        if(player.id==0){
-          makeGuess(){
-            if(guessNumber==0||time==!0){
-              setTimeout(makeGuess,100);
-              }
+          var player=context.state.activePlayers[i];
+          //start timer
+          if(player.id==0){
+            //function makeGuess (){
+              while(guessNumber==null||time!==0){
+                setTimeout(sillyMethod,100);
+                }
               //Stop timer
+          //}
+          } else if (player.id!==0){
+            context.commit("makeBotDecisione", player); // ToDO behöver returnera samt skriva till guessNumber samt stoppa timer
           }
-        }
-        if (player.id==!0){
-          context.commit("makeBotDecisione", player); // ToDO behöver returnera samt skriva till guessNumber samt stoppa timer
-        }
 
-        hiLow: function() {
+        //function hiLow () {
           var guess=context.state.guessNumber;
           var respons = null;
           if (guess == answer) { // Skapa variabel answer
@@ -168,10 +175,12 @@ export const store = new Vuex.Store({
           } else if (guess < answer) {
             respons = "Too Low"
             // Send data to method submitGuessToStore
+            context.commit("submitGuessToStore",low,guess);
             
           } else if (guess > answer) {
             respons = "Too High"
             // Send data to method submitGuessToStore
+            context.commit("submitGuessToStore",high,guess);
           } else if (guess == null) {
             respons = "Times up!"
             
@@ -180,22 +189,44 @@ export const store = new Vuex.Store({
           //skicka antal gissningar till player[]
           context.state.guessNumber=null;
     
-        }
+        //}
 
         //switchTurn
-        //i++
+        context.commit("switchTurn",player);
+        //i++ // Make player next in array // behöver modiferas om det är sista playern i listan
 
             
         }
       }
         
           }
-        } 
+        
 
       },
+        sillyMethod(context){
+          return: true
+        },
       makeBotDecision(context, player) {
 
-        let randomTime = 1000 + Math.floor(Math.random() * 8000);
+        switch (player.id) {
+          case 1:
+            //This bots logic: highestNumber - lowestNumber / 2
+            player.guess = context.state.lowestNumber + Math.floor((context.state.highestNumber - context.state.lowestNumber) / 2)
+            break;
+          case 2:
+            //This bots logic: highestNumber - lowestNumber * randomNumber
+            player.guess = context.state.lowestNumber + (Math.floor(Math.random() * (context.state.highestNumber - context.state.lowestNumber)))
+            break;
+          case 3:
+            //This bots logic: highestNumber - lowestNumber * 10% 
+            player.guess = context.state.lowestNumber + (Math.floor(
+              (context.state.highestNumber - context.state.lowestNumber) * 0.1))
+            break;
+        }
+        context.state.guessNumber=player.guess;
+        return;
+
+        /*let randomTime = 1000 + Math.floor(Math.random() * 8000);
 
         setTimeout(function () {
           switch (player.id) {
@@ -225,5 +256,5 @@ export const store = new Vuex.Store({
         }, randomTime);
 
       }
-    }
+    }*/
 })
