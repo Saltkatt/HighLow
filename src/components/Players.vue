@@ -47,7 +47,7 @@
 
 <script>
 export default {
-  
+
   data(){
     return{
 
@@ -58,7 +58,7 @@ export default {
  /*  created(){
     this.secondCounter()
   },   */
-    
+
 
   methods: {
 
@@ -100,6 +100,9 @@ export default {
 
       // the third commit switches player
       this.$store.commit("switchTurn", player);
+
+      //Increases active players guesses with +1
+      this.$store.commit("updateGuesses", player);
     },
 
     randomPhrase() {
@@ -125,6 +128,11 @@ div {
   font-size: 18px;
 }
 
+/* This sets all the images to the same dimentions */
+img {
+    width: 50px;
+    height: 50px;
+}
 .playerArea {
   display: grid;
   margin: 10px;
@@ -141,9 +149,9 @@ div {
 }
 
 .playerimg {
+
   width: 50%;
   float: center;
-  
 }
 .myTurn {
   border: 1px solid black;
@@ -152,6 +160,7 @@ div {
   opacity: 1;
   margin: 5px;
 }
+
 /* First player row */
 .player:nth-child(1) {
   grid-column: 1
@@ -170,7 +179,7 @@ div {
 .player:nth-child(4){
   grid-column: 4;
   
-}
+
 
 /* Round and Time container */
 .container4 {
