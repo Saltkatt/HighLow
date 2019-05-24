@@ -1,14 +1,8 @@
 <template>
   <div id="app">
 
-<<<<<<< HEAD
-
-    <!-- <Player></Player> -->
-    <!-- <PlayerInteract></PlayerInteract> -->
-=======
     <!-- <Main></Main> -->
 
->>>>>>> tonny
     <div class="wrapper">
       <Main></Main>
     </div>
@@ -18,27 +12,15 @@
 <script>
 
 import Main from './components/Main.vue'
-<<<<<<< HEAD
-// import Bot from './components/Bot.vue'
-// import Player from './components/Player.vue'
-import PlayerInteract from './components/PlayerInteract.vue'
-=======
->>>>>>> tonny
-
 
 export default {
+
+  
   name: 'app',
   components: {
-<<<<<<< HEAD
-    // Player,
-    Main,
-    // Bot,
-    // PlayerInteract
-=======
     Main
->>>>>>> tonny
 
-  }
+  } 
 }
 </script>
 
