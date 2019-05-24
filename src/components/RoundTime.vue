@@ -17,9 +17,7 @@ export default {
     name: 'RoundTime',
     
     computed: {
-        players() {
-            return this.$store.state.activePlayers[0];
-        },
+    
         round() {
             return this.$store.state.round;
         },
