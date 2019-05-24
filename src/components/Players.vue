@@ -128,7 +128,8 @@ img {
 /* Fourth player row */
 .player:nth-child(4){
   grid-column: 4;
-  
+}
+
 
 
 /* Input field and submit button */
