@@ -47,34 +47,6 @@ export default {
   },
 
   methods: {
-    
-    /* countDown(players){
-      
-      if (this.guessNumber = null){
-        this.secondCounter()
-      }
-      else {
-        this.seconds = 10;
-        this.$store.commit('switchTurn', player)
-      }
-    }, */
-
-
-    //Ten second count down.
-    secondCounter(){
-      function incrementSeconds(){
-        this.seconds -= 1
-        if(this.seconds == -1){
-          this.seconds = 10;
-
-        }
-        console.log(this.seconds)
-      }
-      var cancel = setInterval(incrementSeconds.bind(this), 1000);
-      return this.seconds;
-
-    },
-
     // this method is called when the submit button is clicked and calls three mutations in store
     makeGuess(player) {
 

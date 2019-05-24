@@ -5,7 +5,7 @@
             <h3>Round: {{ round }}</h3>
         </div>
         <div class="time" >
-            <h3>Time:  </h3>
+            <h3>Time: {{ seconds }}  </h3>
         </div>
 
     </div>
@@ -23,10 +23,10 @@ export default {
         round() {
             return this.$store.state.round;
         },
-       
-        
+         seconds(){
+             return this.$store.state.seconds;
+         }
     }
-
 }
 </script>
 

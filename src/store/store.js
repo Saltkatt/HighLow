@@ -190,19 +190,15 @@ export const store = new Vuex.Store({
         }, randomTime);
 
       },
-
-      /* startSecondCounter(){
-        function incrementSeconds(){
-          state.seconds -= 1
-          if(state.seconds == -1){
-            setSeconds = 10;
-  
-
+      //Countdown timer sholud be started via playGame
+      startSecondCounter(seconds){
+        seconds -= 1
+          if(seconds == -1){
+            seconds = 10;
+          console.log(seconds)
           }
-          console.log(state.seconds)
-        }
-        var cancel = setInterval(incrementSeconds.bind(this), 1000);
-        return state.seconds;
-      } */
+          return seconds;
+       
+      }
     }
 })
