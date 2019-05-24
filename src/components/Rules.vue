@@ -7,7 +7,7 @@
       <div class="modalContent">
           <button class="button-close" v-on:click="showRules">x</button>
         <p>RULES</p>
-        <p>1. All questions have numerical answers and I expect you answer using digits.</p>
+        <p>1. All questions have numerical answers and you are expected to answer using digits.</p>
         <p>2. Everyone will have one opportunity to answer once per round.</p>
         <p>3. The game will continue until someone has answered correctly.</p>
       </div>
