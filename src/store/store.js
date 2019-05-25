@@ -136,6 +136,7 @@ export const store = new Vuex.Store({
           }
         },
         // submit game setup. player name, bots, question
+        // update: from name gameSetup to setupGame
         gameSetup(state, payload) {
           alert(payload.playerName);
           if (payload.playerName != null) { // if playerName is not null

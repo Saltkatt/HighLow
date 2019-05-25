@@ -33,7 +33,7 @@ export default {
     components: {
         Moderator,
         Players,
-        WinnerBox,
+        // WinnerBox,
         StartMenu
     },
    /*  created() {
