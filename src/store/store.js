@@ -149,10 +149,10 @@ export const store = new Vuex.Store({
         //Resets round to 1
         resetRound: (state) => {
           state.round = 1;
-
+        },
         //Adds +1 to guesses in active players
         addGuesses(state, player) {
-            state.activePlayers.guesses++;
+          state.activePlayers.guesses++;
         }
 
       
