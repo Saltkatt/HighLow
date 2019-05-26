@@ -57,6 +57,23 @@ export const store = new Vuex.Store({
           isMyTurn: false,
           isHuman: false
         },
+        {
+          id: 3,
+          name: 'Dyno',
+          guess: null,
+          image: require("@/assets/dyno.jpg"),
+          isMyTurn: false,
+          isHuman: false
+        },
+        {
+          id: 4,
+          name: 'Lotus',
+          guess: null,
+          image: require("@/assets/lotus.jpg"),
+          isMyTurn: false,
+          isHuman: false
+        },
+
       ],
       //Players & bots in the active game
       activePlayers: [
@@ -136,11 +153,9 @@ export const store = new Vuex.Store({
           }
         },
         // submit game setup. player name, bots, question
-        // update: from name gameSetup to setupGame
-        gameSetup(state, payload) {
-          alert(payload.playerName);
-          if (payload.playerName != null) { // if playerName is not null
-            state.activePlayers[0].name = payload.playerName; // changes the players name
+        gameSetup(state, playerName) {
+          if (playerName != null) { // if playerName is not null
+            state.activePlayers[0].name = playerName; // changes the players name
           }
         }
     },
