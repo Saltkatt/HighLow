@@ -5,7 +5,10 @@
 
     <div class="wrapper">
       <Main></Main>
+      <!-- is this where router should be? -->
+      <router-view></router-view>
     </div>
+
   </div>
 </template>
 
@@ -32,7 +35,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin: 0px;
-  
+
 }
 /* Desktop */
 
@@ -51,14 +54,14 @@ export default {
 /* Small screen */
 @media screen and (max-width:500px){
     body{
-      
+
         background-color: navy;
         color: antiquewhite;
     }
     .wrapper{
       overflow: auto;
     }
-    
+
 }
 
 </style>
