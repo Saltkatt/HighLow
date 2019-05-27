@@ -1,11 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-//images
-import kalleAsset from "../assets/kalle.jpg";
-import kajsaAsset from "../assets/kajsa.jpg";
-import martinAsset from "../assets/martin.jpg";
-import walleAsset from "../assets/walle.jpg";
 
 Vue.use(Vuex);
 
@@ -51,10 +46,10 @@ export const store = new Vuex.Store({
       // ],
       //Players & bots in the active game
       activePlayers: [
-        { id: 0, name: "Kalle", guess: null, image: require("@/assets/kalle.jpg"), isMyTurn: true, isHuman: true },
-        { id: 1, name: "Anna", guess: null, image: require("@/assets/kajsa.jpg"), isMyTurn: false, isHuman: false },
-        { id: 2, name: "Pelle", guess: null, image: require("@/assets/martin.jpg"), isMyTurn: false, isHuman: false },
-        { id: 3, name: "Wall-E", guess: null, image: require("@/assets/walle.jpg"), isMyTurn: false, isHuman: false},
+        { id: 0, name: "Kalle", guess: null, image: require("@/assets/kalle.jpg"), isMyTurn: true, isHuman: true, guesses: 0 },
+        { id: 1, name: "Anna", guess: null, image: require("@/assets/kajsa.jpg"), isMyTurn: false, isHuman: false, guesses: 0 },
+        { id: 2, name: "Pelle", guess: null, image: require("@/assets/martin.jpg"), isMyTurn: false, isHuman: false, guesses: 0 },
+        { id: 3, name: "Wall-E", guess: null, image: require("@/assets/walle.jpg"), isMyTurn: false, isHuman: false, guesses: 0 },
       ],
       //This is the guess of players/bots, and moderator will get this number
       guessNumber: null,
@@ -64,12 +59,25 @@ export const store = new Vuex.Store({
       highestNumber: 10000,
       //A boolean value to show or not show the modal box (winnerBox) when someone guessed correctly
       isWinnerBoxVisible: false,
+      showRules: false,
+      seconds: 10,
+      round: 1,
+
+      phrases: [
+        "This is very easy! My guess is... ",
+        "Tricky one! Let's guess...",
+        "Not the most interesting question. I say..."
+      ]
     },
     getters: {
         //Get QuestionBank
         getQuestionBank: (state) => state.questionBank,
         //Get guessNumber
-        getGuess: (state) => state.guessNumber
+        getGuess: (state) => state.guessNumber,
+        //Get seconds
+        getSeconds: (state) => state.seconds,
+        //Get round
+        round: (state) => state.round,
     },
     mutations: {
 
@@ -81,8 +89,6 @@ export const store = new Vuex.Store({
         else if ((player.guess > state.questionBank[0].answer && player.guess < state.highestNumber) || (player.guess > state.questionBank[0].answer && state.highestNumber == null)) {
           state.highestNumber = player.guess;
         }
-
-
       },
       //This function pushes the player into the "activePlayers array"
         addToActivePlayers: function(state, payload) {
@@ -118,17 +124,38 @@ export const store = new Vuex.Store({
           if (state.activePlayers[player.id].id == state.activePlayers.length - 1) {
             state.activePlayers[player.id].isMyTurn = !state.activePlayers[player.id].isMyTurn;
             state.activePlayers[0].isMyTurn = !state.activePlayers[0].isMyTurn;
+            state.round++;
           } else {
             state.activePlayers[player.id].isMyTurn = !state.activePlayers[player.id].isMyTurn;
             state.activePlayers[player.id + 1].isMyTurn = !state.activePlayers[player.id + 1].isMyTurn;
           }
 
+          // check if it is a bot's turn. If true - the "makeBotDecision" method runs
           for (let i = 0; i < state.activePlayers.length; i++) {
             if (state.activePlayers[i].isMyTurn == true && state.activePlayers[i].isHuman == false) {
               this.dispatch('makeBotDecision', state.activePlayers[i])
             }
           }
         },
+
+        showRules(state){
+          state.showRules = !state.showRules;
+        },
+
+        setSeconds(state, nr){
+          state.seconds = nr;
+        },
+        
+        //Resets round to 1
+        resetRound: (state) => {
+          state.round = 1;
+        },
+        //Adds +1 to guesses in active players
+        addGuesses(state, player) {
+          state.activePlayers.guesses++;
+        }
+
+      
     },
     actions: {
       makeBotDecision(context, player) {
@@ -146,9 +173,13 @@ export const store = new Vuex.Store({
               player.guess = context.state.lowestNumber + (Math.floor(Math.random() * (context.state.highestNumber - context.state.lowestNumber)))
               break;
             case 3:
-              //This bots logic: highestNumber - lowestNumber * 10% 
+              //This bots logic: highestNumber - lowestNumber * 10%
               player.guess = context.state.lowestNumber + (Math.floor(
                 (context.state.highestNumber - context.state.lowestNumber) * 0.1))
+              break;
+            case 4: 
+              // This bots logic: increments answer by one.
+              player.guess = context.state.lowestNumber++;
               break;
 
           }
@@ -162,6 +193,16 @@ export const store = new Vuex.Store({
           }, 3000)
         }, randomTime);
 
+      },
+      //Countdown timer sholud be started via playGame
+      startSecondCounter(seconds){
+        seconds -= 1
+          if(seconds == -1){
+            seconds = 10;
+          console.log(seconds)
+          }
+          return seconds;
+       
       }
     }
 })
