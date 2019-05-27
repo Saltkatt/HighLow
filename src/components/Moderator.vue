@@ -1,19 +1,19 @@
 <template>
   <div>
     <div class="grid-container">
-      <div class="grid-item question-box">
+      <div class="item question-box">
         <p>Q: {{question}}</p>
-        <!-- <button class="btn" @click="onBtnClick">New Q {{count}}</button> -->
       </div>
-      <div class="grid-item item1" v-show="getLastGuess != null">
+      <div class="item modImage">
+        <img v-bind:src="image">
+      </div>
+      <div class="item response" v-show="getLastGuess != null">
         <!-- <div class="talkContainer">{{hiLow(this.getGuess)}}</div> -->
         <div v-show="getLastGuess < getCorrectAnswer">The guess is TOO LOW</div>
         <div v-show="getLastGuess > getCorrectAnswer">The guess is TOO HIGH</div>
         <div v-show="getLastGuess == getCorrectAnswer"></div>
       </div>
-      <div class="grid-item modImage">
-        <img v-bind:src="image">
-      </div>
+      
     </div>
   </div>
 </template>
@@ -115,43 +115,57 @@ export default {
 </script>
 
 <style scoped>
-.grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  grid-template-rows: auto auto auto;
-  grid-gap: 5px;
-  background-color: blueviolet;
+
+.item {
+  font-family:Arial, Helvetica, sans-serif;
+  text-align: left;
   padding: 5px;
+  font-size: 20px;
 }
-.grid-item {
-  background-color: lavender;
-  font-family: "Courier New", Courier, monospace;
-  text-align: center;
-  padding: 5px;
-  font-size: 25px;
-}
-.item1 {
-  grid-column: 1 / span 2;
-  grid-row: 2 / span 2;
-  background-color: lavender;
+.response {
+  grid-area: res;
+  background-color: antiquewhite;  
   padding-top: 2%;
+  text-align: center;
 }
 .modImage {
-  grid-column: 3;
-  grid-row: 2 / span 2;
-  
+  grid-area: mod;
+  padding: 2%;
+  width: 100%;
 }
 .question-box {
-  grid-column: 1 / span 3;
-  grid-row: 1;
-  text-align: left;
+  grid-area: q; 
 }
-.modContainer {
-  background-color: aquamarine;
-}
+
 img {
-  float: center;
-  width: 100%;
-  height: 100% ;
+  float: left;
+  width: 80%;
+  padding-left: 10px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-areas: 
+  'mod mod q q q q'
+  'mod mod res res . .';
+}
+
+@media screen and (max-width:500px){
+  .grid-container {
+    display: grid;
+    grid-template-areas: 
+    'q q q q q q'
+    'mod res res res res .';
+  }
+  .item{
+    font-size: 100%;
+  }
+  .question-box{
+    text-align: center;
+  }
+  .modImage{
+    width: 80%;
+  }
+
 }
 </style>

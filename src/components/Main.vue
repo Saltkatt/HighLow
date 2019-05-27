@@ -1,31 +1,27 @@
 <template>
-<div>
+<div class="container">
+     <div class="item1">
+         <nav>
+             <ul>
+                 <li>Main menu</li>
+                 <li>High Score</li>
+                 <li>Something</li>
+                 <button class="rulesButton" @click="showRules()">?</button>
+             </ul>
+         </nav>
+     </div>
     <Rules></Rules>
-    <header>
-        <!-- Navigation Bar -->
-            <nav>
-                <ul>
-                    <li>Main Menu</li>
-                    <li>HighScore</li>
-                    <li>Statistics</li>
-                    <button class="rulesButton" @click="showRules()">?</button>
-                </ul>
-                
-            </nav>
-    </header>
-
     <RoundTime></RoundTime>
-
-    <!-- Modal box component -->
     <WinnerBox></WinnerBox>
-    
-    <Rules></Rules>
-
-    <!-- Moderator component -->
     <Moderator></Moderator>
+    <Players></Players>  
     
-    <!-- Player and Bots -->
-    <Players></Players>
+   
+
+    
+       
+
+   
     
 
 </div>
@@ -64,6 +60,8 @@ export default {
 
 <style scoped>
 
+
+
 nav {
     font-size: 18px;
     background-color: gainsboro;
@@ -87,7 +85,24 @@ li {
     border-radius: 12px;
 }
 
-.rulesButton:focus { outline: none; }
+.rulesButton:focus { outline: none; } 
+
+.container{
+    background-color: burlywood;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

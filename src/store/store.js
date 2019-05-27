@@ -194,7 +194,7 @@ export const store = new Vuex.Store({
         }, randomTime);
 
       },
-      //Countdown timer sholud be started via playGame
+      //Countdown timer should be started via playGame
       startSecondCounter(seconds){
         seconds -= 1
           if(seconds == -1){
