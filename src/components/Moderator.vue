@@ -64,26 +64,7 @@ export default {
       this.answers();
     },
     
-    //Retrieves answer from Store
-    //Receives guess from  and checks correct, too high or too low. Sends response.
-    hiLow: function(guess) {
-      var respons = null;
-      var answer = this.answers();
-      if (guess == answer) {
-        respons = "Correct!";
-      } else if (guess < answer) {
-        respons = "Too Low"
-        //Sends guess to mutation in Store
-        this.$store.commit("setLowestNumber", guess);
-      } else if (guess > answer) {
-        respons = "Too High"
-        //Sends guess to mutation in Store
-        this.$store.commit("setHighestNumber", guess);
-      }
-
-      return this.talk(respons);
-
-    }
+    
 
   },
   computed: {

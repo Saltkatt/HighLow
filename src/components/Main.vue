@@ -9,6 +9,7 @@
                     <li>HighScore</li>
                     <li>Statistics</li>
                     <button class="rulesButton" @click="showRules()">?</button>
+                    <button class="rulesButton" @click="play()">play</button>
                 </ul>
                 
             </nav>
@@ -43,7 +44,9 @@ export default {
 
 
     },
-   /*  created() {
+    /*created() {
+        
+        
         this.secondCounter()
     }, */
     data() {
@@ -73,7 +76,11 @@ export default {
         showRules(){
             
             this.$store.commit("showRules");
-        }
+        },
+         play(){
+            
+            this.$store.dispatch("playGame");
+        },
     }
 
 }

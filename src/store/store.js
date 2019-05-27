@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
+    
     //Prevents changes in components without store involvement
     // strict: true,
     state: {
@@ -60,6 +61,15 @@ export const store = new Vuex.Store({
       //A boolean value to show or not show the modal box (winnerBox) when someone guessed correctly
       isWinnerBoxVisible: false,
       showRules: false,
+      modTalk: "",
+      time:10,
+      //PlayGame use this
+      i:null,
+      test:null,
+      question:{
+        question:"How high is..",
+        answer:8848
+      },
 
       phrases: [
         "This is very easy! My guess is... ",
@@ -88,10 +98,10 @@ export const store = new Vuex.Store({
             }  
         }
        return;
-        }
+        },
 
         
-      },
+      
       //This function pushes the player into the "activePlayers array"
         addToActivePlayers: function(state, payload) {
           state.activePlayers.push(payload);
@@ -127,20 +137,13 @@ export const store = new Vuex.Store({
           if (state.activePlayers[player.id].id == state.activePlayers.length - 1) {
             state.activePlayers[player.id].isMyTurn = !state.activePlayers[player.id].isMyTurn;
             state.activePlayers[0].isMyTurn = !state.activePlayers[0].isMyTurn;
-            //i=0;
+            state.i=0;
           } else {
             state.activePlayers[player.id].isMyTurn = !state.activePlayers[player.id].isMyTurn;
             state.activePlayers[player.id + 1].isMyTurn = !state.activePlayers[player.id + 1].isMyTurn;
-            //i++
+            state.i++
           }
-          
-          // check if it is a bot's turn. If true - the "makeBotDecision" method runs 
-          /*for (let i = 0; i < state.activePlayers.length; i++) {
-            if (state.activePlayers[i].isMyTurn == true && state.activePlayers[i].isHuman == false) {
-              this.dispatch('makeBotDecision', state.activePlayers[i])
-            }
-          }*/
-          
+             
         },
 
         showRules(state){
@@ -148,65 +151,76 @@ export const store = new Vuex.Store({
         }
     },
     actions: {
-      playGame(context, player){
-      var i=0;
+      playGame(context){
+      context.state.i=0;
       var gamestate=true;
-      //function startGame (){
         while(gamestate){
-          var player=context.state.activePlayers[i];
-          //start timer
+          var player=context.state.activePlayers[context.state.i];
+          //Check if player is human and wait for user input
+          context.state.test="who is next?,";
           if(player.id==0){
-            //function makeGuess (){
-              while(guessNumber==null||time!==0){
-                setTimeout(sillyMethod,100);
+              if (context.state.guessNumber==null){
+                context.state.test+="players turn,";
+                
+                //setTimeout( () => dispatch( sillyMethod() ), 250 );
+                //setTimeout(sillyMethod,100);
                 }
-              //Stop timer
-          //}
+              
+          //Check if player is bot, 
           } else if (player.id!==0){
-            context.commit("makeBotDecisione", player); // ToDO behöver returnera samt skriva till guessNumber samt stoppa timer
+            context.state.test="bots turn";
+            context.commit("makeBotDecision", player); 
           }
+          context.state.test+="Is about to send to HighLow,";
+          
 
-        //function hiLow () {
-          var guess=context.state.guessNumber;
-          var respons = null;
-          if (guess == answer) { // Skapa variabel answer
-            respons = "Correct!";
-            gamestate=false;  // skall denna hinna ge respons bör det sättas en fördröjning
-          } else if (guess < answer) {
-            respons = "Too Low"
-            // Send data to method submitGuessToStore
-            context.commit("submitGuessToStore",low,guess);
-            
-          } else if (guess > answer) {
-            respons = "Too High"
-            // Send data to method submitGuessToStore
-            context.commit("submitGuessToStore",high,guess);
-          } else if (guess == null) {
-            respons = "Times up!"
-            
-          }
-          // Skicka respons till talk-variabel som moderator lyssnar på
-          //skicka antal gissningar till player[]
-          context.state.guessNumber=null;
-    
-        //}
-
-        //switchTurn
-        context.commit("switchTurn",player);
-        //i++ // Make player next in array // behöver modiferas om det är sista playern i listan
-
-            
+          //Send gues to highLow function,
+          context.dispatch('highLow').then(() => {
+            //call method to switch no next player
+           context.commit("switchTurn",player);
+          })
+          
+          
+        
         }
-      }
-        
-          }
-        
-
       },
+          
+        
         sillyMethod(context){
-          return: true
+          context.state.test="reached sillyMethod";
+          return true;
         },
-      makeBotDecision(context, player) {
+      
+      highLow(context){
+        context.state.test+="Reached HighLow,";
+        var guess=context.state.guessNumber;
+        var respons = null;
+        if (guess == context.question.answer) {
+          context.state.test+="Reached correct response,"; 
+          respons = "Correct!";
+          gamestate=false;  // skall denna hinna ge respons bör det sättas en fördröjning
+        } else if (guess < context.question.answer) {
+          respons = "Too Low";
+          // Send data to method submitGuessToStore
+          context.commit("submitGuessToStore",low,guess);
+          
+        } else if (guess > context.question.answer) {
+          respons = "Too High";
+          // Send data to method submitGuessToStore
+          context.commit("submitGuessToStore",high,guess);
+        } else if (context.state.guessNumber==null) {
+          context.state.test+="Reached null response";
+          respons = "Times up!";
+          
+        }
+        context.state.test+="Reached end";
+        // Skicka respons till talk-variabel som moderator lyssnar på
+        context.state.modTalk=respons;
+        //skicka antal gissningar till player[]
+        context.state.guessNumber=null;
+        },
+      
+        makeBotDecision(context,player) {
 
         switch (player.id) {
           case 1:
@@ -225,6 +239,9 @@ export const store = new Vuex.Store({
         }
         context.state.guessNumber=player.guess;
         return;
+      }
+    }
+    })
 
         /*let randomTime = 1000 + Math.floor(Math.random() * 8000);
 
@@ -257,4 +274,5 @@ export const store = new Vuex.Store({
 
       }
     }*/
-})
+    
+//})
