@@ -5,12 +5,11 @@
         <!-- Navigation Bar -->
             <nav>
                 <ul>
-                    <li>Main Menu</li>
-                    <li>HighScore</li>
-                    <li>Statistics</li>
+                    <router-link to="/"><li>Main Menu</li></router-link>
+                    <router-link to="/statistics"><li>Statistics</li></router-link>
                     <button class="rulesButton" @click="showRules()">?</button>
                 </ul>
-                
+
             </nav>
     </header>
 
@@ -18,15 +17,15 @@
 
     <!-- Modal box component -->
     <WinnerBox></WinnerBox>
-    
+
     <Rules></Rules>
 
     <!-- Moderator component -->
     <Moderator></Moderator>
-    
+
     <!-- Player and Bots -->
     <Players></Players>
-    
+
 
 </div>
 
@@ -50,11 +49,11 @@ export default {
         Rules,
         RoundTime,
     },
-  
+
     methods: {
-       
+
         showRules(){
-            
+
             this.$store.commit("showRules");
         }
     }
@@ -82,7 +81,7 @@ li {
     background: yellow;
     padding: 5px 10px 5px 10px;
     margin: 0% 5% 0% 0%;
-    
+
     float: right;
     border-radius: 12px;
 }
