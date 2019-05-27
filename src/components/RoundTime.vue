@@ -31,20 +31,26 @@ export default {
 <style scoped>
 /* Round and Time container */
 .grid-container {
-  grid-column: 1 / span 4;
-  grid-row: 5;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-areas: 
+  'r t'; 
   background-color: gold;
   padding: 10px;
 }
 
 .round {
   background-color: honeydew;
+  grid-area: r;
 }
 
 .time {
   background-color: honeydew;
+  grid-area: t;
+}
+
+@media screen and (max-width:500px){
+
+
 }
 
 </style>

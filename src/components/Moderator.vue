@@ -4,7 +4,7 @@
       <div class="item question-box">
         <p>Q: {{question}}</p>
       </div>
-      <div class="item modImage">
+      <div class="modImage">
         <img v-bind:src="image">
       </div>
       <div class="item response" v-show="getLastGuess != null">
@@ -125,13 +125,12 @@ export default {
 .response {
   grid-area: res;
   background-color: antiquewhite;  
-  padding-top: 2%;
+  padding-top: 2%; 
   text-align: center;
 }
 .modImage {
   grid-area: mod;
-  padding: 2%;
-  width: 100%;
+  width: 250px;
 }
 .question-box {
   grid-area: q; 
@@ -146,8 +145,8 @@ img {
 .grid-container {
   display: grid;
   grid-template-areas: 
-  'mod mod q q q q'
-  'mod mod res res . .';
+  'mod q q q q q'
+  'mod res res res . .';
 }
 
 @media screen and (max-width:500px){
@@ -155,7 +154,7 @@ img {
     display: grid;
     grid-template-areas: 
     'q q q q q q'
-    'mod res res res res .';
+    'mod mod res res res .';
   }
   .item{
     font-size: 100%;
