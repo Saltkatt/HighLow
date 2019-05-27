@@ -80,6 +80,13 @@ export const store = new Vuex.Store({
         round: (state) => state.round,
     },
     mutations: {
+        //This mutation increases the current players guesses variable with 1. It's called from Players component.
+        updateGuesses(state, player) {
+            if(player.isMyTurn == true && player.guess != null) {
+                player.guesses++;
+                console.log(player.guesses);
+            }
+        },
 
       submitGuessToStore(state, player) {
         state.activePlayers[player.id].guess = player.guess;
@@ -145,7 +152,7 @@ export const store = new Vuex.Store({
         setSeconds(state, nr){
           state.seconds = nr;
         },
-        
+
         //Resets round to 1
         resetRound: (state) => {
           state.round = 1;
@@ -153,9 +160,9 @@ export const store = new Vuex.Store({
         //Adds +1 to guesses in active players
         addGuesses(state, player) {
           state.activePlayers.guesses++;
-        }
+      },
 
-      
+
     },
     actions: {
       makeBotDecision(context, player) {
@@ -177,7 +184,7 @@ export const store = new Vuex.Store({
               player.guess = context.state.lowestNumber + (Math.floor(
                 (context.state.highestNumber - context.state.lowestNumber) * 0.1))
               break;
-            case 4: 
+            case 4:
               // This bots logic: increments answer by one.
               player.guess = context.state.lowestNumber++;
               break;
@@ -186,6 +193,8 @@ export const store = new Vuex.Store({
 
           context.commit("updateLastGuess", player.guess);
           context.commit("submitGuessToStore", player);
+          //This increases the guesses variable by 1 for the active bot.
+          context.commit("updateGuesses", player);
           setTimeout(function () {
 
 
@@ -202,7 +211,7 @@ export const store = new Vuex.Store({
           console.log(seconds)
           }
           return seconds;
-       
+
       }
     }
 })

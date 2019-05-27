@@ -1,13 +1,14 @@
 <template>
   <div id="app">
+      <router-view></router-view>
+      <router-link to="/statistics">Statistics</router-link>
 
     <!-- <Main></Main> -->
 
-    <div class="wrapper">
+    <!-- <div class="wrapper">
+
       <Main></Main>
-      <!-- is this where router should be? -->
-      <router-view></router-view>
-    </div>
+    </div> -->
 
   </div>
 </template>

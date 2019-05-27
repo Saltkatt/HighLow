@@ -10,10 +10,10 @@
         <img v-bind:src="player.image">
     </div>
       {{player.name}}s answer is ...
-      
+
       <div v-show="!player.isHuman">{{player.guess}}</div>
     </div>
-    
+
     <div id="placeholder">
       <input
         id="numberField"
@@ -48,11 +48,13 @@ export default {
       // the second commit changes the players personal guess value, which is the value showing up in the player field
       this.$store.commit("submitGuessToStore", player);
 
+      //Increases active players guesses with +1
+      this.$store.commit("updateGuesses", player);
+
       // the third commit switches player
       this.$store.commit("switchTurn", player);
 
-      //Increases active players guesses with +1
-      this.$store.commit("updateGuesses", player);
+
     },
 
     randomPhrase() {
@@ -61,13 +63,13 @@ export default {
     }
   },
 
-  
+
   computed: {
     // getting the activePlayers from the array in store
     players() {
       return this.$store.state.activePlayers;
     },
-   
+
 
   }
 };
@@ -118,12 +120,12 @@ img {
 /* Second player row */
 .player:nth-child(2) {
   grid-column: 2;
- 
+
 }
 /* Third player row */
 .player:nth-child(3) {
   grid-column: 3;
-  
+
 }
 /* Fourth player row */
 .player:nth-child(4){
