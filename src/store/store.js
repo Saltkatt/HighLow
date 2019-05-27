@@ -65,7 +65,7 @@ export const store = new Vuex.Store({
 
       // Martin test
       gameState: true,
-      correctGuess: 1234567890,
+      correctGuess: 8848,
       moderatorAnswer: null,
     
 
