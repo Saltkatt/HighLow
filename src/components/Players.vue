@@ -61,7 +61,8 @@
         type="submit"
         value="Submit"
         @click="makeGuess(players[0])"
-        :disabled="!players[0].isMyTurn"
+        :disabled="inputButtonState"
+        
       >
     </div>
   </div>
@@ -73,6 +74,9 @@ export default {
   methods: {
     // this method is called when the submit button is clicked and calls three mutations in store
     makeGuess(player) {
+
+      //toggles the input button
+      this.$store.commit("toggleInputButton");
 
       // the first commit changes the variable guessNumber in store, which is the value the moderator is validating
       this.$store.commit("updateLastGuess", player.guess);
@@ -104,6 +108,10 @@ export default {
     },
    getLastGuess() {
       return this.$store.state.lastGuess;
+    },
+
+    inputButtonState(){
+      return this.$store.state.disableInputButton;
     }
 
   }

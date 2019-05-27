@@ -93,7 +93,7 @@ li {
     background-repeat: no-repeat;
     padding: 5px 10px 5px 10px;
     margin: 0%;
-    color: whitesmoke;
+    color: black;
     font-size: 5vw;
     float: right;
     border-radius: 12px;
