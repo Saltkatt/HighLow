@@ -21,7 +21,7 @@ export default {
   
   computed: {
     question() {
-      return this.$store.state.questionBank[0].question;
+      return this.$store.state.question.question;
     },
 
     getLastGuess() {
