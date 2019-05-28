@@ -69,7 +69,6 @@ export const store = new Vuex.Store({
     moderatorAnswer: null,
     disableInputButton: false,
 
-
   },
   // getters: {
   //     //Get QuestionBank
@@ -132,6 +131,7 @@ export const store = new Vuex.Store({
       if (state.gameState == true) {
         this.dispatch('delaySwitchTurn', player)
       }
+    },
 
     //This function pushes the player into the "activePlayers array"
     addToActivePlayers: function (state, payload) {
@@ -322,5 +322,5 @@ export const store = new Vuex.Store({
     //     return seconds;
 
     // }
-  }
+  
 })
