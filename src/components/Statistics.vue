@@ -4,6 +4,7 @@
         <h2>Guesses: </h2>
         <h2>Time: </h2>
         <h2>Wins: </h2>
+        <router-link to="/">Back</router-link>
 
     </div>
 

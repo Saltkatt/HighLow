@@ -1,11 +1,15 @@
 <template>
   <div id="app">
+      <router-view></router-view>
+      <router-link to="/statistics">Statistics</router-link>
 
     <!-- <Main></Main> -->
 
-    <div class="wrapper">
+    <!-- <div class="wrapper">
+
       <Main></Main>
-    </div>
+    </div> -->
+
   </div>
 </template>
 
@@ -32,7 +36,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin: 0px;
-  
+
 }
 /* Desktop */
 
@@ -51,14 +55,14 @@ export default {
 /* Small screen */
 @media screen and (max-width:500px){
     body{
-      
+
         background-color: navy;
         color: antiquewhite;
     }
     .wrapper{
       overflow: auto;
     }
-    
+
 }
 
 </style>
