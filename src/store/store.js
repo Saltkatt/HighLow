@@ -62,10 +62,11 @@ export const store = new Vuex.Store({
       isWinnerBoxVisible: false,
       showRules: false,
       modTalk: "",
-      time:10,
+      time:null,
       //PlayGame use this
       i:0,
       gamestate:true,
+      timer:null,
       test:null,
       question:{
         question:"How high is..",
@@ -157,6 +158,10 @@ export const store = new Vuex.Store({
 
         showRules(state){
           state.showRules = !state.showRules;
+        },
+        increaseTimer(state){
+          
+          state.time--;
         }
     },
     actions: {
@@ -165,6 +170,7 @@ export const store = new Vuex.Store({
       var gamestate=true;
         //whirle(gamestate){ inaktiverat loop
           var player=context.state.activePlayers[context.state.i];
+          //context.dispatch("startTimer");
           //Check if player is human and wait for user input
           context.state.test+="who is next?,";
           if(player.id==0){
@@ -214,7 +220,7 @@ export const store = new Vuex.Store({
 
           } else{
             context.state.test+="reached end of userMethod";
-            context.state.guessNumber=player.guess;
+            context.state.guessNumber=player.guess; // keep?
             context.dispatch("response",player);
           }
           
@@ -222,9 +228,11 @@ export const store = new Vuex.Store({
 
         response(context,player){
           context.state.test+="Reached response,";
+          context.dispatch("stopTimer");
           context.dispatch("highLow");//.then(() => {
             if(context.state.gamestate){
-            setTimeout(function(){ 
+            setTimeout(function(){
+              context.state.modTalk=""; 
               context.commit("switchTurn",player);
               context.dispatch("playGame"); 
               },2000);
@@ -263,9 +271,25 @@ export const store = new Vuex.Store({
         //skicka antal gissningar till player[]
         context.state.guessNumber=null;
         },
+        startTimer(context){
+          context.state.time=10;
+          context.state.timer= setInterval(()=>{
+          context.commit("increaseTimer");
+         },1000);
+
+            
+          
+          
+          
+        },
+        stopTimer(context){
+          clearInterval(context.state.timer);
+
+        },
       
         makeBotDecision(context,player) {
           context.state.test+="Reached botDecision,";
+          let randomTime = 1000 + Math.floor(Math.random() * 5000);
 
           setTimeout(function(){
             
@@ -289,7 +313,7 @@ export const store = new Vuex.Store({
             context.state.guessNumber=player.guess;
             context.dispatch("response",player);  
             
-            },1000);
+            },randomTime);
       }
     }
     })

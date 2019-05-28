@@ -18,7 +18,7 @@
             <h3>Round: 2</h3>
         </div>
         <div class="time" >
-            <h3>Time: {{seconds}} </h3>
+            <h3>Time: {{time}} </h3>
         </div>
 
     </div>
@@ -100,6 +100,9 @@ export default {
     players() {
       return this.$store.state.activePlayers;
 
+    },
+    time(){
+      return this.$store.state.time;
     }
 
   }
