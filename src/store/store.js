@@ -18,23 +18,23 @@ export const store = new Vuex.Store({
           iths: [
             {
               question: 'Hur högt är Mount Everest i antal meter räknat?',
-              answer: 8848
+              correct_answer: 8848
             },
             {
               question: 'Hur många trappsteg är i ITHS trappuppgång?',
-              answer: 135
+              correct_answer: 135
             },
             {
               question: 'Hur högt är Eiffel-tornet i antal meter räknat?',
-              answer: 324
+              correct_answer: 324
             },
             {
               question: 'Hur många kort finns i en vanlig kortlek?',
-              answer: 32
+              correct_answer: 32
             },
             {
               question: 'Hur många dollar tjänar Bill Gates per minut?',
-              answer: 23148
+              correct_answer: 23148
             },
           ]
         }
@@ -70,6 +70,11 @@ export const store = new Vuex.Store({
       highestNumber: 10000,
       //A boolean value to show or not show the modal box (winnerBox) when someone guessed correctly
       isWinnerBoxVisible: false,
+      // question to be used by playgame
+      question: {
+        question: null,
+        answer: null
+      }
     },
     getters: {
         //Get QuestionBank
@@ -136,10 +141,24 @@ export const store = new Vuex.Store({
           }
         },
         // submit game setup. player name, bots, question
-        gameSetup(state, playerName) {
+        gameSetup(state, playerName, selectedQuestion) {
+          console.log('selectedQuestion in store: '+selectedQuestion);
           if (playerName != null) { // if playerName is not null
             state.activePlayers[0].name = playerName; // changes the players name
           }
+          // loop for bots
+          state.question = selectedQuestion;
+          //state.question.question = selectedQuestion.question;
+          //state.question.answer = selectedQuestion.correct_answer;
+        },
+        assignPlayerName(state, playerName) {
+          if (playerName != null) {
+            state.activePlayers[0].name = playerName;
+          }
+        },
+        assignQuestion(state, selectedQuestion) {
+          state.question.question = selectedQuestion.question;
+          state.question.answer = selectedQuestion.correct_answer;
         }
     },
     actions: {
