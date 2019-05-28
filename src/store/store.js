@@ -121,8 +121,8 @@ export const store = new Vuex.Store({
       else if ((player.guess > state.questionBank[0].answer && player.guess < state.highestNumber) || (player.guess > state.questionBank[0].answer && state.highestNumber == null)) {
         state.highestNumber = player.guess;
       }
-    },
 
+    },
 
     delayModeratorAnswer() {
       this.dispatch('delayModeratorAnswer')
@@ -133,11 +133,6 @@ export const store = new Vuex.Store({
         this.dispatch('delaySwitchTurn', player)
       }
 
-    },
-
-
-
-
     //This function pushes the player into the "activePlayers array"
     addToActivePlayers: function (state, payload) {
       state.activePlayers.push(payload);
@@ -147,7 +142,9 @@ export const store = new Vuex.Store({
       if (payload > state.lowestNumber) {
         state.lowestNumber = payload;
       }
-    },
+
+     },
+       
     //changes the value of highestNumber if payload is lesser
     setHighestNumber: function (state, payload) {
       if (payload < state.highestNumber) {
@@ -262,6 +259,19 @@ export const store = new Vuex.Store({
       setTimeout(function () {
         context.commit("updateModeratorAnswer")
       }, 1000)
+    },
+    
+         //Timer should be started via playGame
+      startSecondCounter(seconds){
+        seconds -= 1;
+        
+          if (seconds == -1){
+            seconds = 10
+          }
+
+          return seconds;
+
+      }
     },
 
     // makeBotDecision(context, player) {

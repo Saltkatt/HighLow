@@ -21,9 +21,10 @@ export default {
         round() {
             return this.$store.state.round;
         },
-         seconds(){
+        seconds(){
              return this.$store.state.seconds;
-         }
+        }
+       
     }
 }
 </script>
@@ -35,13 +36,10 @@ h3{
     margin: 0px;
 }
 .grid-container {
-  
   display: flex;
   justify-content: center;
   background-color: none;
-  
   color: white;
-  
   font-family: 'Passion One', cursive;
   font-size: 5vw;
   
@@ -55,6 +53,7 @@ h3{
 .time{
     margin: 0px 20px;
     padding: 0px;
+
 }
 
 

@@ -10,10 +10,10 @@
         <img v-bind:src="player.image">
     </div>
       {{player.name}}s answer is ...
-      
+
       <div v-show="!player.isHuman">{{player.guess}}</div>
     </div>
-    
+
     <div id="placeholder">
       <input
         id="numberField"
@@ -92,6 +92,7 @@ export default {
 
       //Increases active players guesses with +1
       // this.$store.commit("updateGuesses", player);
+
     },
 
     randomPhrase() {
@@ -100,12 +101,13 @@ export default {
     }
   },
 
-  
+
   computed: {
     // getting the activePlayers from the array in store
     players() {
       return this.$store.state.activePlayers;
     },
+
    getLastGuess() {
       return this.$store.state.lastGuess;
     },
@@ -113,7 +115,6 @@ export default {
     inputButtonState(){
       return this.$store.state.disableInputButton;
     }
-
   }
 };
 </script>
@@ -132,7 +133,6 @@ div {
   background-image: url("../assets/planka3.png");
   background-size: contain; 
   background-repeat: no-repeat;
-  
   display: flex;
   width: 90%;
   justify-content: space-evenly;
@@ -145,11 +145,7 @@ div {
   background: none;
   width: 150px;
 }
-/*
-    display: flex;
-    align-items: center;
-*/
-/* div som barnelement */
+
 .profileImage {
   display: flex;
   height: 110%;
@@ -161,7 +157,6 @@ div {
 .nameArea{
   display: flex;
   align-items: center;
-  
   color: black;
   
 }
@@ -170,6 +165,7 @@ div {
   font-size: 5vw;
   margin-right: 40px;
 }
+
 .slateArea {
   background: none;
   position: relative;
@@ -199,6 +195,7 @@ div {
   animation-iteration-count: infinite;
   animation-direction: alternate;
 }
+
 @keyframes changewidth {
   from {
     width: 90%;
@@ -243,38 +240,29 @@ div {
 .invisible{
   opacity: 0;
 }
-
-
-
-
-/* This sets all the images to the same dimentions */
-/* img {
-    width: 50px;
-    height: 50px;
-}
+@media screen and (min-width: 501px){
+/* Player positions */
 .playerArea {
   display: grid;
-  margin: 10px;
-  border: 1px solid black;
-  background: lightskyblue;
+  grid-template-areas: 
+  '. . hp b1 b2 b3'
+  'in in in in in in ';
+  grid-row-gap: 5%;
+  
 }
-
+/* Inactive players */
 .player {
-  border: 1px solid black;
-  background: greenyellow;
   padding: 10px;
   opacity: 0.2;
   margin: 5px;
 }
-
+/* Player image position */
 .playerimg {
-
-  width: 50%;
+  /* width: 50%; */
   float: center;
 }
+/* Active player */
 .myTurn {
-  border: 1px solid black;
-  background: greenyellow;
   padding: 10px;
   opacity: 1;
   margin: 5px;
@@ -282,32 +270,32 @@ div {
 
 /* First player row */
 .player:nth-child(1) {
-  grid-column: 1
+  grid-area: hp;
+  padding-left: 150px;
 }
 /* Second player row */
 .player:nth-child(2) {
-  grid-column: 2;
+  grid-area: b1
  
 }
 /* Third player row */
 .player:nth-child(3) {
-  grid-column: 3;
+  grid-area: b2;
   
 }
 /* Fourth player row */
 .player:nth-child(4){
-  grid-column: 4;
+  grid-area: b3;
 }
 
 
-
 /* Input field and submit button */
-
 #placeholder {
-  grid-column: 1 / span 4;
-  grid-row: 6;
+  grid-area: in;
   box-sizing: border-box;
-  padding: 10px;
+  background-color: burlywood;
+  padding:5px; 
+  margin-bottom: 2%;
 }
 #numberField {
   margin: auto;
@@ -335,6 +323,7 @@ div {
   /* brightness(0.4);  /* 40% brightness */
   filter: brightness(120%);
 }
+}
 @media screen and (max-width:500px){
   #numberField{
     width: 80%;
@@ -342,27 +331,25 @@ div {
   #okButton {
     width: 80%;
   }
-  /* First player row */
-.player:nth-child(1) {
-  grid-column: 1 / span 3;
-  grid-row: 1;
-}
-/* Second player row */
-.player:nth-child(2) {
-  grid-column: 1 / span 3;
-  grid-row: 2;
-}
-/* Third player row */
-.player:nth-child(3) {
-  grid-column: 1 / span 3;
-  grid-row: 3;
-}
-/* Fourth player row */
-.player:nth-child(4){
-  grid-column: 1 / spans 3;
-  grid-row: 4;
 
+.playerArea {
+  display: grid;
+  grid-template-areas: 
+  'hp hp hp hp'
+  'b1 b1 b1 b1'
+  'b2 b2 b2 b2'
+  'b3 b3 b3 b3'
+  'in in in in';
+  grid-row-gap: 5%;
+  
 }
+/* First player row */
+div.player:nth-child(1) {
+  padding-left: 0px;
+  padding: 10px;
+  
+}
+
 
 .playerimg {
   float: left;

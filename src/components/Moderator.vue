@@ -11,6 +11,7 @@
         v-show="moderatorAnswer != null"
       ><p>{{moderatorAnswer}}</p></div>
       <img class="modImage" src="../assets/moderator.png">
+
     </div>
   </div>
 </template>
@@ -51,6 +52,9 @@ export default {
 </script>
 
 <style scoped>
+
+
+@media screen and (max-width:500px){
 div {
   font-size: 18px;
 }
@@ -134,6 +138,8 @@ div {
   display: inline-block;
   width: 100%;
   border-radius: 14px;
+  }
+ }
   
-}
+
 </style>

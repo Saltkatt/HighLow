@@ -1,33 +1,31 @@
 <template>
-<div>
-    
+
+<div class="container">
+
     <header>
         <!-- Navigation Bar -->
             <nav>
-                <ul class="navBar">
-                    <li>Main Menu</li>
-                    <li>HighScore</li>
-                    <li>Statistics</li>
+                <ul>
+                    <router-link to="/"><li>Main Menu</li></router-link>
+                    <router-link to="/statistics"><li>Statistics</li></router-link>
                     <button class="rulesButton" @click="showRules()">?</button>
                 </ul>
-                
+
             </nav>
     </header>
 
     <RoundTime></RoundTime>
 
-   
-    
-    
-
     <!-- Moderator component -->
     <Moderator></Moderator>
-    
+
     <!-- Player and Bots -->
     <Players></Players>
+
     <Rules></Rules>
      <!-- Modal box component -->
     <WinnerBox></WinnerBox>
+
 
 </div>
 
@@ -51,11 +49,11 @@ export default {
         Rules,
         RoundTime,
     },
-  
+
     methods: {
-       
+
         showRules(){
-            
+
             this.$store.commit("showRules");
         }
     }
@@ -95,13 +93,17 @@ li {
     margin: 0%;
     color: black;
     font-size: 5vw;
+
     float: right;
     border-radius: 12px;
     text-align: center;
 }
 
-.rulesButton:focus { outline: none; }
+.rulesButton:focus { outline: none; } 
 
+.container{
+    background-color: burlywood;
+}
 
 
 </style>
