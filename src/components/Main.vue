@@ -28,7 +28,6 @@
 
 
 </div>
-
 </template>
 
 <script>
@@ -37,8 +36,6 @@ import Players from '../components/Players.vue'
 import WinnerBox from '../components/WinnerBox.vue'
 import Rules from '../components/Rules.vue'
 import RoundTime from '../components/RoundTime'
-
-
 
 export default {
     name: "Main",
@@ -57,7 +54,6 @@ export default {
             this.$store.commit("showRules");
         }
     }
-
 }
 </script>
 

@@ -5,45 +5,60 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
-  //Prevents changes in components without store involvement
-  // strict: true,
-  state: {
-    //Array with questions and answers which the moderator gets from the store
-    questionBank: [
-      {
-        question: 'Hur högt är Mount Everest i antal meter räknat?',
-        answer: 8848
+    //Prevents changes in components without store involvement
+    // strict: true,
+    state: {
+      //Array with questions and answers which the moderator gets from the store
+      questionBank: [
+        {
+          iths: [
+            {
+              question: 'Hur högt är Mount Everest i antal meter räknat?',
+              correct_answer: 8848
+            },
+            {
+              question: 'Hur många trappsteg är i ITHS trappuppgång?',
+              correct_answer: 135
+            },
+            {
+              question: 'Hur högt är Eiffel-tornet i antal meter räknat?',
+              correct_answer: 324
+            },
+            {
+              question: 'Hur många kort finns i en vanlig kortlek?',
+              correct_answer: 32
+            },
+            {
+              question: 'Hur många dollar tjänar Bill Gates per minut?',
+              correct_answer: 23148
+            },
+          ]
+        }
+      ],
+      //Array with bots
+      bots: [
+        {
+          id: 1,
+          name: 'Anna',
+          guess: null,
+          image: require("@/assets/kajsa.jpg"),
+          isMyTurn: false,
+          isHuman: false
+        },
+        {
+          id: 2,
+          name: 'Pelle',
+          guess: null,
+          image: require("@/assets/martin.jpg"),
+          isMyTurn: false,
+          isHuman: false
+        },
+      ],
+      // question to be used by playgame
+      question: {
+        question: null,
+        answer: null
       },
-      {
-        question: 'Hur många trappsteg är i ITHS trappuppgång?',
-        answer: 135
-      },
-      {
-        question: 'Hur högt är Eiffel-tornet i antal meter räknat?',
-        answer: 324
-      },
-      {
-        question: 'Hur många kort finns i en vanlig kortlek?',
-        answer: 32
-      },
-      {
-        question: 'Hur många dollar tjänar Bill Gates per minut?',
-        answer: 23148
-      },
-    ],
-    //Array with bots
-    // bots: [
-    //   {
-    //     id: 1,
-    //     name: 'RoboCop',
-    //     image: kalleAsset
-    //   },
-    //   {
-    //     id: 2,
-    //     name: 'Terminator',
-    //     image: martinAsset
-    //   },
-    // ],
     //Players & bots in the active game
     activePlayers: [
       { id: 0, name: "Kalle", guess: null, image: require("@/assets/sixten.png"), isMyTurn: true, isHuman: true, guesses: 0, slateImage: require("@/assets/slate.png") },
@@ -201,9 +216,16 @@ export const store = new Vuex.Store({
     //Adds +1 to guesses in active players
     addGuesses(state) {
       state.activePlayers.guesses++;
-    }
-
-
+    },
+    assignPlayerName(state, playerName) {
+          if (playerName != null) {
+            state.activePlayers[0].name = playerName;
+          }
+        },
+        assignQuestion(state, selectedQuestion) {
+          state.question.question = selectedQuestion.question;
+          state.question.answer = selectedQuestion.correct_answer;
+        }
   },
   actions: {
 
@@ -268,7 +290,6 @@ export const store = new Vuex.Store({
           if (seconds == -1){
             seconds = 10
           }
-
           return seconds;
 
       }
