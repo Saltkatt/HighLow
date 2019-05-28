@@ -1,21 +1,31 @@
 <template>
-<div>
+
+<div class="container">
+
     <header>
         <!-- Navigation Bar -->
             <nav>
                 <ul>
-                    <li>Main Menu</li>
-                    <li>HighScore</li>
-                    <li>Statistics</li>
+                    <router-link to="/"><li>Main Menu</li></router-link>
+                    <router-link to="/statistics"><li>Statistics</li></router-link>
+                    <button class="rulesButton" @click="showRules()">?</button>
                 </ul>
+
             </nav>
     </header>
-    <!-- Modal box component -->
-    <WinnerBox></WinnerBox>
+
+    <RoundTime></RoundTime>
+
     <!-- Moderator component -->
     <Moderator></Moderator>
+
     <!-- Player and Bots -->
     <Players></Players>
+
+    <Rules></Rules>
+     <!-- Modal box component -->
+    <WinnerBox></WinnerBox>
+
 
 </div>
 
@@ -25,6 +35,9 @@
 import Moderator from '../components/Moderator'
 import Players from '../components/Players.vue'
 import WinnerBox from '../components/WinnerBox.vue'
+import Rules from '../components/Rules.vue'
+import RoundTime from '../components/RoundTime'
+
 
 
 export default {
@@ -33,32 +46,16 @@ export default {
         Moderator,
         Players,
         WinnerBox,
-
-
+        Rules,
+        RoundTime,
     },
-   /*  created() {
-        this.secondCounter()
-    }, */
-    data() {
-        return {
-            seconds: 20
-        }
-    },
+
     methods: {
-        //Countdown funktion currently implemented by created()
-        /* secondCounter(){
-            // var second = 10;
-            function incrementSeconds(){
-                this.seconds -= 1;
-                if(this.seconds == -1){
-                    this.seconds = 10;
-                }
-                console.log(this.seconds)
 
-            }
-            var cancel = setInterval(incrementSeconds.bind(this), 1000);
-            return second;
-        } */
+        showRules(){
+
+            this.$store.commit("showRules");
+        }
     }
 
 }
@@ -66,58 +63,47 @@ export default {
 
 <style scoped>
 
+.navBar{
+    display: flex;
+    justify-content: space-evenly;
+}
 nav {
-    background-color: gainsboro;
-    padding: 5px;
+    font-size: 5vw;
+    background-color: none;
+    padding: 2px;
+    color: white;
 }
 ul {
-    list-style-type: none;
+    align-items: baseline;
     padding: 0;
 }
 li {
     display: inline-block;
-    margin: 0 10px;
+    margin: 0px;
 }
 
-.container1{
-    background-color: chartreuse;
-    padding: 10px;
-    margin: auto;
+.rulesButton{
+    font-family: 'Passion One', cursive;
+    background: none;
+    border: none;
+    background-image: url("../assets/treerings.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding: 5px 10px 5px 10px;
+    margin: 0%;
+    color: black;
+    font-size: 5vw;
+
+    float: right;
+    border-radius: 12px;
+    text-align: center;
 }
 
-.container2{
-    background-color: orange;
-    padding: 10px;
-    margin: auto;
-}
+.rulesButton:focus { outline: none; } 
 
-.container3{
-    background-color: crimson;
-    padding: 10px;
-    margin: auto;
+.container{
+    background-color: burlywood;
 }
-
-.container4{
-    display: grid;
-    grid-template-columns: auto auto;
-    background-color: deeppink;
-    padding: 10px;
-}
-
-.container5{
-    background-color:lavender;
-    padding: 10px;
-    margin: auto;
-}
-
-.round{
-    background-color: honeydew;
-}
-
-.time{
-    background-color: turquoise;
-}
-
 
 
 </style>
