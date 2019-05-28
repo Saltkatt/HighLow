@@ -5,11 +5,11 @@
         <p>Q: {{question}}</p>
         <!-- <button class="btn" @click="onBtnClick">New Q {{count}}</button> -->
       </div>
-      <div class="grid-item item1" v-show="getLastGuess != null">
-        <!-- <div class="talkContainer">{{hiLow(this.getGuess)}}</div> -->
-        <div v-show="getLastGuess < getCorrectAnswer">The guess is TOO LOW</div>
+      <div class="grid-item item1"> <!--v-show="getLastGuess != null">-->
+        <p>{{talk}}</p>
+        <!-- <div v-show="getLastGuess < getCorrectAnswer">The guess is TOO LOW</div>
         <div v-show="getLastGuess > getCorrectAnswer">The guess is TOO HIGH</div>
-        <div v-show="getLastGuess == getCorrectAnswer"></div>
+        <div v-show="getLastGuess == getCorrectAnswer"></div> -->
       </div>
       <div class="grid-item modImage">
         <img v-bind:src="image">
@@ -90,6 +90,9 @@ export default {
 
     getCorrectAnswer() {
       return this.$store.state.questionBank[0].answer;
+    },
+    talk(){
+      return this.$store.state.modTalk;
     }
   }
 };

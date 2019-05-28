@@ -77,15 +77,16 @@ export default {
 
     // this method is called when the submit button is clicked and calls three mutations in store
     makeGuess(player) {
+      this.$store.commit("updateLastGuess", player.guess)
 
       // the first commit changes the variable guessNumber in store, which is the value the moderator is validating
-      this.$store.commit("updateLastGuess", player.guess);
+      //this.$store.commit("updateLastGuess", player.guess);
 
       // the second commit changes the players personal guess value, which is the value showing up in the player field
-      this.$store.commit("submitGuessToStore", player);
+      //this.$store.commit("submitGuessToStore", player);
 
       // the third commit switches player
-      this.$store.commit("switchTurn", player);
+      //this.$store.commit("switchTurn", player);
     },
 
     randomPhrase() {

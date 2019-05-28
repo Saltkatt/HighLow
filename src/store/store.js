@@ -64,7 +64,8 @@ export const store = new Vuex.Store({
       modTalk: "",
       time:10,
       //PlayGame use this
-      i:null,
+      i:0,
+      gamestate:true,
       test:null,
       question:{
         question:"How high is..",
@@ -85,19 +86,24 @@ export const store = new Vuex.Store({
     },
     mutations: {
 
-      submitGuessToStore(state, highLow,guess) {
+      submitGuessToStore(state, highLow) {
+        state.test+="Reached submitGuessToStore,"+"with value: "+highLow+","; 
+        
         switch(highLow){
-          case low:
-            if (guess>state.lowestNumber){
-              state.lowestNumber=guess;
-
-              }
-          case high:
-            if(guess<state.highestNumber){
-             state.highestNumber=guess; 
-            }  
+          case "low":
+          state.test+="enter low switch,";
+            if (state.guessNumber>state.lowestNumber){
+              state.lowestNumber=state.guessNumber;
+            }
+            break;
+          case "high":
+            state.test+="enter high switch,";
+            if(state.guessNumber<state.highestNumber){
+             state.highestNumber=state.guessNumber; 
+            }
+            break;  
         }
-       return;
+       
         },
 
         
@@ -133,12 +139,15 @@ export const store = new Vuex.Store({
         },
         //changes the active players turn
         switchTurn(state, player) {
+          state.test+="eneter switchTurn,"
           player.guess = null;
           if (state.activePlayers[player.id].id == state.activePlayers.length - 1) {
+            state.test+="enter if inside switch turn";
             state.activePlayers[player.id].isMyTurn = !state.activePlayers[player.id].isMyTurn;
             state.activePlayers[0].isMyTurn = !state.activePlayers[0].isMyTurn;
             state.i=0;
           } else {
+            state.test+="enter else inside switch turn with id: "+player.id;
             state.activePlayers[player.id].isMyTurn = !state.activePlayers[player.id].isMyTurn;
             state.activePlayers[player.id + 1].isMyTurn = !state.activePlayers[player.id + 1].isMyTurn;
             state.i++
@@ -152,68 +161,103 @@ export const store = new Vuex.Store({
     },
     actions: {
       playGame(context){
-      context.state.i=0;
+      
       var gamestate=true;
-        while(gamestate){
+        //whirle(gamestate){ inaktiverat loop
           var player=context.state.activePlayers[context.state.i];
           //Check if player is human and wait for user input
-          context.state.test="who is next?,";
+          context.state.test+="who is next?,";
           if(player.id==0){
-              if (context.state.guessNumber==null){
-                context.state.test+="players turn,";
-                
+              context.state.test+="players turn,";
+              context.dispatch("userMethod", player)
+              
+              //.then(() => {
+                //context.dispatch("response",player);
+                //})
+
                 //setTimeout( () => dispatch( sillyMethod() ), 250 );
                 //setTimeout(sillyMethod,100);
-                }
+                
               
           //Check if player is bot, 
           } else if (player.id!==0){
-            context.state.test="bots turn";
-            context.commit("makeBotDecision", player); 
-          }
-          context.state.test+="Is about to send to HighLow,";
-          
+            console.log("bots turn");
+            context.state.test+="bots turn,";
+            context.dispatch("makeBotDecision", player);
+            //.then(() => {
+              //context.dispatch("response",player);  
+              
+              
+              
+              
+              
+              /*context.dispatch('highLow').then(() => {
+                setTimeout(function(){ // new code
+                  context.commit("switchTurn",player); //new code
+                  },3000); 
+               
+              })*/
 
-          //Send gues to highLow function,
-          context.dispatch('highLow').then(() => {
-            //call method to switch no next player
-           context.commit("switchTurn",player);
-          })
-          
+            //})
+          }
           
         
-        }
       },
           
         
-        sillyMethod(context){
-          context.state.test="reached sillyMethod";
-          return true;
+        userMethod(context,player){
+          
+          if(context.state.guessNumber==null){ // Lägg in tidparameter här
+            setTimeout(function(){ 
+               context.dispatch("userMethod",player);
+              },590); 
+
+          } else{
+            context.state.test+="reached end of userMethod";
+            context.state.guessNumber=player.guess;
+            context.dispatch("response",player);
+          }
+          
+        },
+
+        response(context,player){
+          context.state.test+="Reached response,";
+          context.dispatch("highLow");//.then(() => {
+            if(context.state.gamestate){
+            setTimeout(function(){ 
+              context.commit("switchTurn",player);
+              context.dispatch("playGame"); 
+              },2000);
+            } 
+           
+          //})
+          
         },
       
       highLow(context){
         context.state.test+="Reached HighLow,";
-        var guess=context.state.guessNumber;
+        
         var respons = null;
-        if (guess == context.question.answer) {
+        if (context.state.guessNumber == context.state.question.answer) {
           context.state.test+="Reached correct response,"; 
           respons = "Correct!";
-          gamestate=false;  // skall denna hinna ge respons bör det sättas en fördröjning
-        } else if (guess < context.question.answer) {
+          context.state.gamestate=false;
+        } else if (context.state.guessNumber < context.state.question.answer) {
+          context.state.test+="Reached too low response,"; 
           respons = "Too Low";
           // Send data to method submitGuessToStore
-          context.commit("submitGuessToStore",low,guess);
+          context.commit("submitGuessToStore","low");
           
-        } else if (guess > context.question.answer) {
+        } else if (context.state.guessNumber > context.state.question.answer) {
           respons = "Too High";
           // Send data to method submitGuessToStore
-          context.commit("submitGuessToStore",high,guess);
+          context.commit("submitGuessToStore","high");
         } else if (context.state.guessNumber==null) {
-          context.state.test+="Reached null response";
+          context.state.test+="Reached null response,";
           respons = "Times up!";
           
         }
-        context.state.test+="Reached end";
+        context.state.test+="Reached end of highLow";
         // Skicka respons till talk-variabel som moderator lyssnar på
         context.state.modTalk=respons;
         //skicka antal gissningar till player[]
@@ -221,24 +265,31 @@ export const store = new Vuex.Store({
         },
       
         makeBotDecision(context,player) {
+          context.state.test+="Reached botDecision,";
 
-        switch (player.id) {
-          case 1:
-            //This bots logic: highestNumber - lowestNumber / 2
-            player.guess = context.state.lowestNumber + Math.floor((context.state.highestNumber - context.state.lowestNumber) / 2)
-            break;
-          case 2:
-            //This bots logic: highestNumber - lowestNumber * randomNumber
-            player.guess = context.state.lowestNumber + (Math.floor(Math.random() * (context.state.highestNumber - context.state.lowestNumber)))
-            break;
-          case 3:
-            //This bots logic: highestNumber - lowestNumber * 10% 
-            player.guess = context.state.lowestNumber + (Math.floor(
-              (context.state.highestNumber - context.state.lowestNumber) * 0.1))
-            break;
-        }
-        context.state.guessNumber=player.guess;
-        return;
+          setTimeout(function(){
+            
+            switch (player.id) {
+          
+              case 1:
+                //This bots logic: highestNumber - lowestNumber / 2
+                player.guess = context.state.lowestNumber + Math.floor((context.state.highestNumber - context.state.lowestNumber) / 2)
+                break;
+              case 2:
+                //This bots logic: highestNumber - lowestNumber * randomNumber
+                player.guess = context.state.lowestNumber + (Math.floor(Math.random() * (context.state.highestNumber - context.state.lowestNumber)))
+                break;
+              case 3:
+                //This bots logic: highestNumber - lowestNumber * 10% 
+                player.guess = context.state.lowestNumber + (Math.floor(
+                  (context.state.highestNumber - context.state.lowestNumber) * 0.1))
+                break;
+            }
+            context.state.test+=player.guess+",";
+            context.state.guessNumber=player.guess;
+            context.dispatch("response",player);  
+            
+            },1000);
       }
     }
     })
