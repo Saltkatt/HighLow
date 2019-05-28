@@ -35,19 +35,18 @@ export default {
 .modalBox {
   width: 100%;
   height: 100%;
-  position: absolute;
-  
-
+  position: fixed;
+  top: 0;
   border: 1px solid black;
-
   background-color: #fefefe;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .modalContent {
+  
   text-align: left;
   background-color: #fff;
-  padding: 50px;
+  padding: 30px 50px;
   color: black;
   font-size: 18px;
   margin: 10% auto;

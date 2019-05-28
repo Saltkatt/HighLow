@@ -30,7 +30,7 @@ export default {
 <style>
 
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Passion One', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -54,15 +54,24 @@ export default {
 }
 /* Small screen */
 @media screen and (max-width:500px){
-    body{
+    @import url('https://fonts.googleapis.com/css?family=Passion+One&display=swap');
+body{
+  font-family: 'Passion One', cursive;
+  margin: 0px;
+  background-image: url("./assets/bg.jpg");
+  background-size: cover;
 
-        background-color: navy;
-        color: antiquewhite;
-    }
-    .wrapper{
-      overflow: auto;
-    }
+  
+}
 
+#app {
+  text-align: center;
+  
+  margin: 0px;
+}
+div{
+  border-radius: 12px;
+}
 }
 
 </style>

@@ -6,11 +6,13 @@
         </div>
         <div class="winning-player">
             <h1>Winner!</h1>
+            <img class="cup" v-bind:src="winner().image">
             <h2>{{winner().name}}</h2>
         </div>
         <div class="guesses">
-            <!-- This is where we will have the amount of guesses -->
+          The correct answer was: {{correctAnswer}}    
         </div>
+        <div>Total guesses: {{guesses}}</div>
 
     </div>
   </div>
@@ -25,7 +27,11 @@ export default {
       },
       //This is a method to get the amount of guesses needed to get the correct answer.
       guesses: function() {
+          return this.$store.state.round;
+      },
 
+      correctAnswer(){
+          return this.$store.state.correctGuess;
       }
   },
   methods: {
@@ -52,34 +58,45 @@ export default {
 
 <style scoped>
 .modalBox {
-  display: table;
-  position: fixed;
-  padding: 10px;
-  z-index: 1;
+  
+
   width: 100%;
-  height:100%;
-  overflow: auto; /* Enables scroll if needed*/
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
+  height: 100%;
+  position: fixed;
+  top: 0;
+  border: 1px solid black;
+  background-color: #fefefe;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .modalContent {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-    height: 98%;
+  text-align: center;
+  background-color: whitesmoke;
+  padding: 20px 30px;
+  color: black;
+  font-size: 18px;
+  margin: 10% auto;
+  width: 60%;
+  height: 60%;
+}
+
+.cup{
+  width: 20vw;
+}
+.winning-player{
+  margin-top: 30%;
 }
 
 .button-close {
-    cursor: pointer;
-    float: right;
-    border: none;
-    font-size: 20px;
-    padding: 20px;
-    font-weight: bold;
-    color: #4aae9b;
-    background: transparent;
+  float:inline-start;
+  margin: 0px;
+  cursor: pointer;
+  float: right;
+  border: none;
+  font-size: 28px;
+  padding: 0px;
+  font-weight: bold;
+  color: #4aae9b;
+  background: transparent;
 }
 </style>
