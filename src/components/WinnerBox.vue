@@ -5,8 +5,8 @@
             <button class="button-close" v-on:click='close'>x</button>
         </div>
         <div class="winning-player">
-          <img class="cup" src="../assets/cup.png">
             <h1>Winner!</h1>
+            <img class="cup" v-bind:src="winner().image">
             <h2>{{winner().name}}</h2>
         </div>
         <div class="guesses">
