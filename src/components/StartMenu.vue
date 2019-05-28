@@ -29,10 +29,11 @@
     <!-- Submit game setup to store -->
     <button @click="sendToStore(nameValue)">Submit</button>
 </div>
+
 </div>
 
 
-    
+
 </template>
 
 <script>
