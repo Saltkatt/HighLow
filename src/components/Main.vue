@@ -93,7 +93,6 @@ li {
     margin: 0%;
     color: black;
     font-size: 5vw;
-
     float: right;
     border-radius: 12px;
     text-align: center;
@@ -102,7 +101,7 @@ li {
 .rulesButton:focus { outline: none; } 
 
 .container{
-    background-color: burlywood;
+    background-image: url("../assets/bg.jpg");
 }
 
 
