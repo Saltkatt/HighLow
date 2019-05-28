@@ -202,15 +202,13 @@ export const store = new Vuex.Store({
 
       },
       //Timer should be started via playGame
-      startSecondAndMinuteCounter(seconds, minutes){
-        seconds += 1;
-        minutes += 1;
-          if (seconds == 61){
-            seconds = 0
+      startSecondCounter(seconds){
+        seconds -= 1;
+        
+          if (seconds == -1){
+            seconds = 10
           }
-          else if (seconds == 60){
-            minutes++;
-          }
+          
           return seconds, minutes;
        
       }
