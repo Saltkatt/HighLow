@@ -28,7 +28,6 @@
 
 
 </div>
-
 </template>
 
 <script>
@@ -37,8 +36,6 @@ import Players from '../components/Players.vue'
 import WinnerBox from '../components/WinnerBox.vue'
 import Rules from '../components/Rules.vue'
 import RoundTime from '../components/RoundTime'
-
-
 
 export default {
     name: "Main",
@@ -57,7 +54,6 @@ export default {
             this.$store.commit("showRules");
         }
     }
-
 }
 </script>
 
@@ -93,7 +89,6 @@ li {
     margin: 0%;
     color: black;
     font-size: 5vw;
-
     float: right;
     border-radius: 12px;
     text-align: center;
@@ -102,7 +97,7 @@ li {
 .rulesButton:focus { outline: none; } 
 
 .container{
-    background-color: burlywood;
+    background-image: url("../assets/bg.jpg");
 }
 
 
