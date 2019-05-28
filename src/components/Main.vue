@@ -1,6 +1,6 @@
 <template>
+
 <div class="container">
-    <Rules></Rules>
 
     <header>
         <!-- Navigation Bar -->
@@ -15,13 +15,17 @@
     </header>
 
     <RoundTime></RoundTime>
-    <WinnerBox></WinnerBox>
 
     <!-- Moderator component -->
     <Moderator></Moderator>
 
     <!-- Player and Bots -->
     <Players></Players>
+
+    <Rules></Rules>
+     <!-- Modal box component -->
+    <WinnerBox></WinnerBox>
+
 
 </div>
 
@@ -59,27 +63,40 @@ export default {
 
 <style scoped>
 
+.navBar{
+    display: flex;
+    justify-content: space-evenly;
+}
 nav {
-    font-size: 18px;
-    background-color: gainsboro;
+    font-size: 5vw;
+    background-color: none;
     padding: 2px;
+    color: white;
 }
 ul {
-    list-style-type: none;
+    align-items: baseline;
     padding: 0;
 }
 li {
     display: inline-block;
-    margin: 0 10px;
+    margin: 0px;
 }
 
 .rulesButton{
-    background: yellow;
+    font-family: 'Passion One', cursive;
+    background: none;
+    border: none;
+    background-image: url("../assets/treerings.png");
+    background-size: contain;
+    background-repeat: no-repeat;
     padding: 5px 10px 5px 10px;
-    margin: 0% 5% 0% 0%;
+    margin: 0%;
+    color: black;
+    font-size: 5vw;
 
     float: right;
     border-radius: 12px;
+    text-align: center;
 }
 
 .rulesButton:focus { outline: none; } 

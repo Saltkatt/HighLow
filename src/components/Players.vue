@@ -1,5 +1,5 @@
 <template>
-  <div class="playerArea">
+  <!-- <div class="playerArea">
     <div
       class="player"
       v-for="(player, index) in players"
@@ -33,7 +33,40 @@
         :disabled="!players[0].isMyTurn"
       >
     </div>
+  </div> -->
+<div class="playerArea">
+    <div
+      class="player2"
+      v-for="(player, index) in players"
+      v-bind:key="index"
+      v-bind:class="{myTurn: player.isMyTurn}"
+    >
+      <div class="profileImageArea">
+        <img class="profileImage" v-bind:src="player.image" alt>
+      </div>
+      <div class="nameArea">
+        <div class="name">{{player.name}}</div>
+        
+      </div>
+      <div class="slateArea">
+        <img class="slate" v-bind:src="player.slateImage" alt>
+        <div class="playerGuessInSlate">{{player.guess}}</div>
+      </div>
+    </div>
+
+    <div class="inputArea" v-bind:class="{invisible: !players[0].isMyTurn}">
+      <input class="inputField" type="number" v-model.number.lazy="players[0].guess">
+      <input
+        id="submitButton"
+        type="submit"
+        value="Submit"
+        @click="makeGuess(players[0])"
+        :disabled="inputButtonState"
+        
+      >
+    </div>
   </div>
+
 </template>
 
 <script>
@@ -42,18 +75,23 @@ export default {
     // this method is called when the submit button is clicked and calls three mutations in store
     makeGuess(player) {
 
+      //toggles the input button
+      this.$store.commit("toggleInputButton");
+
       // the first commit changes the variable guessNumber in store, which is the value the moderator is validating
       this.$store.commit("updateLastGuess", player.guess);
 
       // the second commit changes the players personal guess value, which is the value showing up in the player field
       this.$store.commit("submitGuessToStore", player);
 
+      // delays the answer from the moderator
+      this.$store.commit("delayModeratorAnswer");
+
+      // see whos turn it is
+      this.$store.commit("seeWhosTurn", player);
+
       //Increases active players guesses with +1
-      this.$store.commit("updateGuesses", player);
-
-      // the third commit switches player
-      this.$store.commit("switchTurn", player);
-
+      // this.$store.commit("updateGuesses", player);
 
     },
 
@@ -70,7 +108,13 @@ export default {
       return this.$store.state.activePlayers;
     },
 
+   getLastGuess() {
+      return this.$store.state.lastGuess;
+    },
 
+    inputButtonState(){
+      return this.$store.state.disableInputButton;
+    }
   }
 };
 </script>
@@ -80,11 +124,123 @@ div {
   font-size: 18px;
 }
 
-/* This sets all the images to the same dimentions */
-img {
-    width: 70px;
-    height: 70px;
+.playerArea {
+  margin: 10px;
 }
+
+.player2 {
+  height: 15vw;
+  background-image: url("../assets/planka3.png");
+  background-size: contain; 
+  background-repeat: no-repeat;
+  display: flex;
+  width: 90%;
+  justify-content: space-evenly;
+  margin: 0 auto 3% auto;
+  transition: 0.5s;
+  opacity: 0.3;
+}
+
+.profileImageArea {
+  background: none;
+  width: 150px;
+}
+
+.profileImage {
+  display: flex;
+  height: 110%;
+  position: relative;
+  top: 0px;
+  left: 0px;
+}
+
+.nameArea{
+  display: flex;
+  align-items: center;
+  color: black;
+  
+}
+
+.name{
+  font-size: 5vw;
+  margin-right: 40px;
+}
+
+.slateArea {
+  background: none;
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.slate {
+  width: 25vw;
+  height: 90%;
+  margin: 2% 0% 2% 0%;
+}
+
+.playerGuessInSlate {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 5vw;
+}
+
+.myTurn {
+  transition: 0.8s;
+  opacity: 1;
+  animation-duration: 0.7s;
+  animation-name: changewidth;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes changewidth {
+  from {
+    width: 90%;
+  }
+
+  to {
+    width: 95%;
+    
+  }
+}
+
+.inputField{
+  background-color: black;
+  font-family: 'Passion One', cursive;
+  font-size: 5vw;
+  color: whitesmoke;
+  text-align: center;
+  border: 1px solid brown;
+  width: 50%;
+  height: 5vh;
+  margin-top: 2vh;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.inputField:focus { outline: none; }
+
+#submitButton {
+  font-family: 'Passion One', cursive;
+  font-size: 5vw;
+  width: 30%;
+  height: 5.5vh;
+  background-image: url("../assets/divbg.jpg");
+  background-size: cover;
+  background-repeat: repeat;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+#submitButton:focus { outline: none; }
+
+.invisible{
+  opacity: 0;
+}
+@media screen and (min-width: 501px){
 /* Player positions */
 .playerArea {
   display: grid;
@@ -110,7 +266,7 @@ img {
   padding: 10px;
   opacity: 1;
   margin: 5px;
-}
+} */
 
 /* First player row */
 .player:nth-child(1) {
@@ -166,6 +322,7 @@ img {
 #okButton:hover {
   /* brightness(0.4);  /* 40% brightness */
   filter: brightness(120%);
+}
 }
 @media screen and (max-width:500px){
   #numberField{
