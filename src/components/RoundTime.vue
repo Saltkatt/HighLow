@@ -21,30 +21,40 @@ export default {
         round() {
             return this.$store.state.round;
         },
-         seconds(){
+        seconds(){
              return this.$store.state.seconds;
-         }
+        }
+       
     }
 }
 </script>
 
 <style scoped>
 /* Round and Time container */
+
+h3{
+    margin: 0px;
+}
 .grid-container {
-  grid-column: 1 / span 4;
-  grid-row: 5;
-  display: grid;
-  grid-template-columns: auto auto;
-  background-color: gold;
-  padding: 10px;
+  display: flex;
+  justify-content: center;
+  background-color: none;
+  color: white;
+  font-family: 'Passion One', cursive;
+  font-size: 5vw;
+  
 }
 
-.round {
-  background-color: honeydew;
+.round{
+    margin: 0px 20px;
+    padding: 0px;
 }
 
-.time {
-  background-color: honeydew;
+.time{
+    margin: 0px 20px;
+    padding: 0px;
+
 }
+
 
 </style>
