@@ -49,7 +49,7 @@ export const store = new Vuex.Store({
         { id: 0, name: "Kalle", guess: null, image: require("@/assets/kalle.jpg"), isMyTurn: true, isHuman: true, guesses: 0 },
         { id: 1, name: "Anna", guess: null, image: require("@/assets/kajsa.jpg"), isMyTurn: false, isHuman: false, guesses: 0 },
         { id: 2, name: "Pelle", guess: null, image: require("@/assets/martin.jpg"), isMyTurn: false, isHuman: false, guesses: 0 },
-        { id: 3, name: "Wall-E", guess: null, image: require("@/assets/walle.jpg"), isMyTurn: false, isHuman: false, guesses: 0 },
+        { id: 4, name: "Wall-E", guess: null, image: require("@/assets/walle.jpg"), isMyTurn: false, isHuman: false, guesses: 0 },
       ],
       //This is the guess of players/bots, and moderator will get this number
       guessNumber: null,
@@ -60,7 +60,8 @@ export const store = new Vuex.Store({
       //A boolean value to show or not show the modal box (winnerBox) when someone guessed correctly
       isWinnerBoxVisible: false,
       showRules: false,
-      seconds: 10,
+      seconds: 0,
+      minutes: 0,
       round: 1,
 
       phrases: [
@@ -76,6 +77,8 @@ export const store = new Vuex.Store({
         getGuess: (state) => state.guessNumber,
         //Get seconds
         getSeconds: (state) => state.seconds,
+        //get minutes
+        getMinutes: (state) => state.minutes,
         //Get round
         round: (state) => state.round,
     },
@@ -203,13 +206,14 @@ export const store = new Vuex.Store({
         }, randomTime);
 
       },
-      //Countdown timer sholud be started via playGame
+      //Timer should be started via playGame
       startSecondCounter(seconds){
-        seconds -= 1
-          if(seconds == -1){
-            seconds = 10;
-          console.log(seconds)
+        seconds -= 1;
+        
+          if (seconds == -1){
+            seconds = 10
           }
+
           return seconds;
 
       }

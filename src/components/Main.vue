@@ -1,6 +1,7 @@
 <template>
-<div>
+<div class="container">
     <Rules></Rules>
+
     <header>
         <!-- Navigation Bar -->
             <nav>
@@ -14,18 +15,13 @@
     </header>
 
     <RoundTime></RoundTime>
-
-    <!-- Modal box component -->
     <WinnerBox></WinnerBox>
-
-    <Rules></Rules>
 
     <!-- Moderator component -->
     <Moderator></Moderator>
 
     <!-- Player and Bots -->
     <Players></Players>
-
 
 </div>
 
@@ -86,8 +82,11 @@ li {
     border-radius: 12px;
 }
 
-.rulesButton:focus { outline: none; }
+.rulesButton:focus { outline: none; } 
 
+.container{
+    background-color: burlywood;
+}
 
 
 </style>
