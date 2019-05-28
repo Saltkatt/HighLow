@@ -45,7 +45,7 @@ export const store = new Vuex.Store({
           id: 1,
           name: 'Anna',
           guess: null,
-          image: require("@/assets/kajsa.jpg"),
+          image: require("@/assets/bot2.jpg"),
           isMyTurn: false,
           isHuman: false
         },

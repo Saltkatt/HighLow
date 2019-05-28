@@ -9,15 +9,18 @@
         <!-- @click="selectBot" -->
     </div>
     <div>
-        <div
-        class="bot" 
-        v-for="bot in bots" 
-        :key="bot.id"
-        >
-            <div class="botImage"><img v-bind:src="bot.image"></div>
-            <div class="botName">Name: {{ bot.name }}</div>
-            <div class="botDescription">Description:<!-- add description --></div>
-            <!-- add bot selection -->
+
+        
+        <div class="botWrapper">
+                <div 
+                class="bot" v-for="bot in bots" :key="bot.id" v-on:click="selectBot(bot.id)">
+                    <div :id="'bot'+bot.id" style="cursor:pointer;">
+                        <div class="botImage"><img v-bind:src="bot.image"></div>
+                        <div class="botName">Name: {{ bot.name }}</div>
+                        <div class="botDescription">Description:<!-- add description --></div>
+                        <!-- add bot selection -->
+                    </div>
+                </div>
         </div>
     </div>
     <div class="category">
@@ -30,7 +33,7 @@
     </div>
 <div>
     <!-- Submit game setup to store. BL_update_3: make setupGame() send values based on variables in data() -->
-    <button @click="setupGame()">Submit</button>
+    <button @click="gameSetup()">Submit</button>
 </div>
 </div>
 
@@ -42,64 +45,50 @@
 export default {
     name: "StartMenu",
     data() {
-        //BL_update_1: added variables that will be computed and sent on setupGame() function
         return {
+            //BL_update:27maj
+            randNumsAlreadyGenereated : [],
+            questionCategory: "any",
             userName: "Player1",
-            userGuess: null,
-            userLowestGuess: 0,
-            userHighestGuess: 0,
-            userNumberOfGuesses: 0,
-            userScore: 0,
-            UserIsHuman: true,
-            userImageName: "playerImage1.jpg",
-            questionCategory: "Any",
-            arrQuestionAnswerObjects: [], //to be saved as questionBank content in store, eg: [{question: 'Hur många dollar tjänar Bill Gates per minut?',answer: 23148},...]
-            userIsMyTurn: false,
-            arrSelectedBotIds: [], //1, 2, ...
+            arrSelectedBots: []
         }
     },
     methods: {
         //BL_update_2.2: added selectBots function
-        selectBots: function() {
-            alert("selected bot. add bot id. change style");
-            },
+        selectBot: function(botId) {
+            // alert("bot: " + botId);
+            var  botId = "bot" + botId;
+            // "selected bot. add bot id. change style");
+            document.getElementById(botId).setAttribute('style','mask-image: radial-gradient(circle at 10% 10%, black 10%, rgba(255,165,0, 0.6) 50%);');
+            document.getElementById(botId).style.removeProperty('animation');
+            arrSelectedBots.push(botId);
+        },
 
-        setupGame: function() {
-            //BL_note: get questions and answer from API
-            //BL_update_2.1: added setupGame function
-            alert("setup... userName: " + this.userName +"\n" +
-                    "userGuess: null, \n" +
-                    "userLowestGuess: 0 \n" +
-                    "userHighestGuess: 0 \n" +
-                    "userNumberOfGuesses: 0 \n" +
-                    "userScore: 0\n" + 
-                    "userImageName: " + this.userImageName + "\n" +
-                    "questionCategory: " + this.questionCategory + "\n" +
-                    "userIsMyTurn: false, userIsHuman: true \n" +
-                    "arrSelectedBotIds: " + this.arrSelectedBotIds);
+        //BL_update_27maj
+        generateRandom1to4: function() {
+            while (true) {
+                this.rand1to4 = Math.floor(Math.random() * Math.floor(4)) + 1;
+                if (!this.randNumsAlreadyGenereated.includes(this.rand1to4)) {
+                    break;
+                }
+            }
+            this.randNumsAlreadyGenereated.push(this.rand1to4);
+            return this.rand1to4;
+        },
 
-            this.$store.commit({
-                type:'gameSetup', 
-                    //submit variable values that form the user detail object
-                    userName: this.userName, //have
-                    userGuess: null,
-                    userLowestGuess: this.userLowestGuess,
-                    userHighestGuess: this.userHighestGuess,
-                    userNumberOfGuesses: this.userNumberOfGuesses,
-                    userScore: this.userScore,
-                    UserIsHuman: this.UserIsHuman,
-                    userImage: this.userImageName, //have
-                    questionCategory: this.questionCategory, //have
-                    userIsMyTurn: this.userIsMyTurn,
-                    userSelectedBots: this.arrSelectedBotIds //have
-            });
 
-        }
+        gameSetup: function() {
+
+        },
+
     },
     computed: {
         bots() {
             return this.$store.state.bots;
         },
+    },
+    mounted() {
+
     }
 }
 </script>
@@ -122,14 +111,30 @@ export default {
     width: 25%;
 }
 
-.bot{
+.botWrapper {
     display: grid;
-    border-radius: 12px;
+    /* grid-template-columns: 1fr 1fr; */
+    grid-template-columns: 50px 1fr;
+    /* width: 100%; */
+    /* border: 5px solid brown; */
+
+}
+/* .bot{
+    /* display: grid;
     border: 1px solid black;
     background: greenyellow;
     padding: 10px;
     margin: 5px auto;
     width: 50%;
+} */
+.bot{
+    /* display: grid; */
+    /* border: 3px solid rgb(184, 82, 82); */
+    background: greenyellow;
+    padding: 10px;
+    margin: 5px auto;
+    width: 200px;
+    /* width: 50%; */
 }
 
 .botImage {
@@ -143,4 +148,185 @@ export default {
     margin: auto;
     width: 25%;
 }
+
+
+
+            @keyframes orbitAnimation {
+                from { transform: rotate(0deg) translateX(10px) rotate(0deg); }
+                to { transform: rotate(360deg) translateX(10px) rotate(-360deg); }
+            }
+            @-o-keyframes orbitAnimation {
+                0%,100%  { bottom: 0;}
+                50% { bottom: 50px;}
+            }
+            @-moz-keyframes orbitAnimation {
+                0%,100%  { bottom: 0;}
+                50% { bottom: 50px;}
+            }
+            @-webkit-keyframes orbitAnimation {
+                0%,100%  { bottom: 0;}
+                50% { bottom: 50px;}
+            }
+
+
+
+
+            @keyframes moveUpDownAnimation {
+                0%,100%  { bottom: -10px;}
+                50% { bottom: 10px;}
+            }
+
+            @-o-keyframes moveUpDownAnimation {
+                0%,100%  { bottom: 0;}
+                50% { bottom: 50px;}
+            }
+
+            @-moz-keyframes moveUpDownAnimation {
+                0%,100%  { bottom: 0;}
+                50% { bottom: 50px;}
+            }
+
+            @-webkit-keyframes moveUpDownAnimation {
+                0%,100%  { bottom: 0;}
+                50% { bottom: 50px;}
+            }
+
+
+
+            @keyframes moveRightLeftAnimation {
+                0%,100%  { left: 0;}
+                50% { left: 50px;}
+            }
+            @-o-keyframes moveRightLeftAnimation {
+                0%,100%  { left: 0;}
+                50% { left: 50px; }
+            }
+            @-moz-keyframes moveRightLeftAnimation {
+                0%,100%  { left: 0;}
+                50% { left: 50px;}            
+            }
+            @-webkit-keyframes moveRightLeftAnimation {
+                0%,100%  { left: 0;}
+                50% { left: 50px;}            
+            }
+
+
+
+            @keyframes flickerAnimation {
+                0%  { opacity: 1;}
+                50% { opacity: 0;}
+                100% { opacity: 1;}
+            }
+
+            @-o-keyframes flickerAnimation {
+                0%  { opacity: 1;}
+                50% { opacity: 0;}
+                100% { opacity: 1;}
+            }
+
+            @-moz-keyframes flickerAnimation {
+                0%  { opacity: 1;}
+                50% { opacity: 0;}
+                100% { opacity: 1;}
+            }
+
+            @-webkit-keyframes flickerAnimation {
+                0%  { opacity: 1;}
+                50% { opacity: 0;}
+                100% { opacity: 1;}
+            }
+
+
+            #bot1 {
+                /*orbit animation*/
+                /* position: absolute; */
+                position: relative;
+                /* left: 315px; */
+                left: 0px;
+                /* top: 143px;         center for the circle */
+                top: 0px;         /*center for the circle */
+                -webkit-animation: orbitAnimation 3s linear infinite;
+                -moz-animation: orbitAnimation 3s linear infinite;
+                -o-animation: orbitAnimation 3s linear infinite;
+                animation: orbitAnimation 3s linear infinite; /* Chrome, Firefox 16+,
+                                                            IE 10+, Safari 5 */
+            }
+
+
+            #bot2 {
+                /* flicker animation */
+                -webkit-animation: flickerAnimation 1s infinite;
+                -moz-animation: flickerAnimation 1s infinite;
+                -o-animation: flickerAnimation 1s infinite;
+                animation: flickerAnimation 1s infinite;
+            }
+
+            #bot3 {
+                /* up down animation */
+                -webkit-animation: moveUpDownAnimation 2s linear infinite;
+                -moz-animation: moveUpDownAnimation 2s linear infinite;
+                -o-animation: moveUpDownAnimation 2s linear infinite;
+                animation: moveUpDownAnimation 2s linear infinite;
+                position: relative;
+                left:0;
+                bottom:0;
+            }
+
+            #bot4 {
+                /* right left animation */
+                -webkit-animation: moveRightLeftAnimation 2s linear infinite;
+                -moz-animation: moveRightLeftAnimation 2s linear infinite;
+                -o-animation: moveRightLeftAnimation 2s linear infinite;
+                animation: moveRightLeftAnimation 2s linear infinite;
+                position: relative;
+                left:100;
+                top:200;
+            }
+                
+            #bot5 {
+                /* right left animation */
+                -webkit-animation: moveRightLeftAnimation 2s linear infinite;
+                -moz-animation: moveRightLeftAnimation 2s linear infinite;
+                -o-animation: moveRightLeftAnimation 2s linear infinite;
+                animation: moveRightLeftAnimation 2s linear infinite;
+                position: relative;
+                left:100;
+                top:200;
+            }
+
+            #bot6 {
+                /* right left animation */
+                -webkit-animation: moveRightLeftAnimation 2s linear infinite;
+                -moz-animation: moveRightLeftAnimation 2s linear infinite;
+                -o-animation: moveRightLeftAnimation 2s linear infinite;
+                animation: moveRightLeftAnimation 2s linear infinite;
+                position: relative;
+                left:100;
+                top:200;
+            }
+
+            #bot7 {
+                /* right left animation */
+                -webkit-animation: moveRightLeftAnimation 2s linear infinite;
+                -moz-animation: moveRightLeftAnimation 2s linear infinite;
+                -o-animation: moveRightLeftAnimation 2s linear infinite;
+                animation: moveRightLeftAnimation 2s linear infinite;
+                position: relative;
+                left:100;
+                top:200;
+            }
+
+            #bot8 {
+                /* right left animation */
+                -webkit-animation: moveRightLeftAnimation 2s linear infinite;
+                -moz-animation: moveRightLeftAnimation 2s linear infinite;
+                -o-animation: moveRightLeftAnimation 2s linear infinite;
+                animation: moveRightLeftAnimation 2s linear infinite;
+                position: relative;
+                left:100;
+                top:200;
+            }
+
+
+
 </style>
