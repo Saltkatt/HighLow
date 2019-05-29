@@ -54,13 +54,11 @@ export default {
     methods: {
         sendToStore(nameValue) {
             // Todo: add bot selection and send to store.
-            // get a random question in selected category
-            this.getCategoryQuestions(this.categoryValue);
+            this.getCategoryQuestions(this.categoryValue); // get a random question in selected category
             // send setup to store
-            console.log('selectedQuestion before sending: '+this.selectedQuestion.question);
-            //this.$store.commit('gameSetup', nameValue, this.selectedQuestion);
             this.$store.commit('assignPlayerName', nameValue);
             this.$store.commit('assignQuestion', this.selectedQuestion);
+            // go to /game
         },
         getCategoryQuestions: async function(categoryId) {
             categoryId = Number(categoryId);
@@ -69,7 +67,6 @@ export default {
                 // assign a random question
                 let randomNumber = Math.floor(Math.random() * Math.floor(this.apiQuestions.length));
                 let randomQuestion = this.apiQuestions[randomNumber];
-                console.log('randomQuestion: '+randomQuestion);
                 this.selectedQuestion = randomQuestion;
 
             }
@@ -78,7 +75,6 @@ export default {
                 // assign a random question
                 let randomNumber = Math.floor(Math.random() * Math.floor(this.bankQuestions.length));
                 let randomQuestion = this.bankQuestions[randomNumber];
-                console.log('randomQuestion: '+randomQuestion);
                 this.selectedQuestion = randomQuestion;
             }
             else {
@@ -92,10 +88,8 @@ export default {
         }
     },
     mounted() {
-        //axios.get('https://opentdb.com/api_token.php?command=request').then(response => (this.tokenResponse = response.data.token, this.tokenResponseCode = response.data.response_code));
-
         // get questions from questionBank
-                this.bankQuestions = this.$store.state.questionBank[0].iths;
+        this.bankQuestions = this.$store.state.questionBank[0].iths;
 
         // get api questions
         const getQuestions = async () => {
@@ -105,7 +99,6 @@ export default {
                 console.error(error)
             }
         }
-
         const countQuestions = async () => {
             this.rawResponse = await getQuestions()
 
@@ -118,7 +111,6 @@ export default {
                 console.log(`Got ${Object.entries(this.rawResponse.data.results).length} questions`)
             }
         }
-
         countQuestions()
     }
 }
