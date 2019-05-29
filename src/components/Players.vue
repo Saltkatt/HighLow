@@ -141,11 +141,20 @@ export default {
 .slateArea {
   grid-area: s;
   background: none;
+  position: relative;
 }
 .slate {
-  width: 13vw;
+  width: 16vw;
   margin: 20% 0% 0% 0%;
 }
+.playerGuessInSlate {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 5vw;
+}
+
 
 .nameArea {
   grid-area: n;
@@ -168,14 +177,6 @@ export default {
   animation-iteration-count: infinite;
   animation-direction: alternate;
 }
-.playerGuessInSlate {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 5vw;
-}
-
 
 /* Input Field and Submit button */
 .inputField {
@@ -219,7 +220,7 @@ export default {
 
 /* Small screen */
 @media screen and (max-width: 500px) {
-  
+
 .playerArea {
   margin: 10px;
 }
