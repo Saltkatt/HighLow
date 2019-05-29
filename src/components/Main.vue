@@ -62,7 +62,7 @@ export default {
 nav {
     font-size: 3vw;
     padding: 2px;
-    color: white; 
+    color: white;
 }
 
 .nav-bar{
@@ -105,12 +105,7 @@ li {
     text-align: center;
 }
 
-.rulesButton:focus { outline: none; } 
-
-.container{
-    background-image: url("../assets/bg.jpg");
-    /* margin: 2vw; */
-}
+.rulesButton:focus { outline: none; }
 
 /* Small screen */
 @media screen and (max-width: 500px) {
