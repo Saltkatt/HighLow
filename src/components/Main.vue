@@ -60,7 +60,7 @@ export default {
 <style scoped>
 
 nav {
-    font-size: 5vw;
+    font-size: 3vw;
     padding: 2px;
     color: white; 
 }
@@ -109,6 +109,14 @@ li {
 
 .container{
     background-image: url("../assets/bg.jpg");
+    /* margin: 2vw; */
+}
+
+/* Small screen */
+@media screen and (max-width: 500px) {
+   nav{
+       font-size: 5vw;
+   }
 }
 
 
