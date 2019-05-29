@@ -19,7 +19,7 @@
             call a function that will reset values to default.
           -->
           <router-link to="/">
-            <button class="again-button" type="button">Play Again</button>
+            <button class="again-button" type="button" @click="replay()">Play Again</button>
           </router-link>
         </div>
     </div>
@@ -59,6 +59,19 @@ export default {
                   return players[i];
               }
           }
+      },
+      //This function will reset several states so that the game is replayable. It's called from the play again button.
+      replay: function() {
+        this.$store.commit('defaultLowestNumber');
+        this.$store.commit('defaultHighestNumber');
+        this.$store.commit('defaultGameState');
+        this.$store.commit('defaultRound');
+        this.$store.commit('defaultGuessNumber');
+        this.$store.commit('defaultWinnerBoxVisibility');
+        this.$store.commit('defaultQuestions');
+        this.$store.commit('defaultModeratorAnswer');
+        this.$store.commit('defaultActivePlayersGuess');
+        this.$store.commit('defaultDisableInputButton');
       },
   }
 }

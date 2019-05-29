@@ -2,14 +2,15 @@
 <div class="main">
     <div class="playerName">
         <!-- Name input max length 15 -->
-        <label id="nameInputLabel" for="nameInput">Name:</label>
+        <h2>Current Player: {{currentName().name}}</h2>
+        <label id="nameInputLabel" for="nameInput">Name: </label>
         <input id="nameInput" name="nameInput" type="text" maxlength="15" placeholder="Enter your name..." v-model="nameValue">
     </div>
    <div>
 
-        
+
         <div class="botWrapper">
-                <div 
+                <div
                 class="bot" v-for="bot in bots" :key="bot.id" v-on:click="selectBot(bot.id)">
                     <div :id="'bot'+bot.id" style="cursor:pointer;">
                         <div class="botImage"><img v-bind:src="bot.image"></div>
@@ -57,6 +58,16 @@ export default {
         }
     },
     methods: {
+      //This method gets the human player out of the array and gets displayed as the current player.
+      currentName() {
+        var players = this.$store.state.activePlayers;
+
+        for(var i = 0; i < players.length; i++) {
+            if(players[i].isHuman == true) {
+                return players[i];
+            }
+        }
+      },
         sendToStore(nameValue) {
             // Todo: add bot selection and send to store.
             this.getCategoryQuestions(this.categoryValue); // get a random question in selected category
@@ -76,7 +87,7 @@ export default {
 
             }
             else if (categoryId == 0) {
-                
+
                 // assign a random question
                 let randomNumber = Math.floor(Math.random() * Math.floor(this.bankQuestions.length));
                 let randomQuestion = this.bankQuestions[randomNumber];
@@ -243,11 +254,11 @@ export default {
             }
             @-moz-keyframes moveRightLeftAnimation {
                 0%,100%  { left: 0;}
-                50% { left: 50px;}            
+                50% { left: 50px;}
             }
             @-webkit-keyframes moveRightLeftAnimation {
                 0%,100%  { left: 0;}
-                50% { left: 50px;}            
+                50% { left: 50px;}
             }
 
 
@@ -322,7 +333,7 @@ export default {
                 left:100;
                 top:200;
             }
-                
+
             #bot5 {
                 /* right left animation */
                 -webkit-animation: moveRightLeftAnimation 2s linear infinite;

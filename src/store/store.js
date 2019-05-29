@@ -59,7 +59,7 @@ export const store = new Vuex.Store({
       },
     //Players & bots in the active game
     activePlayers: [
-      { id: 0, name: "Kalle", guess: null, image: require("@/assets/sixten.png"), isMyTurn: true, isHuman: true, guesses: 0, slateImage: require("@/assets/slate.png") },
+      { id: 0, name: "Player", guess: null, image: require("@/assets/sixten.png"), isMyTurn: true, isHuman: true, guesses: 0, slateImage: require("@/assets/slate.png") },
       { id: 1, name: "Grandma", guess: null, image: require("@/assets/grandma.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
       { id: 2, name: "Pelle", guess: null, image: require("@/assets/bot2.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
       { id: 3, name: "Wall-E", guess: null, image: require("@/assets/wall-e.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
@@ -84,6 +84,45 @@ export const store = new Vuex.Store({
 
   },
   mutations: {
+      /*
+        Following some functions to reset several states when called upon.
+      */
+      defaultLowestNumber(state){
+        state.lowestNumber = 0;
+      },
+      defaultHighestNumber(state){
+        state.highestNumber = 10000;
+      },
+      defaultGameState(state) {
+        state.gameState = true;
+      },
+      defaultRound(state) {
+        state.round = 1;
+      },
+      defaultGuessNumber(state) {
+        state.guessNumber = null;
+      },
+      defaultWinnerBoxVisibility(state) {
+        state.isWinnerBoxVisible = false;
+      },
+      defaultQuestions(state) {
+        state.question.question = null;
+        state.question.answer = null;
+      },
+      defaultModeratorAnswer(state) {
+        state.moderatorAnswer = null;
+      },
+      defaultDisableInputButton(state) {
+        state.disableInputButton = false;
+      },
+      defaultActivePlayersGuess(state) {
+        var players = state.activePlayers;
+
+        for(var i = 0; i < players.length; i++) {
+          players[i].guess = null;
+        }
+      },
+
 
     updateModeratorAnswer(state) {
       if (state.guessNumber < state.question.answer) {
@@ -146,7 +185,7 @@ export const store = new Vuex.Store({
       }
 
      },
-       
+
     //changes the value of highestNumber if payload is lesser
     setHighestNumber: function (state, payload) {
       if (payload < state.highestNumber) {
@@ -217,6 +256,9 @@ export const store = new Vuex.Store({
       // sets question and answer
       state.question.question = selectedQuestion.question;
       state.question.answer = selectedQuestion.correct_answer;
+
+      //Sets the highestNumber that a bot can guess to 2 times the correct answer.
+      state.highestNumber = state.question.answer * 2;
     }
   },
   actions: {
@@ -274,11 +316,11 @@ export const store = new Vuex.Store({
         context.commit("updateModeratorAnswer")
       }, 1000)
     },
-    
+
          //Timer should be started via playGame
       startSecondCounter(seconds){
         seconds -= 1;
-        
+
           if (seconds == -1){
             seconds = 10
           }
