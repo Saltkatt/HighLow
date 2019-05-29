@@ -10,10 +10,18 @@
             <h2>{{winner().name}}</h2>
         </div>
         <div class="guesses">
-          The correct answer was: {{correctAnswer}}    
+          The correct answer was: {{correctAnswer}}
         </div>
         <div>Total guesses: {{guesses}}</div>
-
+        <div>
+          <!--
+            A button which will route you to main menu and
+            call a function that will reset values to default.
+          -->
+          <router-link to="/">
+            <button class="again-button" type="button">Play Again</button>
+          </router-link>
+        </div>
     </div>
   </div>
 </template>
@@ -58,7 +66,7 @@ export default {
 
 <style scoped>
 .modalBox {
-  
+
 
   width: 100%;
   height: 100%;
@@ -98,5 +106,18 @@ export default {
   font-weight: bold;
   color: #4aae9b;
   background: transparent;
+}
+/*Temporary CSS for the replay button*/
+.again-button{
+  background-color: #fff;
+  border: 2px solid black;
+  border-radius: 12px;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px;
 }
 </style>
