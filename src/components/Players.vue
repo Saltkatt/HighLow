@@ -90,9 +90,7 @@ export default {
 /* Desktop */
 @media screen and (min-width: 501px) {
   div {
-  font-size: 18px;
   display: inline-block;
-
 }
 .playerArea {
   display: grid;
@@ -143,8 +141,6 @@ export default {
 .slateArea {
   grid-area: s;
   background: none;
-  text-align: center;
-  color: white;
 }
 .slate {
   width: 13vw;
@@ -223,207 +219,117 @@ export default {
 
 /* Small screen */
 @media screen and (max-width: 500px) {
-
-div {
-
-  font-size: 18px;
-
-}
-
+  
 .playerArea {
-
   margin: 10px;
-
 }
 
 .player {
-
   height: 15vw;
-
   background-image: url("../assets/planka3.png");
-
   background-size: contain; 
-
   background-repeat: no-repeat;
-
   display: flex;
-
   width: 90%;
-
   justify-content: space-evenly;
-
   margin: 0 auto 3% auto;
-
   transition: 0.5s;
-
   opacity: 0.3;
-
 }
 
 .profileImageArea {
-
   background: none;
-
   width: 150px;
-
 }
 
 .profileImage {
-
   display: flex;
-
   height: 110%;
-
   position: relative;
-
   top: 0px;
-
   left: 0px;
-
 }
 
 .nameArea{
-
   display: flex;
-
   align-items: center;
-
   color: black;
-
 }
 
 .name{
-
   font-size: 5vw;
-
   margin-right: 40px;
-
 }
 
 .slateArea {
-
   background: none;
-
   position: relative;
-
-  text-align: center;
-
-  color: white;
-
 }
 
 .slate {
-
   width: 25vw;
-
   height: 90%;
-
   margin: 2% 0% 2% 0%;
-
 }
 
 .playerGuessInSlate {
-
   position: absolute;
-
   top: 50%;
-
   left: 50%;
-
   transform: translate(-50%, -50%);
-
   font-size: 5vw;
-
 }
 
 .myTurn {
-
   transition: 0.8s;
-
   opacity: 1;
-
   animation-duration: 0.7s;
-
   animation-name: changewidth;
-
   animation-iteration-count: infinite;
-
   animation-direction: alternate;
-
 }
 
 @keyframes changewidth {
-
   from {
-
     width: 90%;
-
   }
-
   to {
-
     width: 95%;   
-
   }
-
 }
 
 .inputField{
-
   background-color: black;
-
   font-family: 'Passion One', cursive;
-
   font-size: 5vw;
-
   color: whitesmoke;
-
-  text-align: center;
-
+  text-align: center; 
   border: 1px solid brown;
-
   width: 50%;
-
   height: 5vh;
-
   margin-top: 2vh;
-
   border-top-left-radius: 15px;
-
   border-bottom-left-radius: 15px;
-
 }
 
 .inputField:focus { outline: none; }
 
 #submitButton {
-
   font-family: 'Passion One', cursive;
-
   font-size: 5vw;
-
   width: 30%;
-
   height: 5.5vh;
-
   background-image: url("../assets/divbg.jpg");
-
   background-size: cover;
-
   background-repeat: repeat;
-
   border-top-right-radius: 15px;
-
   border-bottom-right-radius: 15px;
-
 }
 
 #submitButton:focus { outline: none; }
 
 .invisible{
-
   opacity: 0;
-
 }
 }
 </style>
