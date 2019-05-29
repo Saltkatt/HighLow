@@ -73,6 +73,8 @@ nav {
 ul {
     align-items: baseline;
     padding: 0;
+    margin: 0;
+    font-size: 2vw;
 }
 
 li {
@@ -96,21 +98,20 @@ li {
     background-image: url("../assets/treerings.png");
     background-size: contain;
     background-repeat: no-repeat;
-    padding: 1px 15px 5px 20px;
+    padding: 1px 5px 5px 5px;
     margin: 0 0 0 15px;
     color: black;
-    font-size: 5vw;
+    font-size: 2vw;
     float: right;
     border-radius: 12px;
     text-align: center;
+    align-items: baseline;
+    
 }
 
 .rulesButton:focus { outline: none; } 
 
-.container{
-    background-image: url("../assets/bg.jpg");
-    /* margin: 2vw; */
-}
+
 
 /* Small screen */
 @media screen and (max-width: 500px) {

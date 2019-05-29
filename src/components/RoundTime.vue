@@ -47,7 +47,7 @@ h3{
 /* Desktop */
 @media screen and (min-width: 501px) {
     .grid-container{
-        font-size: 3vw;
+        font-size: 2vw;
     }
 
     .round{
