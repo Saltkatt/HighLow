@@ -12,7 +12,7 @@
                 <div 
                 class="bot" v-for="bot in bots" :key="bot.id" v-on:click="selectBot(bot.id)">
                     <div :id="'bot'+bot.id" style="cursor:pointer;">
-                        <div class="botImage"><img v-bind:src="bot.image"></div>
+                        <div><img class="botImage" v-bind:src="bot.image"></div>
                         <div class="botName">Name: {{ bot.name }}</div>
                         <div class="botDescription">Description:<!-- add description --></div>
                         <!-- add bot selection -->
@@ -53,16 +53,50 @@ export default {
             apiQuestions: [],
             categoryValue: "0",
             selectedQuestion: null,
-            arrSelectedBots: [] //update_29maj2019
+            arrSelectedBots: [], //update_29maj2019
+            preparedPlayer: {},
+            tempBotId: 1, //an id that will be extracted from "bot1", etc. as available with each bot div
+            preparedBot: {}
         }
     },
     methods: {
         sendToStore(nameValue) {
-            // Todo: add bot selection and send to store.
             this.getCategoryQuestions(this.categoryValue); // get a random question in selected category
-            // send setup to store
-            this.$store.commit('assignPlayerName', nameValue);
+            this.preparedPlayer = {
+                id: 0,
+                name: nameValue,
+                guess: null,
+                image: require("@/assets/sixten.png"),
+                isMyTurn: true,
+                isHuman: true,
+                guesses: 0,
+                slateImage: require("@/assets/slate.png")
+            }
+            // this.$store.commit('assignPlayerName', nameValue);
             this.$store.commit('assignQuestion', this.selectedQuestion);
+            // send user to store:
+            this.$store.commit('addToActivePlayers', this.preparedPlayer);
+            // send bots to store:
+            alert ("bot list length: " + this.arrSelectedBots.length);
+            for (var botI=0; botI<this.arrSelectedBots.length; botI++) {
+                
+                this.tempBotId = this.arrSelectedBots[botI] //get from array in form bot1, bot3, etc.
+                this.tempBotId = this.tempBotId.substring(3,4); //take "3" from "bot3"
+    
+                this.preparedBot = {
+                    id: this.tempBotId,
+                    name: this.$store.state.bots[this.tempBotId].name,
+                    guess: null,
+                    image: this.$store.state.bots[this.tempBotId].image,
+                    isMyTurn: false,
+                    isHuman: false,
+                    guesses: 0,
+                    slateImage: require("@/assets/slate.png")
+                }
+               this.$store.commit('addToActivePlayers', this.preparedBot);
+               alert("add bot with id: " + this.preparedBot.id);
+            }
+
             // go to /game
         },
         getCategoryQuestions: async function(categoryId) {
@@ -88,14 +122,15 @@ export default {
         },
 
         //update: added selectBots function
-        selectBot: function(botId) {
-            var  botId = "bot" + botId;
+        selectBot: function(getBotId) {
+            var botId = "bot" + getBotId;
             // "selected bot. add bot id. change style");
             document.getElementById(botId).style.animation = "none";
             // document.getElementById(botId).style.backgroundColor = "blue";
             // alert("bot: " + botId);
             document.getElementById(botId).setAttribute('style','mask-image: radial-gradient(circle at 100% 100%, black 10%, rgba(255,165,0, 0.6) 50%);');
-            arrSelectedBots.push(botId);
+            this.arrSelectedBots.push(botId);
+            // alert(this.arrSelectedBots);
         },
 
     },
@@ -181,6 +216,7 @@ export default {
     margin: auto;
     width: 100px;
     height: 100px;
+    /* border:3px solid blue; */
 }
 
 .category {
