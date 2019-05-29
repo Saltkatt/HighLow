@@ -53,6 +53,9 @@ export default {
 
 <style scoped>
 
+
+/* DeskTop */
+@media screen and (min-width: 501px){
 .questionArea {
   color: black;
   border-radius: 15px;
@@ -84,6 +87,7 @@ export default {
   }
 
   .moderator {
+  opacity: 1;
   background: none;
   margin: 10px;
 }
@@ -129,11 +133,6 @@ export default {
   right: -5vw;
   top: 30%;
 }
-
-
-
-/* DeskTop */
-@media screen and (min-width: 501px){
 
 
 }
