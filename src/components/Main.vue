@@ -4,10 +4,10 @@
 
     <header>
         <!-- Navigation Bar -->
-            <nav>
+            <nav class="nav-bar">
                 <ul>
-                    <router-link to="/"><li>Main Menu</li></router-link>
-                    <router-link to="/statistics"><li>Statistics</li></router-link>
+                    <router-link to="/"><li class="link"> Main Menu </li></router-link>
+                    <router-link to="/statistics"><li class="link"> Statistics </li></router-link>
                     <button class="rulesButton" @click="showRules()">?</button>
                 </ul>
 
@@ -28,7 +28,6 @@
 
 
 </div>
-
 </template>
 
 <script>
@@ -37,8 +36,6 @@ import Players from '../components/Players.vue'
 import WinnerBox from '../components/WinnerBox.vue'
 import Rules from '../components/Rules.vue'
 import RoundTime from '../components/RoundTime'
-
-
 
 export default {
     name: "Main",
@@ -57,29 +54,39 @@ export default {
             this.$store.commit("showRules");
         }
     }
-
 }
 </script>
 
 <style scoped>
 
-.navBar{
+nav {
+    font-size: 3vw;
+    padding: 2px;
+    color: white; 
+}
+
+.nav-bar{
     display: flex;
     justify-content: space-evenly;
 }
-nav {
-    font-size: 5vw;
-    background-color: none;
-    padding: 2px;
-    color: white;
-}
+
 ul {
     align-items: baseline;
     padding: 0;
 }
+
 li {
     display: inline-block;
-    margin: 0px;
+    margin: 5px;
+}
+.link{
+    color:white;
+}
+.link:hover{
+    color: lightgoldenrodyellow;
+}
+.link:visited{
+    color:lightgray;
 }
 
 .rulesButton{
@@ -89,11 +96,10 @@ li {
     background-image: url("../assets/treerings.png");
     background-size: contain;
     background-repeat: no-repeat;
-    padding: 5px 10px 5px 10px;
-    margin: 0%;
+    padding: 1px 15px 5px 20px;
+    margin: 0 0 0 15px;
     color: black;
     font-size: 5vw;
-
     float: right;
     border-radius: 12px;
     text-align: center;
@@ -102,7 +108,15 @@ li {
 .rulesButton:focus { outline: none; } 
 
 .container{
-    background-color: burlywood;
+    background-image: url("../assets/bg.jpg");
+    /* margin: 2vw; */
+}
+
+/* Small screen */
+@media screen and (max-width: 500px) {
+   nav{
+       font-size: 5vw;
+   }
 }
 
 
