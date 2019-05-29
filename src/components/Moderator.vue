@@ -21,7 +21,7 @@ export default {
   
   computed: {
     question() {
-      return this.$store.state.questionBank[0].question;
+      return this.$store.state.question.question;
     },
 
     getLastGuess() {
@@ -45,7 +45,7 @@ export default {
     },
 
     getCorrectAnswer() {
-      return this.$store.state.questionBank[0].answer;
+      return this.$store.state.question.answer;
     }
   }
 };
@@ -53,6 +53,9 @@ export default {
 
 <style scoped>
 
+
+/* DeskTop */
+@media screen and (min-width: 501px){
 .questionArea {
   color: black;
   border-radius: 15px;
@@ -79,20 +82,21 @@ export default {
   grid-area: right;
   content: url("../assets/moderator.png");
   display: inline-block;
-  width: 60%;
+  width: 40%;
   border-radius: 14px;
   }
 
   .moderator {
+  opacity: 1;
   background: none;
   margin: 10px;
 }
 
 .moderatorGrid {
-  margin: 3vw; 
+  margin: 1vw; 
   display: grid;
   grid-template-areas: "left middle right";
-  grid-template-columns: 60% 10% 30%;
+  grid-template-columns: 60% 5% 30%;
 }
 
 .speechBubble {
@@ -101,15 +105,15 @@ export default {
   justify-content: center;
   align-self: center;
   grid-area: left;
-  width: 100%;
-  height: 50%;
-  font-size:5vw;
+  width: 80%;
+  height: 40%;
+  font-size:3vw;
   border-radius: 15px;
   background: whitesmoke;
   color: #000;
   padding: 5px;
   text-align: center;
-  margin: 5px;
+  margin: 0 10% 0 10%;
   position: relative;
   transition-property: height;
   transition-duration: 5s;
@@ -129,11 +133,6 @@ export default {
   right: -5vw;
   top: 30%;
 }
-
-
-
-/* DeskTop */
-@media screen and (min-width: 501px){
 
 
 }
