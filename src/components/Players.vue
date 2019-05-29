@@ -19,10 +19,10 @@
         <img class="slate" v-bind:src="player.slateImage" alt>
         <div class="playerGuessInSlate">{{player.guess}}</div>
       </div>
+
     </div>
+  
   </div>
-
-
 
     <div class="inputArea" v-bind:class="{invisible: !players[0].isMyTurn}">
       <input class="inputField" type="number" v-model.number.lazy="players[0].guess">
@@ -97,17 +97,19 @@ export default {
   grid-template-areas: 
   'hp b1 b2 b3' 
   'in in in in';
-  grid-gap: 2%;
-  margin: 10px;
+  grid-gap: 1.5%;
+  align-content: center;
+  justify-content: space-evenly;
+  margin: 0 2vw 0 2vw;
 }
 .player{
-  height: 20vw;
+  height: 15vw;
   display: grid;
   grid-template-areas: 
   'n n'
   'im s';
-  width: 80%;
-  justify-content: space-evenly;
+  width: 70%;
+  
   margin: 0 auto 3% 3%;
   transition: 0.5s;
   opacity: 0.3;
@@ -141,11 +143,20 @@ export default {
 .slateArea {
   grid-area: s;
   background: none;
+  position: relative;
 }
 .slate {
-  width: 13vw;
+  width: 12vw;
   margin: 20% 0% 0% 0%;
 }
+.playerGuessInSlate {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3vw;
+}
+
 
 .nameArea {
   grid-area: n;
@@ -156,7 +167,7 @@ export default {
   color: black;
 }
 .name {
-  font-size: 4vw;
+  font-size: 3vw;
   margin-right: 40px;
 }
 
@@ -168,25 +179,17 @@ export default {
   animation-iteration-count: infinite;
   animation-direction: alternate;
 }
-.playerGuessInSlate {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 5vw;
-}
-
 
 /* Input Field and Submit button */
 .inputField {
   grid-area: in;
   background-color: black;
   font-family: "Passion One", cursive;
-  font-size: 5vw;
+  font-size: 3vw;
   color: whitesmoke;
   text-align: center;
   border: 1px solid brown;
-  width: 50%;
+  width: 40%;
   margin-top: 10vh;
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
@@ -197,7 +200,7 @@ export default {
 
 #submitButton {
   font-family: "Passion One", cursive;
-  font-size: 5vw;
+  font-size: 3vw;
   width: 30%;
   background-image: url("../assets/divbg.jpg");
   background-size: cover;
@@ -219,7 +222,7 @@ export default {
 
 /* Small screen */
 @media screen and (max-width: 500px) {
-  
+
 .playerArea {
   margin: 10px;
 }
