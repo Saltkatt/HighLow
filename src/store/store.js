@@ -5,8 +5,6 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
-    //Prevents changes in components without store involvement
-    // strict: true,
     state: {
       //Array with questions and answers which the moderator gets from the store
       questionBank: [
@@ -85,28 +83,18 @@ export const store = new Vuex.Store({
     disableInputButton: false,
 
   },
-  // getters: {
-  //     //Get QuestionBank
-  //     getQuestionBank: (state) => state.questionBank,
-  //     //Get guessNumber
-  //     getGuess: (state) => state.guessNumber,
-  //     //Get seconds
-  //     getSeconds: (state) => state.seconds,
-  //     //Get round
-  //     round: (state) => state.round,
-  // },
   mutations: {
 
     updateModeratorAnswer(state) {
-      if (state.guessNumber < state.correctGuess) {
+      if (state.guessNumber < state.question.answer) {
         state.moderatorAnswer = "The guess is too low!"
         this.dispatch('resetModeratorTalk')
       }
-      else if (state.guessNumber > state.correctGuess) {
+      else if (state.guessNumber > state.question.answer) {
         state.moderatorAnswer = "The guess is too high!"
         this.dispatch('resetModeratorTalk')
       }
-      else if (state.guessNumber == state.correctGuess) {
+      else if (state.guessNumber == state.question.answer) {
         state.moderatorAnswer = "The guess is correct!"
         state.gameState = false;
         this.dispatch('showResult')
@@ -129,13 +117,12 @@ export const store = new Vuex.Store({
 
     submitGuessToStore(state, player) {
       state.activePlayers[player.id].guess = player.guess;
-      if ((player.guess < state.questionBank[0].answer && player.guess > state.lowestNumber) || (player.guess < state.questionBank[0].answer && state.lowestNumber == null)) {
+      if ((player.guess < state.question.answer && player.guess > state.lowestNumber) || (player.guess < state.question.answer && state.lowestNumber == null)) {
         state.lowestNumber = player.guess;
       }
-      else if ((player.guess > state.questionBank[0].answer && player.guess < state.highestNumber) || (player.guess > state.questionBank[0].answer && state.highestNumber == null)) {
+      else if ((player.guess > state.question.answer && player.guess < state.highestNumber) || (player.guess > state.question.answer && state.highestNumber == null)) {
         state.highestNumber = player.guess;
       }
-
     },
 
     delayModeratorAnswer() {
@@ -217,15 +204,20 @@ export const store = new Vuex.Store({
     addGuesses(state) {
       state.activePlayers.guesses++;
     },
+
+    // gets playerName from StartMenu
     assignPlayerName(state, playerName) {
-          if (playerName != null) {
-            state.activePlayers[0].name = playerName;
-          }
-        },
-        assignQuestion(state, selectedQuestion) {
-          state.question.question = selectedQuestion.question;
-          state.question.answer = selectedQuestion.correct_answer;
-        }
+      if (playerName != null) { // if playerName is null, the name will not change
+        state.activePlayers[0].name = playerName; // changes
+      }
+    },
+
+    // gets selectedQuestion from StartMenu
+    assignQuestion(state, selectedQuestion) {
+      // sets question and answer
+      state.question.question = selectedQuestion.question;
+      state.question.answer = selectedQuestion.correct_answer;
+    }
   },
   actions: {
 
@@ -294,54 +286,4 @@ export const store = new Vuex.Store({
 
       }
     },
-
-    // makeBotDecision(context, player) {
-
-    //   let randomTime = 1000 + Math.floor(Math.random() * 8000);
-
-    //   setTimeout(function () {
-    //     switch (player.id) {
-    //       case 1:
-    //         //This bots logic: highestNumber - lowestNumber / 2
-    //         player.guess = context.state.lowestNumber + Math.floor((context.state.highestNumber - context.state.lowestNumber) / 2)
-    //         break;
-    //       case 2:
-    //         //This bots logic: highestNumber - lowestNumber * randomNumber
-    //         player.guess = context.state.lowestNumber + (Math.floor(Math.random() * (context.state.highestNumber - context.state.lowestNumber)))
-    //         break;
-    //       case 3:
-    //         //This bots logic: highestNumber - lowestNumber * 10%
-    //         player.guess = context.state.lowestNumber + (Math.floor(
-    //           (context.state.highestNumber - context.state.lowestNumber) * 0.1))
-    //         break;
-    //       case 4: 
-    //         // This bots logic: increments answer by one.
-    //         player.guess = context.state.lowestNumber++;
-    //         break;
-
-    //     }
-
-    //     context.commit("updateLastGuess", player.guess);
-    //     context.commit("submitGuessToStore", player);
-    //     setTimeout(function () {
-
-
-    //       context.commit("switchTurn", player)
-    //     }, 3000)
-    //   }, randomTime);
-
-    // },
-    //Countdown timer sholud be started via playGame
-
-
-    // startSecondCounter(seconds){
-    //   seconds -= 1
-    //     if(seconds == -1){
-    //       seconds = 10;
-    //     console.log(seconds)
-    //     }
-    //     return seconds;
-
-    // }
-  
 })
