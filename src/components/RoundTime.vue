@@ -41,19 +41,43 @@ h3{
   background-color: none;
   color: white;
   font-family: 'Passion One', cursive;
-  font-size: 5vw;
   
 }
 
-.round{
-    margin: 0px 20px;
-    padding: 0px;
+/* Desktop */
+@media screen and (min-width: 501px) {
+    .grid-container{
+        font-size: 3vw;
+    }
+
+    .round{
+        margin: 0px 50px;
+        padding: 0px;
+    }
+
+    .time{
+        margin: 0px 50px;
+        padding: 0px;
+
+    }
 }
 
-.time{
-    margin: 0px 20px;
-    padding: 0px;
+/* Small screen */
+@media screen and (max-width: 500px) {
+    .grid-container{
+        font-size: 5vw;
+    }
 
+    .round{
+        margin: 0px 20px;
+        padding: 0px;
+    }
+
+    .time{
+        margin: 0px 20px;
+        padding: 0px;
+
+    }
 }
 
 
