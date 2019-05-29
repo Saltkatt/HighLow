@@ -43,6 +43,15 @@ export const store = new Vuex.Store({
           isMyTurn: false,
           isHuman: false
         },
+
+        /*{
+          id: 1,
+          name: 'Anna',
+          guess: null,
+          image: require("@/assets/kajsa.jpg"),
+          isMyTurn: false,
+          isHuman: false
+        },
         {
           id: 2,
           name: 'Pelle',
@@ -51,6 +60,7 @@ export const store = new Vuex.Store({
           isMyTurn: false,
           isHuman: false
         },
+        */
       ],
       // question to be used by playgame
       question: {
