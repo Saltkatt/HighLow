@@ -27,7 +27,7 @@
     </div>
 <div>
     <!-- Submit game setup to store -->
-    <button @click="sendToStore(nameValue)">Submit</button>
+    <router-link to="/game"><button @click="sendToStore(nameValue)">Submit</button></router-link>
 </div>
 
 </div>

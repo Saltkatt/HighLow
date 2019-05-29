@@ -43,7 +43,6 @@ export default {
 }
 
 .modalContent {
-  
   text-align: left;
   background-color: #fff;
   padding: 30px 50px;

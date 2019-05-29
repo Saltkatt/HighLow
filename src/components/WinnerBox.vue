@@ -31,7 +31,7 @@ export default {
       },
 
       correctAnswer(){
-          return this.$store.state.correctGuess;
+          return this.$store.state.question.answer;
       }
   },
   methods: {

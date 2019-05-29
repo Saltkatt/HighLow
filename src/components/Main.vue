@@ -4,10 +4,10 @@
 
     <header>
         <!-- Navigation Bar -->
-            <nav>
+            <nav class="nav-bar">
                 <ul>
-                    <router-link to="/"><li>Main Menu</li></router-link>
-                    <router-link to="/statistics"><li>Statistics</li></router-link>
+                    <router-link to="/"><li class="link"> Main Menu </li></router-link>
+                    <router-link to="/statistics"><li class="link"> Statistics </li></router-link>
                     <button class="rulesButton" @click="showRules()">?</button>
                 </ul>
 
@@ -59,23 +59,34 @@ export default {
 
 <style scoped>
 
-.navBar{
+nav {
+    font-size: 5vw;
+    padding: 2px;
+    color: white; 
+}
+
+.nav-bar{
     display: flex;
     justify-content: space-evenly;
 }
-nav {
-    font-size: 5vw;
-    background-color: none;
-    padding: 2px;
-    color: white;
-}
+
 ul {
     align-items: baseline;
     padding: 0;
 }
+
 li {
     display: inline-block;
-    margin: 0px;
+    margin: 5px;
+}
+.link{
+    color:white;
+}
+.link:hover{
+    color: lightgoldenrodyellow;
+}
+.link:visited{
+    color:lightgray;
 }
 
 .rulesButton{
