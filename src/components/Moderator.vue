@@ -21,7 +21,7 @@ export default {
   
   computed: {
     question() {
-      return this.$store.state.questionBank[0].question;
+      return this.$store.state.question.question;
     },
 
     getLastGuess() {
@@ -45,7 +45,7 @@ export default {
     },
 
     getCorrectAnswer() {
-      return this.$store.state.questionBank[0].answer;
+      return this.$store.state.question.answer;
     }
   }
 };
@@ -53,6 +53,9 @@ export default {
 
 <style scoped>
 
+
+/* DeskTop */
+@media screen and (min-width: 501px){
 .questionArea {
   color: black;
   border-radius: 15px;
@@ -84,6 +87,7 @@ export default {
   }
 
   .moderator {
+  opacity: 1;
   background: none;
   margin: 10px;
 }
@@ -129,11 +133,6 @@ export default {
   right: -5vw;
   top: 30%;
 }
-
-
-
-/* DeskTop */
-@media screen and (min-width: 501px){
 
 
 }
