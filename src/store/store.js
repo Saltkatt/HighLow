@@ -37,13 +37,36 @@ export const store = new Vuex.Store({
       bots: [
         {
           id: 1,
-          name: 'Anna',
+          name: 'Bot 1',
           guess: null,
-          image: require("@/assets/kajsa.jpg"),
+          image: require("@/assets/bot1_gray.jpg"),
           isMyTurn: false,
           isHuman: false
         },
-
+        {
+          id: 2,
+          name: 'Bot 2',
+          guess: null,
+          image: require("@/assets/bot2_white.jpg"),
+          isMyTurn: false,
+          isHuman: false
+        },
+        {
+          id: 3,
+          name: 'Dyno',
+          guess: null,
+          image: require("@/assets/bot3_dyno.jpg"),
+          isMyTurn: false,
+          isHuman: false
+        },
+        {
+          id: 4,
+          name: 'Lotus',
+          guess: null,
+          image: require("@/assets/bot4_lotus.jpg"),
+          isMyTurn: false,
+          isHuman: false
+        },
         /*{
           id: 1,
           name: 'Anna',
@@ -68,12 +91,17 @@ export const store = new Vuex.Store({
         answer: null
       },
     //Players & bots in the active game
+    
+    // activePlayers: [
+    //     { id: 0, name: "Kalle", guess: null, image: require("@/assets/sixten.png"), isMyTurn: true, isHuman: true, guesses: 0, slateImage: require("@/assets/slate.png") },
+    //   ],
+    
+    // { id: 1, name: "Grandma", guess: null, image: require("@/assets/grandma.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
+    // { id: 2, name: "Pelle", guess: null, image: require("@/assets/bot2.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
+    // { id: 3, name: "Wall-E", guess: null, image: require("@/assets/wall-e.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
     activePlayers: [
-      { id: 0, name: "Kalle", guess: null, image: require("@/assets/sixten.png"), isMyTurn: true, isHuman: true, guesses: 0, slateImage: require("@/assets/slate.png") },
-      { id: 1, name: "Grandma", guess: null, image: require("@/assets/grandma.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
-      { id: 2, name: "Pelle", guess: null, image: require("@/assets/bot2.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
-      { id: 3, name: "Wall-E", guess: null, image: require("@/assets/wall-e.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
     ],
+
     //This is the guess of players/bots, and moderator will get this number
     guessNumber: null,
     //If moderator says that the guess is too low, then it will become lowestNumber
