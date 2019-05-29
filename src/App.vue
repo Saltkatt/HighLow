@@ -36,9 +36,10 @@ export default {
       text-align: center;
       margin: 0px;
     }
-    /* div{
+    div{
      border-radius: 12px;
-    } */
+     
+    }
 
 }
 /* Small screen */
@@ -55,9 +56,9 @@ export default {
       text-align: center;
       margin: 0px;
     }
-    div{
+    /* div{
      border-radius: 12px;
-    }
+    } */
 
 
 }

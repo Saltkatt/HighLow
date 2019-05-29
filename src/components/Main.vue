@@ -96,8 +96,8 @@ li {
     background-image: url("../assets/treerings.png");
     background-size: contain;
     background-repeat: no-repeat;
-    padding: 5px 10px 5px 10px;
-    margin: 0%;
+    padding: 1px 15px 5px 20px;
+    margin: 0 0 0 15px;
     color: black;
     font-size: 5vw;
     float: right;

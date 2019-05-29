@@ -82,7 +82,7 @@ export default {
   grid-area: right;
   content: url("../assets/moderator.png");
   display: inline-block;
-  width: 60%;
+  width: 40%;
   border-radius: 14px;
   }
 
@@ -93,10 +93,10 @@ export default {
 }
 
 .moderatorGrid {
-  margin: 3vw; 
+  margin: 1vw; 
   display: grid;
   grid-template-areas: "left middle right";
-  grid-template-columns: 60% 10% 30%;
+  grid-template-columns: 60% 5% 30%;
 }
 
 .speechBubble {
@@ -105,15 +105,15 @@ export default {
   justify-content: center;
   align-self: center;
   grid-area: left;
-  width: 100%;
-  height: 50%;
-  font-size:5vw;
+  width: 80%;
+  height: 40%;
+  font-size:3vw;
   border-radius: 15px;
   background: whitesmoke;
   color: #000;
   padding: 5px;
   text-align: center;
-  margin: 5px;
+  margin: 0 10% 0 10%;
   position: relative;
   transition-property: height;
   transition-duration: 5s;
