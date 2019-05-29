@@ -54,6 +54,90 @@ export default {
 <style scoped>
 
 
+/* DeskTop */
+@media screen and (min-width: 501px){
+.questionArea {
+  color: black;
+  border-radius: 15px;
+  background-image: url("../assets/divbg.jpg");
+  background-size: cover;
+  background-repeat: repeat;
+  padding: 10px;
+  margin: 5px;
+  font-family: 'Passion One', cursive;
+  font-size: 3vw;
+}
+.lastGuess {
+  background-image: url("../assets/divbg.jpg");
+  background-size: cover;
+  background-repeat: repeat;
+  border: 1px solid black;
+  padding: 10px;
+  margin: 5px;
+}
+
+.modImage {
+  display: flex;
+  align-self: center;
+  grid-area: right;
+  content: url("../assets/moderator.png");
+  display: inline-block;
+  width: 40%;
+  border-radius: 14px;
+  }
+
+  .moderator {
+  opacity: 1;
+  background: none;
+  margin: 10px;
+}
+
+.moderatorGrid {
+  margin: 1vw; 
+  display: grid;
+  grid-template-areas: "left middle right";
+  grid-template-columns: 60% 5% 30%;
+}
+
+.speechBubble {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  grid-area: left;
+  width: 80%;
+  height: 40%;
+  font-size:3vw;
+  border-radius: 15px;
+  background: whitesmoke;
+  color: #000;
+  padding: 5px;
+  text-align: center;
+  margin: 0 10% 0 10%;
+  position: relative;
+  transition-property: height;
+  transition-duration: 5s;
+  transition-delay: 2s;
+  font-family: 'Passion One', cursive;
+
+}
+.speechBubble:after {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-left: 5vw solid whitesmoke;
+  border-right: 5vw solid transparent;
+  border-top: 15px solid whitesmoke;
+  border-bottom: 15px solid transparent;
+  right: -5vw;
+  top: 30%;
+}
+
+
+}
+
+/* Small screen */
 @media screen and (max-width:500px){
 div {
   font-size: 18px;
@@ -63,9 +147,7 @@ div {
   background-image: url("../assets/divbg.jpg");
   background-size: cover;
   background-repeat: repeat;
-
   border: 1px solid black;
-
   padding: 10px;
   margin: 5px;
 }
@@ -88,7 +170,7 @@ div {
 }
 
 .moderatorGrid {
-  margin: 3vw;
+  margin: 0vw;
   display: grid;
   grid-template-areas: "left middle right";
   grid-template-columns: 60% 10% 30%;
@@ -116,7 +198,6 @@ div {
   font-family: 'Passion One', cursive;
 
 }
-
 .speechBubble:after {
   content: "";
   width: 0px;
