@@ -60,9 +60,9 @@ export default {
 <style scoped>
 
 nav {
-    font-size: 5vw;
+    font-size: 3vw;
     padding: 2px;
-    color: white; 
+    color: white;
 }
 
 .nav-bar{
@@ -96,8 +96,8 @@ li {
     background-image: url("../assets/treerings.png");
     background-size: contain;
     background-repeat: no-repeat;
-    padding: 5px 10px 5px 10px;
-    margin: 0%;
+    padding: 1px 15px 5px 20px;
+    margin: 0 0 0 15px;
     color: black;
     font-size: 5vw;
     float: right;
@@ -105,10 +105,13 @@ li {
     text-align: center;
 }
 
-.rulesButton:focus { outline: none; } 
+.rulesButton:focus { outline: none; }
 
-.container{
-    background-image: url("../assets/bg.jpg");
+/* Small screen */
+@media screen and (max-width: 500px) {
+   nav{
+       font-size: 5vw;
+   }
 }
 
 
