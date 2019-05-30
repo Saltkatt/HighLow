@@ -64,7 +64,7 @@ export default {
       replay: function() {
         this.$store.commit('defaultLowestNumber');
         this.$store.commit('defaultHighestNumber');
-        this.$store.commit('defaultGameState');
+        // this.$store.commit('defaultGameState');
         this.$store.commit('defaultRound');
         this.$store.commit('defaultGuessNumber');
         this.$store.commit('defaultWinnerBoxVisibility');
@@ -72,6 +72,7 @@ export default {
         this.$store.commit('defaultModeratorAnswer');
         this.$store.commit('defaultActivePlayersGuess');
         this.$store.commit('defaultDisableInputButton');
+        this.$store.commit('defaultActivePlayersMyTurn');
       },
   }
 }
