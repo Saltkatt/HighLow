@@ -93,9 +93,9 @@ export const store = new Vuex.Store({
       defaultHighestNumber(state){
         state.highestNumber = 10000;
       },
-      defaultGameState(state) {
-        state.gameState = true;
-      },
+      // defaultGameState(state) {
+      //   state.gameState = true;
+      // },
       defaultRound(state) {
         state.round = 1;
       },
@@ -120,6 +120,18 @@ export const store = new Vuex.Store({
 
         for(var i = 0; i < players.length; i++) {
           players[i].guess = null;
+        }
+      },
+      defaultActivePlayersMyTurn(state) {
+        var players = state.activePlayers;
+
+        for(var i = 0; i < players.length; i++) {
+          if(players[i].isHuman == true) {
+            players[i].isMyTurn = true;
+          }
+          else {
+            players[i].isMyTurn = false;
+          }
         }
       },
 
