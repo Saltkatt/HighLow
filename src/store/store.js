@@ -69,8 +69,16 @@ export const store = new Vuex.Store({
           guess: null, 
           image: require("@/assets/wall-e.png"), 
           isMyTurn: false, 
-          isHuman: false, 
+          isHuman: false,
         },
+        {
+          id: 4,
+          name: "Elf-Lord",
+          guess: null,
+          image: require(""),
+          isMyTurn: false,
+          isHuman: false,
+        }
       ],
       // question to be used by playgame
       question: {
@@ -327,6 +335,8 @@ export const store = new Vuex.Store({
           case 3:
             player.guess = context.state.lowestNumber + (Math.floor(Math.random() * (context.state.highestNumber - context.state.lowestNumber)))
             break;
+          case 4:
+            player.guess = context.state.highestNumber + (Math.floor(Math.random() * (context.state.highestNumber / 5)))
 
         }
 
