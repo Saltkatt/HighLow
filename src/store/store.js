@@ -11,24 +11,36 @@ export const store = new Vuex.Store({
         {
           iths: [
             {
-              question: 'Hur högt är Mount Everest i antal meter räknat?',
+              question: 'How high is Mount Everest in meters?',
               correct_answer: 8848
             },
             {
-              question: 'Hur många trappsteg är i ITHS trappuppgång?',
+              question: 'How many stairs are there from the ground level to ITHS floor level?',
               correct_answer: 135
             },
             {
-              question: 'Hur högt är Eiffel-tornet i antal meter räknat?',
+              question: 'How high is the Eiffel Tower in meters?',
               correct_answer: 324
             },
             {
-              question: 'Hur många kort finns i en vanlig kortlek?',
+              question: 'How many cards are there in an average deck?',
               correct_answer: 32
             },
             {
-              question: 'Hur många dollar tjänar Bill Gates per minut?',
+              question: 'How many dollars does Bill Gates make per minute?',
               correct_answer: 23148
+            },
+            {
+              question: 'What year was Sputnik 1 launched into orbit around Earth?',
+              correct_answer: 1957
+            },
+            {
+              question: 'How long is a martian year?',
+              correct_answer: 687
+            },
+            {
+              question: 'How many arms does an octopus have?',
+              correct_answer: 6
             },
           ]
         }
