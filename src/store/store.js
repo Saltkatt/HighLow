@@ -48,20 +48,28 @@ export const store = new Vuex.Store({
       //Array with bots
       bots: [
         {
-          id: 1,
-          name: 'Anna',
-          guess: null,
-          image: require("@/assets/kajsa.jpg"),
-          isMyTurn: false,
-          isHuman: false
+          id: 1, 
+          name: "Grandma", 
+          guess: null, 
+          image: require("@/assets/grandma.png"), 
+          isMyTurn: false, 
+          isHuman: false, 
         },
         {
-          id: 2,
-          name: 'Pelle',
-          guess: null,
-          image: require("@/assets/martin.jpg"),
-          isMyTurn: false,
-          isHuman: false
+          id: 2, 
+          name: "Pelle", 
+          guess: null, 
+          image: require("@/assets/bot2.png"), 
+          isMyTurn: false, 
+          isHuman: false,
+        },
+        {
+          id: 3, 
+          name: "Wall-E", 
+          guess: null, 
+          image: require("@/assets/wall-e.png"), 
+          isMyTurn: false, 
+          isHuman: false, 
         },
       ],
       // question to be used by playgame

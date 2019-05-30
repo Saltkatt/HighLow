@@ -154,7 +154,7 @@ export default {
 }
 
 .main {
-    background: #3b3b3b;
+    background: none;
     color: azure;
 }
 
@@ -164,37 +164,31 @@ export default {
     width: 25%;
 }
 
+/* Bot selection area */
+
 .botWrapper {
     display: grid;
-    /* grid-template-columns: 1fr 1fr; */
-    grid-template-columns: 50px 1fr;
-    /* width: 100%; */
-    /* border: 5px solid brown; */
-
+    grid-template-columns: 200px 200px 200px;
+    grid-template-rows: 200px 200px;
+    grid-gap: 100px;
+   
 }
-/* .bot{
-    /* display: grid;
-    border: 1px solid black;
-    background: greenyellow;
-    padding: 10px;
-    margin: 5px auto;
-    width: 50%;
-} */
+
 .bot{
     /* display: grid; */
     /* border: 3px solid rgb(184, 82, 82); */
-    background: greenyellow;
+    background: goldenrod;
     padding: 10px;
-    margin: 5px auto;
-    width: 200px;
-    /* width: 50%; */
+    margin: 10px auto;
 }
 
-.botImage {
-    margin: auto;
-    width: 100px;
-    height: 100px;
+.botImage:nth-child(1) {
+    width: 150px;
+    height: 150px;
+    
 }
+
+
 
 .category {
     display: grid;
