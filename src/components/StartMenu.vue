@@ -3,8 +3,10 @@
     <div class="playerName">
         <!-- Name input max length 15 -->
         <h2>Current Player: {{currentName().name}}</h2>
+        <div class="input">
         <label id="nameInputLabel" for="nameInput">Name: </label>
         <input id="nameInput" name="nameInput" type="text" maxlength="15" placeholder="Enter your name..." v-model="nameValue">
+        </div>
     </div>
    <div>
 
@@ -13,7 +15,7 @@
                 <div
                 class="bot" v-for="bot in bots" :key="bot.id" v-on:click="selectBot(bot.id)">
                     <div :id="'bot'+bot.id" style="cursor:pointer;">
-                        <div class="botImage"><img v-bind:src="bot.image"></div>
+                        <div class="botImage"><img class="image" v-bind:src="bot.image"></div>
                         <div class="botName">Name: {{ bot.name }}</div>
                         <div class="botDescription">Description:<!-- add description --></div>
                         <!-- add bot selection -->
@@ -29,11 +31,13 @@
             <option value="0">ITHS</option>
             <option value="19">Science: Mathematics</option>
         </select>
-    </div>
-<div>
+        <div>
     <!-- Submit game setup to store -->
-    <router-link to="/game"><button @click="sendToStore(nameValue)">Submit</button></router-link>
-</div>
+    <router-link to="/game"><button class="submitBtn" @click="sendToStore(nameValue)">Submit</button></router-link>
+    </div>
+    </div>
+
+
 
 </div>
 
@@ -148,58 +152,122 @@ export default {
 
 <style scoped>
 
+/* Desktop */
+@media screen and (min-width: 501px) {
+
 /* update: add selected bot style */
 .selectedBot {
     background: green;
 }
 
 .main {
-    background: #3b3b3b;
-    color: azure;
+    background: none;
+    color:whitesmoke;
+    display: grid;
+    grid-template-rows: auto auto auto auto;
+    /* justify-content: center; */
 }
-
+/* Name area */
 .playerName {
     display: grid;
-    margin: auto;
+    grid-template-columns: 80% 80% 80%;
+    grid-template-rows: auto auto;
+    margin: 0 20% 0 20% ;
     width: 25%;
 }
+
+h2{
+    grid-column: 1 / span 3;
+    font-size: 3vw;
+}
+
+.input{
+
+    grid-column: 1 / span 3;
+
+}
+
+#nameInputLabel{
+    margin-top: 10px;
+}
+
+#nameInput{
+    background-color: black;
+    font-family: 'Passion One', cursive;
+    font-size: 180%;
+    color: whitesmoke;
+    text-align: center;
+    border: 1px solid brown;
+    width: 100%;
+    /* height: 5vh; */
+    margin-top: 2vh;
+    border-radius: 15px;
+}
+
+/* Bot selection area */
 
 .botWrapper {
     display: grid;
-    /* grid-template-columns: 1fr 1fr; */
-    grid-template-columns: 50px 1fr;
-    /* width: 100%; */
-    /* border: 5px solid brown; */
-
+    grid-template-columns: 20% 20% 20%;
+    grid-template-rows: 20% 20% 20%;
+    grid-gap: 10%;
+    justify-content: center;
+    margin: 2%;
+   
 }
-/* .bot{
-    /* display: grid;
-    border: 1px solid black;
-    background: greenyellow;
-    padding: 10px;
-    margin: 5px auto;
-    width: 50%;
-} */
+
 .bot{
-    /* display: grid; */
-    /* border: 3px solid rgb(184, 82, 82); */
-    background: greenyellow;
+    background-image: url("../assets/divbg.jpg");
+    background-size: cover;
+    background-repeat: repeat;
     padding: 10px;
-    margin: 5px auto;
-    width: 200px;
-    /* width: 50%; */
+    margin: 0px auto;
+    color: sienna;
 }
 
-.botImage {
-    margin: auto;
-    width: 100px;
-    height: 100px;
+.image{
+    width: 60%;
 }
 
+/* Question Categories */
 .category {
     display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 2%;
+    justify-content: center;
     margin: auto;
-    width: 25%;
+    
+}
+label{
+    margin-top:10%;
+    font-size: 200%;
+}
+
+#selectCategory{
+    background-color: black;
+    font-family: 'Passion One', cursive;
+    font-size: 180%;
+    color: whitesmoke;
+    text-align: center; 
+    border: 1px solid brown;
+    width: 100%;
+    /* height: 5vh; */
+    margin-top: 2vh;
+    /* border-top-left-radius: 10px; */
+    border-radius: 10px;
+}
+
+.submitBtn{
+    font-family: 'Passion One', cursive;
+    font-size: 180%;
+    width: 100%;
+    /* height: 5vh; */
+    background-image: url("../assets/divbg.jpg");
+    background-size: cover;
+    background-repeat: repeat;
+    border-radius: 10px;
+    margin-top: 10px;
+    
 }
 
 
@@ -379,4 +447,116 @@ export default {
                 left:100;
                 top:200;
             }
+}
+
+/* Small screen */
+@media screen and (max-width: 500px) {
+
+/* Name area */
+.playerName {
+    display: grid;
+    grid-template-columns: 80% 80% 80%;
+    grid-template-rows: auto auto;
+    margin: 0 20% 0 20% ;
+    width: 25%;
+}
+
+h2{
+    grid-column: 1 / span 3;
+    font-size: 6vw;
+}
+
+.input{
+
+    grid-column: 1 / span 3;
+
+}
+
+#nameInputLabel{
+    margin-top: 10px;
+    font-size: 6vw;
+}
+
+#nameInput{
+    background-color: black;
+    font-family: 'Passion One', cursive;
+    font-size: 6vw;
+    color: whitesmoke;
+    text-align: center;
+    border: 1px solid brown;
+    width: 100%;
+    /* height: 5vh; */
+    margin-top: 2vh;
+    border-radius: 15px;
+}
+
+
+/* Bot selection area */
+
+.botWrapper {
+    display: grid;
+    grid-template-columns: 20% 20% 20%;
+    grid-template-rows: 10% 10% ;
+    grid-gap: 5%;
+    justify-content: center;
+    margin: 2%;
+}
+
+.bot{
+    background-image:url("../assets/divbg.jpg");
+    background-size: cover;
+    padding: 1%;
+    color: sienna;
+}
+
+.image{
+    width: 80%;
+}
+
+/* Question Categories */
+
+.category {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-gap: 2%;
+    justify-content: center;
+    margin: auto;
+    
+}
+label{
+    margin-top:10%;
+    font-size: 200%;
+}
+
+#selectCategory{
+    background-color: black;
+    font-family: 'Passion One', cursive;
+    font-size: 180%;
+    color: whitesmoke;
+    text-align: center; 
+    border: 1px solid brown;
+    width: 100%;
+    margin-top: 2vh;
+    border-radius: 10px;
+}
+
+.submitBtn{
+    grid-row: 2;
+    grid-column: 2;
+    font-family: 'Passion One', cursive;
+    font-size: 180%;
+    width: 100%;
+    background-image: url("../assets/divbg.jpg");
+    background-size: cover;
+    background-repeat: repeat;
+    border-radius: 10px;
+    margin-top: 10px;
+    
+}
+
+
+
+
+}
+
 </style>
