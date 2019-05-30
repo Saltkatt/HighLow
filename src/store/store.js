@@ -64,6 +64,14 @@ export const store = new Vuex.Store({
       { id: 2, name: "Pelle", guess: null, image: require("@/assets/bot2.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
       { id: 3, name: "Wall-E", guess: null, image: require("@/assets/wall-e.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
     ],
+    scoreBoard: [
+      { name: "Ilari", guesses: 3 },
+      { name: "Joel", guesses: 2 },
+      { name: "Tonny", guesses: 5 },
+      { name: "Elin", guesses: 3 },
+      { name: "Martin", guesses: 6},
+      { name: "Bob", guesses: 4 },
+    ],
     //This is the guess of players/bots, and moderator will get this number
     guessNumber: null,
     //If moderator says that the guess is too low, then it will become lowestNumber
@@ -87,34 +95,11 @@ export const store = new Vuex.Store({
       /*
         Following some functions to reset several states when called upon.
       */
-      defaultLowestNumber(state){
-        state.lowestNumber = 0;
+      //This enables the gameState again when questions are submitted from the StarMenu.
+      defaultGameState(state) {
+        state.gameState = true;
       },
-      defaultHighestNumber(state){
-        state.highestNumber = 10000;
-      },
-      // defaultGameState(state) {
-      //   state.gameState = true;
-      // },
-      defaultRound(state) {
-        state.round = 1;
-      },
-      defaultGuessNumber(state) {
-        state.guessNumber = null;
-      },
-      defaultWinnerBoxVisibility(state) {
-        state.isWinnerBoxVisible = false;
-      },
-      defaultQuestions(state) {
-        state.question.question = null;
-        state.question.answer = null;
-      },
-      defaultModeratorAnswer(state) {
-        state.moderatorAnswer = null;
-      },
-      defaultDisableInputButton(state) {
-        state.disableInputButton = false;
-      },
+      //This resets the guess of each player in the activePlayers to null.
       defaultActivePlayersGuess(state) {
         var players = state.activePlayers;
 
@@ -122,6 +107,7 @@ export const store = new Vuex.Store({
           players[i].guess = null;
         }
       },
+      //This resets the state of isMyTurn so that bots have false and the player has true.
       defaultActivePlayersMyTurn(state) {
         var players = state.activePlayers;
 
@@ -134,7 +120,18 @@ export const store = new Vuex.Store({
           }
         }
       },
-
+      //This function resets states which is required to keep scores and being able to replay game.
+      defaultStates(state) {
+        state.lowestNumber = 0;
+        state.highestNumber = 10000;
+        state.round = 1;
+        state.guessNumber = null;
+        state.isWinnerBoxVisible = false;
+        state.question.question = null;
+        state.question.answer = null;
+        state.moderatorAnswer = null;
+        state.disableInputButton = false;
+      },
 
     updateModeratorAnswer(state) {
       if (state.guessNumber < state.question.answer) {
