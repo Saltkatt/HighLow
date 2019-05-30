@@ -75,6 +75,8 @@ export default {
             this.$store.commit('assignPlayerName', nameValue);
             this.$store.commit('assignQuestion', this.selectedQuestion);
             // go to /game
+            //Calls function to reset the gameState to true.
+            this.$store.commit('defaultGameState');
         },
         getCategoryQuestions: async function(categoryId) {
             categoryId = Number(categoryId);
