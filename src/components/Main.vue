@@ -110,11 +110,13 @@ li {
 }
 
 .rulesButton{
-    background-image: url("../assets/treerings.png");
-    font-size: 3vw;
+    background-image: url("../assets/divbg.jpg");
+    background-size: contain;
+    background-repeat: repeat;
+    font-size: 2vw;
     border-radius: 12px;
-    padding: 1px 15px 5px 20px;
-    margin: 0 0 0 10px;
+    padding: 0px 1vw;
+    margin: 5px 0 0 10px;
 }
 
 .rulesButton:focus { outline: none; }
