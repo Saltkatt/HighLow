@@ -63,6 +63,7 @@ export const store = new Vuex.Store({
           image: require("@/assets/grandma.png"),
           isMyTurn: false,
           isHuman: false,
+          selected: false, //is bot selected by user to compete
         },
         {
           id: 2,
@@ -71,7 +72,8 @@ export const store = new Vuex.Store({
           image: require("@/assets/bot2.png"),
           isMyTurn: false,
           isHuman: false,
-          slateImage: require("@/assets/slate.png")
+          slateImage: require("@/assets/slate.png"),
+          selected: false, //is bot selected by user to compete
         },
         {
           id: 3,
@@ -80,6 +82,7 @@ export const store = new Vuex.Store({
           image: require("@/assets/wall-e.png"),
           isMyTurn: false,
           isHuman: false,
+          selected: false, //is bot selected by user to compete
         },
       ],
       // question to be used by playgame
