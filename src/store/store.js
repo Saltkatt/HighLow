@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { stat } from 'fs';
 
 
 Vue.use(Vuex);
@@ -62,6 +63,7 @@ export const store = new Vuex.Store({
           image: require("@/assets/grandma.png"),
           isMyTurn: false,
           isHuman: false,
+          selected: false, //is bot selected by user to compete
         },
         {
           id: 2,
@@ -70,7 +72,8 @@ export const store = new Vuex.Store({
           image: require("@/assets/bot2.png"),
           isMyTurn: false,
           isHuman: false,
-          slateImage: require("@/assets/slate.png")
+          slateImage: require("@/assets/slate.png"),
+          selected: false, //is bot selected by user to compete
         },
         {
           id: 3,
@@ -79,6 +82,7 @@ export const store = new Vuex.Store({
           image: require("@/assets/wall-e.png"),
           isMyTurn: false,
           isHuman: false,
+          selected: false, //is bot selected by user to compete
         },
       ],
       // question to be used by playgame
@@ -89,8 +93,11 @@ export const store = new Vuex.Store({
     //Players & bots in the active game
     activePlayers: [
       /*{ id: 0, name: "Player", guess: null, image: require("@/assets/sixten.png"), isMyTurn: true, isHuman: true, guesses: 0, slateImage: require("@/assets/slate.png") },
-      { id: 1, name: "Grandma", guess: null, image: require("@/assets/grandma.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
-      { id: 2, name: "Pelle", guess: null, image: require("@/assets/bot2.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
+      
+      
+    { id: 2, name: "Pelle", guess: null, image: require("@/assets/bot2.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
+    
+    { id: 1, name: "Grandma", guess: null, image: require("@/assets/grandma.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
     { id: 3, name: "Wall-E", guess: null, image: require("@/assets/wall-e.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },*/
     ],
     scoreBoard: [
@@ -169,7 +176,9 @@ export const store = new Vuex.Store({
         state.lowestNumber = 0;
         state.highestNumber = 10000;
         state.round = 1;
-        state.seconds = 10;
+        state.time = 10;
+        state.activePlayers.length = 0;
+        state.gameState = true;
         state.guessNumber = null;
         state.isWinnerBoxVisible = false;
         state.question.question = null;
@@ -262,9 +271,9 @@ export const store = new Vuex.Store({
 
       state.test+="enter switchTurn,"
           player.guess = null;
-          if (state.activePlayers[player.id].id == state.activePlayers.length - 1) {
+          if (state.i == state.activePlayers.length - 1) {
             console.log("Enter if inside switchTurn with player.id: "+player.id);
-            state.activePlayers[player.id].isMyTurn = !state.activePlayers[player.id].isMyTurn;
+            state.activePlayers[state.i].isMyTurn = !state.activePlayers[state.i].isMyTurn;
             state.activePlayers[0].isMyTurn = !state.activePlayers[0].isMyTurn;
             state.i=0;
             state.round++;
@@ -273,9 +282,9 @@ export const store = new Vuex.Store({
 
           } else {
             console.log("Enter else inside switchTurn with player.id: "+player.id);
-            state.activePlayers[player.id].isMyTurn = !state.activePlayers[player.id].isMyTurn;
-            state.activePlayers[player.id + 1].isMyTurn = !state.activePlayers[player.id + 1].isMyTurn;
-            state.i++
+            state.activePlayers[state.i].isMyTurn = !state.activePlayers[state.i].isMyTurn;
+            state.activePlayers[state.i+1].isMyTurn = !state.activePlayers[state.i + 1].isMyTurn;
+            state.i++;
           }
           state.guessNumber=null;
 
@@ -371,7 +380,7 @@ export const store = new Vuex.Store({
 
       },
       userMethod(context,player){
-          console.log("Enter userMethod with player.id: "+player.id);
+          //console.log("Enter userMethod with player.id: "+player.id);
           // Waits for user-input
         if(context.state.guessNumber==null&&context.state.time>0){ // Lägg in tidparameter här
           setTimeout(function(){
