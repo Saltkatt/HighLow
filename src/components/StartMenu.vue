@@ -159,9 +159,9 @@ export default {
             document.getElementById(botId).style.animation = "none";
             // document.getElementById(botId).style.backgroundColor = "blue";
             // alert("bot: " + botId);
-            document.getElementById(botId).setAttribute('style','mask-image: radial-gradient(circle at 100% 100%, black 10%, rgba(255,165,0, 0.6) 50%);');
-            document.getElementById(botId).setAttribute('style','border: 5px solid green;');
-            document.getElementById(botId).setAttribute('style','background-color: orange;');
+            // document.getElementById(botId).setAttribute('style','mask-image: radial-gradient(circle at 100% 100%, black 10%, rgba(255,165,0, 0.6) 50%);');
+            // document.getElementById(botId).setAttribute('style','border: 5px solid green;');
+            // document.getElementById(botId).setAttribute('style','background-color: orange;');
             this.arrSelectedBots.push(botId);
             // alert(this.arrSelectedBots);
         },
@@ -240,8 +240,11 @@ export default {
 }
 
 .main {
-    background: #3b3b3b;
-    color: azure;
+    background: none;
+    color:whitesmoke;
+    display: grid;
+    grid-template-rows: auto auto auto auto;
+    /* justify-content: center; */
 }
 
 .playerName {
@@ -252,27 +255,32 @@ export default {
     justify-self: center;
 }
 
+/* Bot selection area */
+
 .botWrapper {
-    margin: auto;
-    width:50%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 20% 20% 20%;
+    grid-template-rows: 20% 20% 20%;
+    grid-gap: 10%;
+    justify-content: center;
+    margin: 2%;
+   
 }
 
 .bot{
-    background: url("../assets/background_wood.jpg");
-    padding: 10px;
-    margin: 5px auto;
-    width: 200px;
-    align-self: center;
-    justify-self: center;
-    width: 50%;
+    background-image: url("../assets/divbg.jpg");
+    background-size: cover;
+    background-repeat: repeat;
+    /* padding: 45px; */
+    margin: 0px auto;
+    color: sienna;
+    width: 150px;
+    height: 230px;
 }
 
 .botImage {
-    margin: auto;
-    width: 100px;
-    height: 100px;
+    margin-top: 20px;
+    width: 60%;
 }
 
 .category {
