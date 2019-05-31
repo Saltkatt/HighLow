@@ -48,27 +48,27 @@ export const store = new Vuex.Store({
       //Array with bots
       bots: [
         {
-          id: 1, 
-          name: "Grandma", 
-          guess: null, 
-          image: require("@/assets/grandma.png"), 
-          isMyTurn: false, 
-          isHuman: false, 
-        },
-        {
-          id: 2, 
-          name: "Pelle", 
-          guess: null, 
-          image: require("@/assets/bot2.png"), 
-          isMyTurn: false, 
+          id: 1,
+          name: "Grandma",
+          guess: null,
+          image: require("@/assets/grandma.png"),
+          isMyTurn: false,
           isHuman: false,
         },
         {
-          id: 3, 
-          name: "Wall-E", 
-          guess: null, 
-          image: require("@/assets/wall-e.png"), 
-          isMyTurn: false, 
+          id: 2,
+          name: "Pelle",
+          guess: null,
+          image: require("@/assets/bot2.png"),
+          isMyTurn: false,
+          isHuman: false,
+        },
+        {
+          id: 3,
+          name: "Wall-E",
+          guess: null,
+          image: require("@/assets/wall-e.png"),
+          isMyTurn: false,
           isHuman: false,
         },
       ],
@@ -112,7 +112,7 @@ export const store = new Vuex.Store({
     time:10,
     //PlayGame use this
     i:0,
-    
+
     timer:null,
     test:null,
 
@@ -152,6 +152,7 @@ export const store = new Vuex.Store({
         state.lowestNumber = 0;
         state.highestNumber = 10000;
         state.round = 1;
+        state.seconds = 10;
         state.guessNumber = null;
         state.isWinnerBoxVisible = false;
         state.question.question = null;
@@ -162,9 +163,9 @@ export const store = new Vuex.Store({
 
 
     updateModeratorAnswer(state,talk) {
-      
+
         state.moderatorAnswer = talk;
-      
+
 
     },
 
@@ -180,12 +181,12 @@ export const store = new Vuex.Store({
       for (let i = 0; i < state.activePlayers.length; i++) {
         state.activePlayers[i].guess = null;
       }
-    
+
     },
 
     submitGuessToStore(state, highLow) {
       console.log("Enter submit guessGuessToStore with value: "+highLow);
-      
+
       switch(highLow){
         case "low":
         console.log("Enter Low Sitch");
@@ -196,12 +197,12 @@ export const store = new Vuex.Store({
         case "high":
           console.log("Enter high switch");
           if(state.guessNumber<state.highestNumber){
-           state.highestNumber=state.guessNumber; 
+           state.highestNumber=state.guessNumber;
           }
-          break;  
+          break;
 
       }
-     
+
       },
 
     //This function pushes the player into the "activePlayers array"
@@ -241,7 +242,7 @@ export const store = new Vuex.Store({
     },
     //changes the active players turn
     switchTurn(state, player) {
-      
+
       state.test+="enter switchTurn,"
           player.guess = null;
           if (state.activePlayers[player.id].id == state.activePlayers.length - 1) {
@@ -251,7 +252,7 @@ export const store = new Vuex.Store({
             state.i=0;
             state.round++;
             state.toggleInputButton=!state.toggleInputButton;
-            
+
 
           } else {
             console.log("Enter else inside switchTurn with player.id: "+player.id);
@@ -260,8 +261,8 @@ export const store = new Vuex.Store({
             state.i++
           }
           state.guessNumber=null;
-          
-      
+
+
     },
 
     showRules(state) {
@@ -272,7 +273,7 @@ export const store = new Vuex.Store({
       state.gameState = !state.gameState;
     },
 
-   
+
 
     increaseTimer(state) {
       state.time--;
@@ -319,7 +320,7 @@ export const store = new Vuex.Store({
     resetModeratorTalk(context) {
       setTimeout(function () {
         context.commit("updateModeratorAnswer","");
-        
+
       }, 1000)
     },
 
@@ -329,45 +330,45 @@ export const store = new Vuex.Store({
       }, 500)
     },
     playGame(context){
-      
-      
+
+
       var player=context.state.activePlayers[context.state.i];
       console.log("Enter game with player.id: "+player.id);
-      
+
       context.dispatch("startTimer");
       //Check if player is human and wait for user input
       if(player.id==0){
         console.log("Players turn, is about to call userMethod with player.id: "+player.id);
-        
+
         context.dispatch("userMethod", player);
-                
-              
-          //Check if player is bot, 
+
+
+          //Check if player is bot,
           } else if (player.id!==0){
             console.log("bots turn, is about to call makeBotDecision with player.id: "+player.id);
-            
+
             context.dispatch("makeBotDecision", player);
-           
+
           }
-          
-        
+
+
       },
       userMethod(context,player){
           console.log("Enter userMethod with player.id: "+player.id);
           // Waits for user-input
         if(context.state.guessNumber==null&&context.state.time>0){ // Lägg in tidparameter här
-          setTimeout(function(){ 
+          setTimeout(function(){
              context.dispatch("userMethod",player);
-            },590); 
+            },590);
 
         } else{
           console.log("App is no longer waiting for user-input");
           console.log("is about to send player.guess to updateLastGuess mutation with player.guess: "+player.guess);
           context.commit("updateLastGuess",player.guess);
-          
+
           context.dispatch("response",player);
         }
-        
+
       },
 
     makeBotDecision(context, player) {
@@ -375,9 +376,9 @@ export const store = new Vuex.Store({
           let randomTime = 1000 + Math.floor(Math.random() * 5000);
 
           setTimeout(function(){
-            
+
             switch (player.id) {
-          
+
               case 1:
                 //This bots logic: highestNumber - lowestNumber / 2
                 player.guess = context.state.lowestNumber + Math.floor((context.state.highestNumber - context.state.lowestNumber) / 2)
@@ -387,7 +388,7 @@ export const store = new Vuex.Store({
                 player.guess = context.state.lowestNumber + (Math.floor(Math.random() * (context.state.highestNumber - context.state.lowestNumber)))
                 break;
               case 3:
-                //This bots logic: highestNumber - lowestNumber * 10% 
+                //This bots logic: highestNumber - lowestNumber * 10%
                 player.guess = context.state.lowestNumber + (Math.floor(
                   (context.state.highestNumber - context.state.lowestNumber) * 0.1))
                 break;
@@ -395,11 +396,11 @@ export const store = new Vuex.Store({
             console.log("is about to send player.guess to updateLastGuess mutation with player.guess: "+player.guess);
             context.commit("updateLastGuess",player.guess);
             console.log("is about to call responseMethod with player.id: "+player.id);
-            context.dispatch("response",player);  
-            
+            context.dispatch("response",player);
+
             },randomTime);
 
- 
+
     },
     response(context,player){
       console.log("enter responseMethod with player.id: "+player.id);
@@ -415,30 +416,30 @@ export const store = new Vuex.Store({
           console.log("is about to call playerGame to start over");
           context.dispatch("playGame");
           },2000);
-        } 
-       
-      
-      
+        }
+
+
+
     },
 
     highLow(context){
       console.log("Enter HighLowMethod, is about to check answer and give response, guessNUumber: "+context.state.guessNumber);
-      
+
       var respons = null;
       if (context.state.guessNumber == context.state.question.answer) {
         console.log("The answer is correct!");
         respons = "Correct!";
         context.commit("setGameState");
         context.dispatch("showResult");
-        
+
       } else if (context.state.guessNumber < context.state.question.answer&&context.state.guessNumber!==null) {
         console.log("The answer is too Low!");
-         
+
         respons = "Too Low";
         console.log("Is about to call submitGuessToStore with value low ");
         // Send data to method submitGuessToStore
         context.commit("submitGuessToStore","low");
-        
+
       } else if (context.state.guessNumber > context.state.question.answer) {
         respons = "Too High";
         console.log("The answer is too high!");
@@ -447,17 +448,17 @@ export const store = new Vuex.Store({
       } else if (context.state.guessNumber==null) {
         console.log("The answer is null!");
         respons = "Times up!";
-        
+
       }
       console.log("IS about to call updateModeratorAnswer with response: "+respons);
       // Send response to moderatoranswer
        setTimeout(function(){
         context.commit("updateModeratorAnswer",respons);
         },600);
-      
-      
-      
-      
+
+
+
+
       },
 
     delayModeratorAnswer(context,talk) {
@@ -468,24 +469,24 @@ export const store = new Vuex.Store({
 
     startTimer(context){
       console.log("Start timer");
-      
+
       context.state.timer=setInterval(()=>{
       context.commit("increaseTimer");
      },1000);
-      
+
     },
     stopTimer(context){
       console.log("Stop Timer");
       clearInterval(context.state.timer);
 
     },
-  
-    
-    }
-  
 
-  
-  
+
+    }
+
+
+
+
 
 
 })
