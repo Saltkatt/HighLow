@@ -358,31 +358,8 @@ label{
             }
 
 
+
             #bot1 {
-                /*orbit animation*/
-                /* position: absolute; */
-                position: relative;
-                /* left: 315px; */
-                left: 0px;
-                /* top: 143px;         center for the circle */
-                top: 0px;         /*center for the circle */
-                -webkit-animation: orbitAnimation 3s linear infinite;
-                -moz-animation: orbitAnimation 3s linear infinite;
-                -o-animation: orbitAnimation 3s linear infinite;
-                animation: orbitAnimation 3s linear infinite; /* Chrome, Firefox 16+,
-                                                            IE 10+, Safari 5 */
-            }
-
-
-            #bot2 {
-                /* flicker animation */
-                -webkit-animation: flickerAnimation 1s infinite;
-                -moz-animation: flickerAnimation 1s infinite;
-                -o-animation: flickerAnimation 1s infinite;
-                animation: flickerAnimation 1s infinite;
-            }
-
-            #bot3 {
                 /* up down animation */
                 -webkit-animation: moveUpDownAnimation 2s linear infinite;
                 -moz-animation: moveUpDownAnimation 2s linear infinite;
@@ -393,60 +370,38 @@ label{
                 bottom:0;
             }
 
+            #bot2 {
+                /* up down animation */
+                -webkit-animation: moveUpDownAnimation 2s linear infinite;
+                -moz-animation: moveUpDownAnimation 2s linear infinite;
+                -o-animation: moveUpDownAnimation 2s linear infinite;
+                animation: moveUpDownAnimation 2s linear infinite;
+                position: relative;
+                left:0;
+                bottom:0;
+            }
+            #bot3 {
+                /* up down animation */
+                -webkit-animation: moveUpDownAnimation 2s linear infinite;
+                -moz-animation: moveUpDownAnimation 2s linear infinite;
+                -o-animation: moveUpDownAnimation 2s linear infinite;
+                animation: moveUpDownAnimation 2s linear infinite;
+                position: relative;
+                left:0;
+                bottom:0;
+            }
             #bot4 {
-                /* right left animation */
-                -webkit-animation: moveRightLeftAnimation 2s linear infinite;
-                -moz-animation: moveRightLeftAnimation 2s linear infinite;
-                -o-animation: moveRightLeftAnimation 2s linear infinite;
-                animation: moveRightLeftAnimation 2s linear infinite;
+                /* up down animation */
+                -webkit-animation: moveUpDownAnimation 2s linear infinite;
+                -moz-animation: moveUpDownAnimation 2s linear infinite;
+                -o-animation: moveUpDownAnimation 2s linear infinite;
+                animation: moveUpDownAnimation 2s linear infinite;
                 position: relative;
-                left:100;
-                top:200;
+                left:0;
+                bottom:0;
             }
 
-            #bot5 {
-                /* right left animation */
-                -webkit-animation: moveRightLeftAnimation 2s linear infinite;
-                -moz-animation: moveRightLeftAnimation 2s linear infinite;
-                -o-animation: moveRightLeftAnimation 2s linear infinite;
-                animation: moveRightLeftAnimation 2s linear infinite;
-                position: relative;
-                left:100;
-                top:200;
-            }
-
-            #bot6 {
-                /* right left animation */
-                -webkit-animation: moveRightLeftAnimation 2s linear infinite;
-                -moz-animation: moveRightLeftAnimation 2s linear infinite;
-                -o-animation: moveRightLeftAnimation 2s linear infinite;
-                animation: moveRightLeftAnimation 2s linear infinite;
-                position: relative;
-                left:100;
-                top:200;
-            }
-
-            #bot7 {
-                /* right left animation */
-                -webkit-animation: moveRightLeftAnimation 2s linear infinite;
-                -moz-animation: moveRightLeftAnimation 2s linear infinite;
-                -o-animation: moveRightLeftAnimation 2s linear infinite;
-                animation: moveRightLeftAnimation 2s linear infinite;
-                position: relative;
-                left:100;
-                top:200;
-            }
-
-            #bot8 {
-                /* right left animation */
-                -webkit-animation: moveRightLeftAnimation 2s linear infinite;
-                -moz-animation: moveRightLeftAnimation 2s linear infinite;
-                -o-animation: moveRightLeftAnimation 2s linear infinite;
-                animation: moveRightLeftAnimation 2s linear infinite;
-                position: relative;
-                left:100;
-                top:200;
-            }
+           
 }
 
 /* Small screen */
