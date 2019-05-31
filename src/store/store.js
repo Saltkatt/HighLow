@@ -6,6 +6,42 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
+
+      //Avatar images and their names
+      avatarsObjs: [
+        { 
+          id: 1,
+          name: "Dragon",
+          imageHtmlName: "avatar1_dragon.png",
+          image: require("@/assets/avatar1_dragon.png"),
+        },
+        { 
+          id: 2,
+          name: "Elfo",
+          imageHtmlName: "avatar2_elfo.png",
+          image: require("@/assets/avatar2_elfo.png"),
+        },
+        { 
+          id: 3,
+          name: "Hombre", 
+          imageHtmlName: "avatar3_hombre.png",
+          image: require("@/assets/avatar3_hombre.png"),
+        },
+        { 
+          id: 4,
+          name: "Hobre",
+          imageHtmlName: "avatar4_hobre.png",
+          image: require("@/assets/avatar4_hobre.png"),
+        },
+        { 
+          id: 5,
+          name: "Boater",
+          imageHtmlName: "avatar5_boater.png",
+          image: require("@/assets/avatar5_boater.png"),
+        }
+      ],
+
+
       //Array with questions and answers which the moderator gets from the store
       questionBank: [
         {
@@ -38,6 +74,7 @@ export const store = new Vuex.Store({
         {
           id: 1,
           name: 'Bot 1',
+          description: "The Logical Bot",
           guess: null,
           image: require("@/assets/bot1_gray.jpg"),
           isMyTurn: false,
@@ -46,6 +83,7 @@ export const store = new Vuex.Store({
         {
           id: 2,
           name: 'Bot 2',
+          description: "The One Two Bot",
           guess: null,
           image: require("@/assets/bot2_white.jpg"),
           isMyTurn: false,
@@ -54,6 +92,7 @@ export const store = new Vuex.Store({
         {
           id: 3,
           name: 'Dyno',
+          description: "The Check Bot",
           guess: null,
           image: require("@/assets/bot3_dyno.jpg"),
           isMyTurn: false,
@@ -62,6 +101,7 @@ export const store = new Vuex.Store({
         {
           id: 4,
           name: 'Lotus',
+          description: "The Faster Bot",
           guess: null,
           image: require("@/assets/bot4_lotus.jpg"),
           isMyTurn: false,
