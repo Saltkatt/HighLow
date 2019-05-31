@@ -432,7 +432,7 @@ export const store = new Vuex.Store({
         context.commit("setGameState");
         context.dispatch("showResult");
         
-      } else if (context.state.guessNumber < context.state.question.answer) {
+      } else if (context.state.guessNumber < context.state.question.answer&&context.state.guessNumber!==null) {
         console.log("The answer is too Low!");
          
         respons = "Too Low";
@@ -457,7 +457,7 @@ export const store = new Vuex.Store({
         },600);
       
       
-      //skicka antal gissningar till player[] ????
+      
       
       },
 
