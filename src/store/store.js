@@ -6,6 +6,42 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     state: {
+        
+        
+      //Avatar images and their names
+      avatarsObjs: [
+        { 
+          id: 1,
+          name: "Dragon",
+          imageHtmlName: "avatar1_dragon.png",
+          image: require("@/assets/avatar1_dragon.png"),
+        },
+        { 
+          id: 2,
+          name: "Elfo",
+          imageHtmlName: "avatar2_elfo.png",
+          image: require("@/assets/avatar2_elfo.png"),
+        },
+        { 
+          id: 3,
+          name: "Hombre", 
+          imageHtmlName: "avatar3_hombre.png",
+          image: require("@/assets/avatar3_hombre.png"),
+        },
+        { 
+          id: 4,
+          name: "Hobre",
+          imageHtmlName: "avatar4_hobre.png",
+          image: require("@/assets/avatar4_hobre.png"),
+        },
+        { 
+          id: 5,
+          name: "Boater",
+          imageHtmlName: "avatar5_boater.png",
+          image: require("@/assets/avatar5_boater.png"),
+        }
+      ],
+
       //Array with questions and answers which the moderator gets from the store
       questionBank: [
         {
@@ -46,7 +82,7 @@ export const store = new Vuex.Store({
         }
       ],
       //Array with bots
-      bots: [
+      /* bots: [
         {
           id: 1, 
           name: "Grandma", 
@@ -72,18 +108,63 @@ export const store = new Vuex.Store({
           isHuman: false, 
         },
       ],
+      */
+       
+             //Array with bots
+      bots: [
+        {
+          id: 1,
+          name: 'Bot 1',
+          description: "The Logical Bot",
+          guess: null,
+          image: require("@/assets/bot1_gray.jpg"),
+          isMyTurn: false,
+          isHuman: false
+        },
+        {
+          id: 2,
+          name: 'Bot 2',
+          description: "The One Two Bot",
+          guess: null,
+          image: require("@/assets/bot2_white.jpg"),
+          isMyTurn: false,
+          isHuman: false
+        },
+        {
+          id: 3,
+          name: 'Dyno',
+          description: "The Check Bot",
+          guess: null,
+          image: require("@/assets/bot3_dyno.jpg"),
+          isMyTurn: false,
+          isHuman: false
+        },
+        {
+          id: 4,
+          name: 'Lotus',
+          description: "The Faster Bot",
+          guess: null,
+          image: require("@/assets/bot4_lotus.jpg"),
+          isMyTurn: false,
+          isHuman: false
+        },
+
       // question to be used by playgame
       question: {
         question: 'Hur högt är Mount Everest i antal meter räknat?',
         answer: 8848
       },
     //Players & bots in the active game
-    activePlayers: [
+    /*activePlayers: [
       { id: 0, name: "Player", guess: null, image: require("@/assets/sixten.png"), isMyTurn: true, isHuman: true, guesses: 0, slateImage: require("@/assets/slate.png") },
       { id: 1, name: "Grandma", guess: null, image: require("@/assets/grandma.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
       { id: 2, name: "Pelle", guess: null, image: require("@/assets/bot2.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
       { id: 3, name: "Wall-E", guess: null, image: require("@/assets/wall-e.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
     ],
+    */  
+    activePlayers: [
+    ],
+        
     scoreBoard: [
       { name: "Ilari", guesses: 3 },
       { name: "Joel", guesses: 2 },
