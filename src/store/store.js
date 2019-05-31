@@ -69,8 +69,16 @@ export const store = new Vuex.Store({
           guess: null, 
           image: require("@/assets/wall-e.png"), 
           isMyTurn: false, 
-          isHuman: false, 
+          isHuman: false,
         },
+        {
+          id: 4,
+          name: "Elf-Lord",
+          guess: null,
+          image: require(""),
+          isMyTurn: false,
+          isHuman: false,
+        }
       ],
       // question to be used by playgame
       question: {
@@ -371,7 +379,6 @@ export const store = new Vuex.Store({
       },
 
     makeBotDecision(context, player) {
-
       console.log("Enter botDecision with player.id: "+player.id)
           let randomTime = 1000 + Math.floor(Math.random() * 5000);
 
@@ -391,6 +398,9 @@ export const store = new Vuex.Store({
                 //This bots logic: highestNumber - lowestNumber * 10% 
                 player.guess = context.state.lowestNumber + (Math.floor(
                   (context.state.highestNumber - context.state.lowestNumber) * 0.1))
+                break;
+              case 4:
+                player.guess = context.state.lowestNumber + (Math.floor(Math.random() * (context.state.highestNumber / 5)))
                 break;
             }
             console.log("is about to send player.guess to updateLastGuess mutation with player.guess: "+player.guess);
