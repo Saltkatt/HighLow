@@ -1,39 +1,54 @@
 <template>
 <div class="main">
-    <div class="playerName">
-        <!-- Name input max length 15 -->
-        <h2>Current Player: {{currentName().name}}</h2>
-        <label id="nameInputLabel" for="nameInput">Name: </label>
-        <input id="nameInput" name="nameInput" type="text" maxlength="15" placeholder="Enter your name..." v-model="nameValue">
-    </div>
-   <div>
+    
 
-
-        <div class="botWrapper">
-                <div
-                class="bot" v-for="bot in bots" :key="bot.id" v-on:click="selectBot(bot.id)">
-                    <div :id="'bot'+bot.id" style="cursor:pointer;">
-                        <div class="botImage"><img v-bind:src="bot.image"></div>
-                        <div class="botName">Name: {{ bot.name }}</div>
-                        <div class="botDescription">Description:<!-- add description --></div>
-                        <!-- add bot selection -->
-                    </div>
-                </div>
+    <!-- avatar images and names -->
+    <div class="text">Choose an Avatar and Name:</div>
+    <div class="avatarWrapper">
+        <div 
+        class="avatar" v-for="avatar in avatars" :key="avatar.id" v-on:click="selectAvatar(avatar.id, avatar.image)">
+            <div :id="'avatar'+avatar.id" style="cursor:pointer;">
+                <div><img class="avatarImage" v-bind:src="avatar.image"></div>
+                <div class="avatarName">{{ avatar.name }}</div>
+            </div>
         </div>
     </div>
 
+    <div class="playerName">
+        <!-- Name input max length 15 -->
+        <div id="playerAvatar"></div>
+        <label id="nameInputLabel" for="nameInput">Name:</label>
+        <input id="nameInput" name="nameInput" type="text" maxlength="15" placeholder="Enter your name..." v-model="nameValue">
+    </div>
 
+
+    <!-- Bots list -->
+    <div class="botWrapper">
+            <div 
+            class="bot" v-for="bot in bots" :key="bot.id" v-on:click="selectBot(bot.id)">
+                <div :id="'bot'+bot.id" style="cursor:pointer;">
+                    <div><img class="botImage" v-bind:src="bot.image"></div>
+                    <div class="botName">Name: {{ bot.name }}</div>
+                    <div class="botDescription">- {{ bot.description }}</div>
+                </div>
+            </div>
+    </div>
+
+
+    <!-- Category list -->
     <div class="category">
-        <label for="selectCategory">Category:</label>
+        <label for="selectCategory">Choose Category:</label>
         <select name="selectCategory" id="selectCategory" v-model="categoryValue">
             <option value="0">ITHS</option>
             <option value="19">Science: Mathematics</option>
         </select>
     </div>
-<div>
+
+
     <!-- Submit game setup to store -->
-    <router-link to="/game"><button @click="sendToStore(nameValue)">Submit</button></router-link>
-</div>
+    <div>
+        <router-link to="/game"><button @click="sendToStore(nameValue)" class="button1">Start!</button></router-link>
+    </div>
 
 </div>
 
@@ -43,6 +58,7 @@
 
 <script>
 import axios from 'axios';
+import { setTimeout } from 'timers';
 
 export default {
     name: "StartMenu",
@@ -54,26 +70,64 @@ export default {
             apiQuestions: [],
             categoryValue: "0",
             selectedQuestion: null,
-            arrSelectedBots: [] //update_29maj2019
+            
+            arrSelectedBots: [], //update_29maj2019
+            preparedPlayer: {},
+            tempBotId: 1, //an id that will be extracted from "bot1", etc. as available with each bot div
+            preparedBot: {},
+
+            playerAvatarImage: require("@/assets/sixten.png") //updated to avatar image
         }
     },
     methods: {
-      //This method gets the human player out of the array and gets displayed as the current player.
-      currentName() {
-        var players = this.$store.state.activePlayers;
-
-        for(var i = 0; i < players.length; i++) {
-            if(players[i].isHuman == true) {
-                return players[i];
-            }
-        }
-      },
         sendToStore(nameValue) {
-            // Todo: add bot selection and send to store.
             this.getCategoryQuestions(this.categoryValue); // get a random question in selected category
-            // send setup to store
-            this.$store.commit('assignPlayerName', nameValue);
+            this.preparedPlayer = {
+                id: 0,
+                name: nameValue,
+                guess: null,
+                image: this.playerAvatarImage, //require("@/assets/sixten.png"),
+                isMyTurn: true,
+                isHuman: true,
+                guesses: 0,
+                slateImage: require("@/assets/slate.png")
+            }
+            // alert("preparedPlayer: " + this.preparedPlayer);
+            // this.$store.commit('assignPlayerName', nameValue);
             this.$store.commit('assignQuestion', this.selectedQuestion);
+            // send user to store:
+            this.$store.commit('addToActivePlayers', this.preparedPlayer);
+            // send bots to store:
+            // alert ("bot list length: " + this.arrSelectedBots.length);
+            for (var botI=0; botI<this.arrSelectedBots.length; botI++) {
+                // alert("botI:" +botI);
+                this.tempBotId = this.arrSelectedBots[botI] //get from array in form bot1, bot3, etc.
+                this.tempBotId = this.tempBotId.substring(3,4); //take "3" from "bot3"
+                // alert("tempBotI:" +this.tempBotId);
+    
+                this.preparedBot = {
+                    id: Number(this.tempBotId),
+                    name: this.$store.state.bots[this.tempBotId].name,
+                    guess: null,
+                    image: this.$store.state.bots[this.tempBotId].image,
+                    isMyTurn: false,
+                    isHuman: false,
+                    guesses: 0,
+                    slateImage: require("@/assets/slate.png")
+                }
+               this.$store.commit('addToActivePlayers', this.preparedBot);
+               
+                  
+               
+            //    alert("add bot with id: " + this.preparedBot.id);
+            }
+            console.log("Was here");
+            
+            
+            setTimeout(() => {
+               this.$store.dispatch("playGame"); 
+            }, 1000);
+
             // go to /game
         },
         getCategoryQuestions(categoryId) {
@@ -87,7 +141,7 @@ export default {
 
             }
             else if (categoryId == 0) {
-
+                
                 // assign a random question
                 let randomNumber = Math.floor(Math.random() * Math.floor(this.bankQuestions.length));
                 let randomQuestion = this.bankQuestions[randomNumber];
@@ -98,24 +152,48 @@ export default {
             }
         },
 
-        //update: added selectBots function
-        selectBot: function(botId) {
-            var  botId = "bot" + botId;
+        //added selectBots function:
+        selectBot: function(getBotId) {
+            var botId = "bot" + getBotId;
             // "selected bot. add bot id. change style");
             document.getElementById(botId).style.animation = "none";
             // document.getElementById(botId).style.backgroundColor = "blue";
             // alert("bot: " + botId);
             document.getElementById(botId).setAttribute('style','mask-image: radial-gradient(circle at 100% 100%, black 10%, rgba(255,165,0, 0.6) 50%);');
-            arrSelectedBots.push(botId);
+            document.getElementById(botId).setAttribute('style','border: 5px solid green;');
+            document.getElementById(botId).setAttribute('style','background-color: orange;');
+            this.arrSelectedBots.push(botId);
+            // alert(this.arrSelectedBots);
+        },
+
+
+        //added selectBots function:
+        selectAvatar: function(getAvatarId, getImage, avatarImageName) {
+            document.getElementById("playerAvatar").innerHTML = 
+                "<img width=100 src='" + 
+                    getImage + "' " + 
+                    `style =
+                            border-radius: 50%;
+                            border: 1px solid orange;
+                            width: 100px;
+                        ` +
+                ">";
+            this.playerAvatarImage = avatarImageName;   
+            this.nameValue = this.$store.state.avatarsObjs[getAvatarId].name;
         },
 
     },
     computed: {
         bots() {
             return this.$store.state.bots;
+        },
+
+        avatars() {
+            return this.$store.state.avatarsObjs;
         }
     },
     mounted() {
+
         // get questions from questionBank
         this.bankQuestions = this.$store.state.questionBank[0].iths;
 
@@ -145,6 +223,16 @@ export default {
 </script>
 
 <style scoped>
+.button1 {
+    font-size: 25px;
+    margin: 25px;
+    height: 50px;
+}
+
+.text {
+    font-size: 25px;
+    margin: 15px;
+}
 
 /* update: add selected bot style */
 .selectedBot {
@@ -160,32 +248,25 @@ export default {
     display: grid;
     margin: auto;
     width: 25%;
+    align-self: center;
+    justify-self: center;
 }
 
 .botWrapper {
+    margin: auto;
+    width:50%;
     display: grid;
-    /* grid-template-columns: 1fr 1fr; */
-    grid-template-columns: 50px 1fr;
-    /* width: 100%; */
-    /* border: 5px solid brown; */
-
+    grid-template-columns: 1fr 1fr;
 }
-/* .bot{
-    /* display: grid;
-    border: 1px solid black;
-    background: greenyellow;
-    padding: 10px;
-    margin: 5px auto;
-    width: 50%;
-} */
+
 .bot{
-    /* display: grid; */
-    /* border: 3px solid rgb(184, 82, 82); */
-    background: greenyellow;
+    background: url("../assets/background_wood.jpg");
     padding: 10px;
     margin: 5px auto;
     width: 200px;
-    /* width: 50%; */
+    align-self: center;
+    justify-self: center;
+    width: 50%;
 }
 
 .botImage {
@@ -254,11 +335,11 @@ export default {
             }
             @-moz-keyframes moveRightLeftAnimation {
                 0%,100%  { left: 0;}
-                50% { left: 50px;}
+                50% { left: 50px;}            
             }
             @-webkit-keyframes moveRightLeftAnimation {
                 0%,100%  { left: 0;}
-                50% { left: 50px;}
+                50% { left: 50px;}            
             }
 
 
@@ -287,14 +368,9 @@ export default {
                 100% { opacity: 1;}
             }
 
-
             #bot1 {
-                /*orbit animation*/
-                /* position: absolute; */
                 position: relative;
-                /* left: 315px; */
-                left: 0px;
-                /* top: 143px;         center for the circle */
+                left: 0px;         /*center for the circle */
                 top: 0px;         /*center for the circle */
                 -webkit-animation: orbitAnimation 3s linear infinite;
                 -moz-animation: orbitAnimation 3s linear infinite;
@@ -302,7 +378,6 @@ export default {
                 animation: orbitAnimation 3s linear infinite; /* Chrome, Firefox 16+,
                                                             IE 10+, Safari 5 */
             }
-
 
             #bot2 {
                 /* flicker animation */
@@ -333,7 +408,7 @@ export default {
                 left:100;
                 top:200;
             }
-
+                
             #bot5 {
                 /* right left animation */
                 -webkit-animation: moveRightLeftAnimation 2s linear infinite;
@@ -345,36 +420,24 @@ export default {
                 top:200;
             }
 
-            #bot6 {
-                /* right left animation */
-                -webkit-animation: moveRightLeftAnimation 2s linear infinite;
-                -moz-animation: moveRightLeftAnimation 2s linear infinite;
-                -o-animation: moveRightLeftAnimation 2s linear infinite;
-                animation: moveRightLeftAnimation 2s linear infinite;
-                position: relative;
-                left:100;
-                top:200;
+            .avatarWrapper {
+                margin: auto;
+                width:50%;
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
             }
 
-            #bot7 {
-                /* right left animation */
-                -webkit-animation: moveRightLeftAnimation 2s linear infinite;
-                -moz-animation: moveRightLeftAnimation 2s linear infinite;
-                -o-animation: moveRightLeftAnimation 2s linear infinite;
-                animation: moveRightLeftAnimation 2s linear infinite;
-                position: relative;
-                left:100;
-                top:200;
+            #avatar {
+
             }
 
-            #bot8 {
-                /* right left animation */
-                -webkit-animation: moveRightLeftAnimation 2s linear infinite;
-                -moz-animation: moveRightLeftAnimation 2s linear infinite;
-                -o-animation: moveRightLeftAnimation 2s linear infinite;
-                animation: moveRightLeftAnimation 2s linear infinite;
-                position: relative;
-                left:100;
-                top:200;
+            .avatarImage {
+                border-radius: 50%;
+                border: 1px solid orange;
+                width: 100px;
+            }
+
+            .avatarName {
+                /* */
             }
 </style>

@@ -13,6 +13,7 @@
           The correct answer was: {{correctAnswer}}
         </div>
         <div>Total guesses: {{guesses}}</div>
+        <button class="add-button" type="button" v-on:click="addWinnerToScoreBoard()">Add to Scoreboard</button>
         <div>
           <!--
             A button which will route you to main menu and
@@ -21,6 +22,7 @@
           <router-link to="/">
             <button class="again-button" type="button" @click="replay()">Play Again</button>
           </router-link>
+
         </div>
     </div>
   </div>
@@ -60,18 +62,28 @@ export default {
               }
           }
       },
+      //This function adds current player to the scoreBoard in store.
+      addWinnerToScoreBoard: function() {
+        //This gives us the amount of guesses
+        var round = this.$store.state.round;
+        var player = { name: "", guesses: round };
+        var players = this.$store.state.activePlayers;
+
+        //This gets the winner and adds the winners name to our player object.
+        for(var i = 0; i < players.length; i++) {
+          if(players[i].isMyTurn == true) {
+            player.name = players[i].name;
+          }
+        }
+        //Push the player object to the scoreboard in store.
+        this.$store.state.scoreBoard.push(player);
+
+      },
       //This function will reset several states so that the game is replayable. It's called from the play again button.
       replay: function() {
-        this.$store.commit('defaultLowestNumber');
-        this.$store.commit('defaultHighestNumber');
-        this.$store.commit('defaultGameState');
-        this.$store.commit('defaultRound');
-        this.$store.commit('defaultGuessNumber');
-        this.$store.commit('defaultWinnerBoxVisibility');
-        this.$store.commit('defaultQuestions');
-        this.$store.commit('defaultModeratorAnswer');
+        this.$store.commit('defaultStates');
+        this.$store.commit('defaultActivePlayersMyTurn');
         this.$store.commit('defaultActivePlayersGuess');
-        this.$store.commit('defaultDisableInputButton');
       },
   }
 }
@@ -98,7 +110,7 @@ export default {
   font-size: 18px;
   margin: 10% auto;
   width: 60%;
-  height: 60%;
+  height: 80%;
 }
 
 .cup{
@@ -130,6 +142,18 @@ export default {
   text-align: center;
   display: inline-block;
   font-size: 18px;
+  font-weight: bold;
+  margin: 10px;
+}
+.add-button{
+  background-color: #fff;
+  border: 2px solid black;
+  border-radius: 12px;
+  color: black;
+  padding: 10px 20px;
+  text-align: center;
+  display: inline-block;
+  font-size: 12px;
   font-weight: bold;
   margin: 10px;
 }
