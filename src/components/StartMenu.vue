@@ -58,6 +58,7 @@
 
 <script>
 import axios from 'axios';
+import { setTimeout } from 'timers';
 
 export default {
     name: "StartMenu",
@@ -105,7 +106,7 @@ export default {
                 // alert("tempBotI:" +this.tempBotId);
     
                 this.preparedBot = {
-                    id: this.tempBotId,
+                    id: Number(this.tempBotId),
                     name: this.$store.state.bots[this.tempBotId].name,
                     guess: null,
                     image: this.$store.state.bots[this.tempBotId].image,
@@ -115,8 +116,17 @@ export default {
                     slateImage: require("@/assets/slate.png")
                 }
                this.$store.commit('addToActivePlayers', this.preparedBot);
+               
+                  
+               
             //    alert("add bot with id: " + this.preparedBot.id);
             }
+            console.log("Was here");
+            
+            
+            setTimeout(() => {
+               this.$store.dispatch("playGame"); 
+            }, 1000);
 
             // go to /game
         },

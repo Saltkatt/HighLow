@@ -100,6 +100,7 @@ export default {
 @media screen and (min-width: 501px) {
   div {
   display: inline-block;
+  
 }
 .playerArea {
   display: grid;
@@ -112,13 +113,12 @@ export default {
   margin: 0 2vw 0 2vw;
 }
 .player{
-  height: 15vw;
+  /* height: 15vw; */
   display: grid;
   grid-template-areas: 
   'n n'
   'im s';
   width: 70%;
-  
   margin: 0 auto 3% 3%;
   transition: 0.5s;
   opacity: 0.3;
@@ -150,13 +150,17 @@ export default {
   left: 10px;
 }
 .slateArea {
+  
   grid-area: s;
   background: none;
   position: relative;
 }
+
 .slate {
   width: 12vw;
-  margin: 20% 0% 0% 0%;
+  margin-top: 50%;
+  margin-bottom: 50%;
+
 }
 .playerGuessInSlate {
   position: absolute;
@@ -164,6 +168,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 3vw;
+  margin-bottom: 4vh;
 }
 
 
@@ -190,6 +195,11 @@ export default {
 }
 
 /* Input Field and Submit button */
+
+.inputArea{
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+}
 .inputField {
   grid-area: in;
   background-color: black;
@@ -199,7 +209,7 @@ export default {
   text-align: center;
   border: 1px solid brown;
   width: 40%;
-  margin-top: 10vh;
+  margin-top: 5vh;
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
 }
@@ -308,6 +318,10 @@ export default {
   to {
     width: 95%;   
   }
+}
+
+.inputArea{
+  margin-bottom: 3vh;
 }
 
 .inputField{

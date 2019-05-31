@@ -6,13 +6,10 @@
         <!-- Navigation Bar -->
             <nav class="nav-bar">
                 <ul>
-
-                    <router-link to="/"><li>Main Menu</li></router-link>
-                    <router-link to="/statistics"><li>Statistics</li></router-link>
-                    <button class="rulesButton" @click="showRules()">Play</button>
-                    <button class="rulesButton" @click="play()">?</button>
-
-
+                    <router-link to="/"><li class="link">Main Menu</li></router-link>
+                    <router-link to="/statistics"><li class="link">Statistics</li></router-link>
+                    <button class="btn playButton" @click="play()">Play</button>
+                    <button class="btn rulesButton" @click="showRules()">?</button>
                 </ul>
 
             </nav>
@@ -81,6 +78,8 @@ nav {
 ul {
     align-items: baseline;
     padding: 0;
+    margin: 0;
+    font-size: 2vw;
 }
 
 li {
@@ -97,23 +96,36 @@ li {
     color:lightgray;
 }
 
-.rulesButton{
+.btn{
     font-family: 'Passion One', cursive;
     background: none;
     border: none;
-    background-image: url("../assets/treerings.png");
     background-size: contain;
     background-repeat: no-repeat;
-    padding: 1px 15px 5px 20px;
-    margin: 0 0 0 15px;
     color: black;
-    font-size: 5vw;
     float: right;
-    border-radius: 12px;
     text-align: center;
+    align-items: baseline;
+    
+}
+
+.rulesButton{
+    background-image: url("../assets/treerings.png");
+    font-size: 3vw;
+    border-radius: 12px;
+    padding: 1px 15px 5px 20px;
+    margin: 0 0 0 10px;
 }
 
 .rulesButton:focus { outline: none; }
+
+.playButton{
+    font-size: 3vw;
+    background-image: url("../assets/planka3.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin: 2% 0;
+}
 
 /* Small screen */
 @media screen and (max-width: 500px) {
