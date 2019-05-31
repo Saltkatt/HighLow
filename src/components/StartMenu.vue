@@ -282,27 +282,6 @@ export default {
 }
 
 
-
-            @keyframes orbitAnimation {
-                from { transform: rotate(0deg) translateX(10px) rotate(0deg); }
-                to { transform: rotate(360deg) translateX(10px) rotate(-360deg); }
-            }
-            @-o-keyframes orbitAnimation {
-                0%,100%  { bottom: 0;}
-                50% { bottom: 50px;}
-            }
-            @-moz-keyframes orbitAnimation {
-                0%,100%  { bottom: 0;}
-                50% { bottom: 50px;}
-            }
-            @-webkit-keyframes orbitAnimation {
-                0%,100%  { bottom: 0;}
-                50% { bottom: 50px;}
-            }
-
-
-
-
             @keyframes moveUpDownAnimation {
                 0%,100%  { bottom: -10px;}
                 50% { bottom: 10px;}
@@ -324,69 +303,28 @@ export default {
             }
 
 
-
-            @keyframes moveRightLeftAnimation {
-                0%,100%  { left: 0;}
-                50% { left: 50px;}
-            }
-            @-o-keyframes moveRightLeftAnimation {
-                0%,100%  { left: 0;}
-                50% { left: 50px; }
-            }
-            @-moz-keyframes moveRightLeftAnimation {
-                0%,100%  { left: 0;}
-                50% { left: 50px;}            
-            }
-            @-webkit-keyframes moveRightLeftAnimation {
-                0%,100%  { left: 0;}
-                50% { left: 50px;}            
-            }
-
-
-
-            @keyframes flickerAnimation {
-                0%  { opacity: 1;}
-                50% { opacity: 0;}
-                100% { opacity: 1;}
-            }
-
-            @-o-keyframes flickerAnimation {
-                0%  { opacity: 1;}
-                50% { opacity: 0;}
-                100% { opacity: 1;}
-            }
-
-            @-moz-keyframes flickerAnimation {
-                0%  { opacity: 1;}
-                50% { opacity: 0;}
-                100% { opacity: 1;}
-            }
-
-            @-webkit-keyframes flickerAnimation {
-                0%  { opacity: 1;}
-                50% { opacity: 0;}
-                100% { opacity: 1;}
-            }
-
             #bot1 {
+                /* up down animation */
+                -webkit-animation: moveUpDownAnimation 2s linear infinite;
+                -moz-animation: moveUpDownAnimation 2s linear infinite;
+                -o-animation: moveUpDownAnimation 2s linear infinite;
+                animation: moveUpDownAnimation 2s linear infinite;
                 position: relative;
-                left: 0px;         /*center for the circle */
-                top: 0px;         /*center for the circle */
-                -webkit-animation: orbitAnimation 3s linear infinite;
-                -moz-animation: orbitAnimation 3s linear infinite;
-                -o-animation: orbitAnimation 3s linear infinite;
-                animation: orbitAnimation 3s linear infinite; /* Chrome, Firefox 16+,
-                                                            IE 10+, Safari 5 */
+                left:0;
+                bottom:0;
+
             }
 
             #bot2 {
-                /* flicker animation */
-                -webkit-animation: flickerAnimation 1s infinite;
-                -moz-animation: flickerAnimation 1s infinite;
-                -o-animation: flickerAnimation 1s infinite;
-                animation: flickerAnimation 1s infinite;
+                /* up down animation */
+                -webkit-animation: moveUpDownAnimation 2s linear infinite;
+                -moz-animation: moveUpDownAnimation 2s linear infinite;
+                -o-animation: moveUpDownAnimation 2s linear infinite;
+                animation: moveUpDownAnimation 2s linear infinite;
+                position: relative;
+                left:0;
+                bottom:0;
             }
-
             #bot3 {
                 /* up down animation */
                 -webkit-animation: moveUpDownAnimation 2s linear infinite;
@@ -397,28 +335,84 @@ export default {
                 left:0;
                 bottom:0;
             }
-
             #bot4 {
-                /* right left animation */
-                -webkit-animation: moveRightLeftAnimation 2s linear infinite;
-                -moz-animation: moveRightLeftAnimation 2s linear infinite;
-                -o-animation: moveRightLeftAnimation 2s linear infinite;
-                animation: moveRightLeftAnimation 2s linear infinite;
+
+                /* up down animation */
+                -webkit-animation: moveUpDownAnimation 2s linear infinite;
+                -moz-animation: moveUpDownAnimation 2s linear infinite;
+                -o-animation: moveUpDownAnimation 2s linear infinite;
+                animation: moveUpDownAnimation 2s linear infinite;
                 position: relative;
-                left:100;
-                top:200;
+                left:0;
+                bottom:0;
             }
-                
-            #bot5 {
-                /* right left animation */
-                -webkit-animation: moveRightLeftAnimation 2s linear infinite;
-                -moz-animation: moveRightLeftAnimation 2s linear infinite;
-                -o-animation: moveRightLeftAnimation 2s linear infinite;
-                animation: moveRightLeftAnimation 2s linear infinite;
-                position: relative;
-                left:100;
-                top:200;
-            }
+
+           
+
+
+/* Small screen */
+@media screen and (max-width: 500px) {
+
+/* Name area */
+.playerName {
+    display: grid;
+    grid-template-columns: 80% 80% 80%;
+    grid-template-rows: auto auto;
+    margin: 0 20% 0 20% ;
+    width: 25%;
+}
+
+h2{
+    grid-column: 1 / span 3;
+    font-size: 6vw;
+}
+
+.input{
+
+    grid-column: 1 / span 3;
+
+}
+
+#nameInputLabel{
+    margin-top: 10px;
+    font-size: 6vw;
+}
+
+#nameInput{
+    background-color: black;
+    font-family: 'Passion One', cursive;
+    font-size: 6vw;
+    color: whitesmoke;
+    text-align: center;
+    border: 1px solid brown;
+    width: 100%;
+    /* height: 5vh; */
+    margin-top: 2vh;
+    border-radius: 15px;
+}
+
+
+/* Bot selection area */
+
+.botWrapper {
+    display: grid;
+    grid-template-columns: 20% 20% 20%;
+    grid-template-rows: 10% 10% ;
+    grid-gap: 5%;
+    justify-content: center;
+    margin: 2%;
+}
+
+.bot{
+    background-image:url("../assets/divbg.jpg");
+    background-size: cover;
+    padding: 1%;
+    color: sienna;
+}
+
+.image{
+    width: 80%;
+}
 
             .avatarWrapper {
                 margin: auto;
@@ -431,6 +425,7 @@ export default {
 
             }
 
+
             .avatarImage {
                 border-radius: 50%;
                 border: 1px solid orange;
@@ -439,5 +434,6 @@ export default {
 
             .avatarName {
                 /* */
+            }
             }
 </style>

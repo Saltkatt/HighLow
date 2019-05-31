@@ -104,7 +104,9 @@ export default {
 
 .modalContent {
   text-align: center;
-  background-color: whitesmoke;
+  background-image: url("../assets/divbg.jpg");
+  background-size: contain;
+  background-repeat: repeat;
   padding: 20px 30px;
   color: black;
   font-size: 18px;
@@ -129,7 +131,7 @@ export default {
   font-size: 28px;
   padding: 0px;
   font-weight: bold;
-  color: #4aae9b;
+  color: black;
   background: transparent;
 }
 /*Temporary CSS for the replay button*/
