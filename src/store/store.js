@@ -148,7 +148,7 @@ export const store = new Vuex.Store({
           isMyTurn: false,
           isHuman: false
         },
-       ]
+       ],
 
       // question to be used by playgame
       question: {
