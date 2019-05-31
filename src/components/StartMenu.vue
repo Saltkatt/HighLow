@@ -435,4 +435,5 @@ h2{
             .avatarName {
                 /* */
             }
+            }
 </style>
