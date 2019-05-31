@@ -76,7 +76,7 @@ export default {
             this.$store.commit('assignQuestion', this.selectedQuestion);
             // go to /game
         },
-        getCategoryQuestions: async function(categoryId) {
+        getCategoryQuestions(categoryId) {
             categoryId = Number(categoryId);
 
             if (categoryId == 19) {
