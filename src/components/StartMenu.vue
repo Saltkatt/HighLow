@@ -111,7 +111,7 @@ export default {
             document.getElementById(botId).style.animation = "none";
             // document.getElementById(botId).style.backgroundColor = "blue";
             // alert("bot: " + botId);
-            document.getElementById(botId).setAttribute('style','mask-image: radial-gradient(circle at 100% 100%, black 10%, rgba(255,165,0, 0.6) 50%);');
+            //document.getElementById(botId).setAttribute('style','mask-image: radial-gradient(circle at 100% 100%, black 10%, rgba(255,165,0, 0.6) 50%);');
             arrSelectedBots.push(botId);
         },
 
