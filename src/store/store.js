@@ -19,7 +19,7 @@ export const store = new Vuex.Store({
               correct_answer: 135
             },
             {
-              question: 'How high is the Eiffel Tower in meters?',
+              question: 'How tall is the Eiffel Tower in meters?',
               correct_answer: 324
             },
             {

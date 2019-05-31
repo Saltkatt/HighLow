@@ -119,7 +119,6 @@ export default {
   'n n'
   'im s';
   width: 70%;
-    
   margin: 0 auto 3% 3%;
   transition: 0.5s;
   opacity: 0.3;
@@ -155,13 +154,13 @@ export default {
   grid-area: s;
   background: none;
   position: relative;
-  align-content: center;
 }
 
 .slate {
   width: 12vw;
-  margin: 4vh 0% 4vh 0%;
-  
+  margin-top: 50%;
+  margin-bottom: 50%;
+
 }
 .playerGuessInSlate {
   position: absolute;
@@ -169,6 +168,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 3vw;
+  margin-bottom: 4vh;
 }
 
 
