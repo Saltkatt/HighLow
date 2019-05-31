@@ -78,6 +78,8 @@ nav {
 ul {
     align-items: baseline;
     padding: 0;
+    margin: 0;
+    font-size: 2vw;
 }
 
 li {
@@ -103,6 +105,8 @@ li {
     color: black;
     float: right;
     text-align: center;
+    align-items: baseline;
+    
 }
 
 .rulesButton{

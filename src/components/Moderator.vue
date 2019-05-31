@@ -61,7 +61,7 @@ export default {
   border-radius: 15px;
   background-image: url("../assets/divbg.jpg");
   background-size: cover;
-  background-repeat: repeat;
+  background-repeat: no-repeat;
   padding: 10px;
   margin: 5px;
   font-family: 'Passion One', cursive;
