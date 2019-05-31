@@ -44,7 +44,9 @@ export default {
 
 .modalContent {
   text-align: left;
-  background-color: #fff;
+  background-image: url("../assets/divbg.jpg");
+  background-size: contain;
+  background-repeat: repeat;
   padding: 30px 50px;
   color: black;
   font-size: 18px;
@@ -61,7 +63,7 @@ export default {
   font-size: 28px;
   padding: 0px;
   font-weight: bold;
-  color: #4aae9b;
+  color: black;
   background: transparent;
 }
 </style>

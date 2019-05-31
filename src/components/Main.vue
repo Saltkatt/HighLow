@@ -6,13 +6,10 @@
         <!-- Navigation Bar -->
             <nav class="nav-bar">
                 <ul>
-
-                    <router-link to="/"><li>Main Menu</li></router-link>
-                    <router-link to="/statistics"><li>Statistics</li></router-link>
+                    <router-link to="/"><li class="link">Main Menu</li></router-link>
+                    <router-link to="/statistics"><li class="link">Statistics</li></router-link>
                     <button class="rulesButton" @click="showRules()">Play</button>
                     <button class="rulesButton" @click="play()">?</button>
-
-
                 </ul>
 
             </nav>
@@ -81,6 +78,8 @@ nav {
 ul {
     align-items: baseline;
     padding: 0;
+    margin: 0;
+    font-size: 2vw;
 }
 
 li {
@@ -104,13 +103,15 @@ li {
     background-image: url("../assets/treerings.png");
     background-size: contain;
     background-repeat: no-repeat;
-    padding: 1px 15px 5px 20px;
+    padding: 1px 5px 5px 5px;
     margin: 0 0 0 15px;
     color: black;
-    font-size: 5vw;
+    font-size: 2vw;
     float: right;
     border-radius: 12px;
     text-align: center;
+    align-items: baseline;
+    
 }
 
 .rulesButton:focus { outline: none; }
