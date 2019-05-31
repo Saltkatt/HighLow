@@ -7,8 +7,8 @@
             <nav class="nav-bar">
                 <ul>
 
-                    <router-link to="/"><li>Main Menu</li></router-link>
-                    <router-link to="/statistics"><li>Statistics</li></router-link>
+                    <router-link to="/"><li class="link">Main Menu</li></router-link>
+                    <router-link to="/statistics"><li class="link">Statistics</li></router-link>
                     <button class="rulesButton" @click="showRules()">Play</button>
                     <button class="rulesButton" @click="play()">?</button>
 
