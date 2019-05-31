@@ -14,11 +14,13 @@
         </div>
     </div>
 
+    <div class="input">
     <div class="playerName">
         <!-- Name input max length 15 -->
-        <div id="playerAvatar"></div>
         <label id="nameInputLabel" for="nameInput">Name:</label>
         <input id="nameInput" name="nameInput" type="text" maxlength="15" placeholder="Enter your name..." v-model="nameValue">
+    </div>
+    <div id="playerAvatar"></div>
     </div>
 
 
@@ -34,7 +36,6 @@
             </div>
     </div>
 
-
     <!-- Category list -->
     <div class="category">
         <label for="selectCategory">Choose Category:</label>
@@ -44,10 +45,9 @@
         </select>
     </div>
 
-
     <!-- Submit game setup to store -->
-    <div>
-        <router-link to="/game"><button @click="sendToStore(nameValue)" class="button1">Start!</button></router-link>
+    <div class="btn">
+        <router-link to="/game"><button @click="sendToStore(nameValue)" class="startBtn">Start!</button></router-link>
     </div>
 
 </div>
@@ -159,9 +159,9 @@ export default {
             document.getElementById(botId).style.animation = "none";
             // document.getElementById(botId).style.backgroundColor = "blue";
             // alert("bot: " + botId);
-            document.getElementById(botId).setAttribute('style','mask-image: radial-gradient(circle at 100% 100%, black 10%, rgba(255,165,0, 0.6) 50%);');
-            document.getElementById(botId).setAttribute('style','border: 5px solid green;');
-            document.getElementById(botId).setAttribute('style','background-color: orange;');
+            // document.getElementById(botId).setAttribute('style','mask-image: radial-gradient(circle at 100% 100%, black 10%, rgba(255,165,0, 0.6) 50%);');
+            // document.getElementById(botId).setAttribute('style','border: 5px solid green;');
+            // document.getElementById(botId).setAttribute('style','background-color: orange;');
             this.arrSelectedBots.push(botId);
             // alert(this.arrSelectedBots);
         },
@@ -223,16 +223,11 @@ export default {
 </script>
 
 <style scoped>
-.button1 {
-    font-size: 25px;
-    margin: 25px;
-    height: 50px;
-}
 
-.text {
-    font-size: 25px;
-    margin: 15px;
-}
+/* Desktop */
+@media screen and (min-width: 501px) {
+
+
 
 /* update: add selected bot style */
 .selectedBot {
@@ -240,45 +235,124 @@ export default {
 }
 
 .main {
-    background: #3b3b3b;
-    color: azure;
+    background: none;
+    color:whitesmoke;
+    display: grid;
+    grid-template-rows: auto auto auto auto auto auto;
+    /* justify-content: center; */
 }
 
+/* Choose avatar */
+.text {
+    grid-column: 1 / span 3;
+    font-size: 3vw;
+}
+
+/* Name area */
 .playerName {
     display: grid;
-    margin: auto;
+    grid-template-columns: 80% 80% 80%;
+    grid-template-rows: auto auto;
+    margin: 0 20% 0 20% ;
     width: 25%;
-    align-self: center;
-    justify-self: center;
+    align-items: center;
 }
 
+h2{
+    grid-column: 1 / span 3;
+    font-size: 3vw;
+}
+
+.input{
+    grid-column: 1 / span 3;
+}
+
+#nameInputLabel{
+    margin: 10px 0 0 50px;
+}
+
+#nameInput{
+    background-color: black;
+    font-family: 'Passion One', cursive;
+    font-size: 180%;
+    color: whitesmoke;
+    text-align: center;
+    border: 1px solid brown;
+    width: 130%;
+    /* height: 5vh; */
+    margin-top: 2vh;
+    border-radius: 15px;
+}
+
+/* Bot selection area */
 .botWrapper {
-    margin: auto;
-    width:50%;
+    grid-column: 1 / span 3;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 20% 20% 20%;
+    grid-template-rows: 20% 20% 20%;
+    grid-gap: 10%;
+    justify-content: center;
+    margin: 2%;
+   
 }
 
 .bot{
-    background: url("../assets/background_wood.jpg");
-    padding: 10px;
-    margin: 5px auto;
-    width: 200px;
-    align-self: center;
-    justify-self: center;
-    width: 50%;
+    background-image: url("../assets/divbg.jpg");
+    background-size: cover;
+    background-repeat: repeat;
+    /* padding: 45px; */
+    margin: 0px auto;
+    color: sienna;
+    width: 150px;
+    height: 230px;
 }
 
 .botImage {
-    margin: auto;
-    width: 100px;
-    height: 100px;
+    margin-top: 20px;
+    width: 60%;
 }
 
+/* Question Categories */
 .category {
+    grid-column: 1 / span 3;
     display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 2%;
+    justify-content: center;
     margin: auto;
-    width: 25%;
+    
+}
+label{
+    margin-top:10%;
+    font-size: 200%;
+}
+
+#selectCategory{
+    background-color: black;
+    font-family: 'Passion One', cursive;
+    font-size: 180%;
+    color: whitesmoke;
+    text-align: center; 
+    border: 1px solid brown;
+    width: 100%;
+    margin-top: 2vh;
+    border-radius: 10px;
+}
+
+.btn{
+    grid-column: 1 / span 3;
+}
+.startBtn{
+    font-family: 'Passion One', cursive;
+    font-size: 180%;
+    width: 30%;
+    height: 10vh; 
+    background-image: url("../assets/divbg.jpg");
+    background-size: cover;
+    background-repeat: repeat;
+    border-radius: 10px;
+    margin-top: 10px;
+   
 }
 
 
@@ -348,7 +422,7 @@ export default {
             }
 
            
-
+}
 
 /* Small screen */
 @media screen and (max-width: 500px) {
@@ -374,18 +448,18 @@ h2{
 }
 
 #nameInputLabel{
-    margin-top: 10px;
-    font-size: 6vw;
+    margin-top: 15px;
+    font-size: 5vw;
 }
 
 #nameInput{
     background-color: black;
     font-family: 'Passion One', cursive;
-    font-size: 6vw;
+    font-size: 5vw;
     color: whitesmoke;
     text-align: center;
     border: 1px solid brown;
-    width: 100%;
+    width: 40vw;
     /* height: 5vh; */
     margin-top: 2vh;
     border-radius: 15px;
@@ -410,30 +484,74 @@ h2{
     color: sienna;
 }
 
-.image{
+.botImage{
     width: 80%;
 }
 
-            .avatarWrapper {
-                margin: auto;
-                width:50%;
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-            }
+/* Question Categories */
 
-            #avatar {
+.category {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-gap: 2%;
+    justify-content: center;
+    margin: auto;
+    
+}
+label{
+    margin-top:10%;
+    font-size: 200%;
+}
 
-            }
+#selectCategory{
+    background-color: black;
+    font-family: 'Passion One', cursive;
+    font-size: 180%;
+    color: whitesmoke;
+    text-align: center; 
+    border: 1px solid brown;
+    width: 100%;
+    margin-top: 2vh;
+    border-radius: 10px;
+}
+
+.startBtn{
+    grid-row: 2;
+    grid-column: 2;
+    font-family: 'Passion One', cursive;
+    font-size: 180%;
+    width: 100%;
+    background-image: url("../assets/divbg.jpg");
+    background-size: cover;
+    background-repeat: repeat;
+    border-radius: 10px;
+    margin-top: 10px;
+    
+}
+
+/* Avatar */
+
+.avatarWrapper {
+    margin: auto;
+    width:50%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+#avatar {
+
+}
 
 
-            .avatarImage {
-                border-radius: 50%;
-                border: 1px solid orange;
-                width: 100px;
-            }
+.avatarImage {
+    border-radius: 50%;
+    border: 1px solid orange;
+    width: 100px;
+}
 
-            .avatarName {
+.avatarName {
                 /* */
-            }
-            }
+}
+
+}
 </style>
