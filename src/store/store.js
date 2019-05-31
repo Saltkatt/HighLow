@@ -74,8 +74,8 @@ export const store = new Vuex.Store({
       ],
       // question to be used by playgame
       question: {
-        question: null,
-        answer: null
+        question: 'Hur högt är Mount Everest i antal meter räknat?',
+        answer: 8848
       },
     //Players & bots in the active game
     activePlayers: [
@@ -109,8 +109,15 @@ export const store = new Vuex.Store({
     correctGuess: 8848,
     moderatorAnswer: null,
     disableInputButton: false,
+    time:10,
+    //PlayGame use this
+    i:0,
+    
+    timer:null,
+    test:null,
 
   },
+
   mutations: {
       /*
         Following some functions to reset several states when called upon.
@@ -153,20 +160,12 @@ export const store = new Vuex.Store({
         state.disableInputButton = false;
       },
 
-    updateModeratorAnswer(state) {
-      if (state.guessNumber < state.question.answer) {
-        state.moderatorAnswer = "The guess is too low!"
-        this.dispatch('resetModeratorTalk')
-      }
-      else if (state.guessNumber > state.question.answer) {
-        state.moderatorAnswer = "The guess is too high!"
-        this.dispatch('resetModeratorTalk')
-      }
-      else if (state.guessNumber == state.question.answer) {
-        state.moderatorAnswer = "The guess is correct!"
-        state.gameState = false;
-        this.dispatch('showResult')
-      }
+
+    updateModeratorAnswer(state,talk) {
+      
+        state.moderatorAnswer = talk;
+      
+
     },
 
     toggleInputButton(state){
@@ -181,32 +180,35 @@ export const store = new Vuex.Store({
       for (let i = 0; i < state.activePlayers.length; i++) {
         state.activePlayers[i].guess = null;
       }
+    
     },
 
-    submitGuessToStore(state, player) {
-      state.activePlayers[player.id].guess = player.guess;
-      if ((player.guess < state.question.answer && player.guess > state.lowestNumber) || (player.guess < state.question.answer && state.lowestNumber == null)) {
-        state.lowestNumber = player.guess;
-      }
-      else if ((player.guess > state.question.answer && player.guess < state.highestNumber) || (player.guess > state.question.answer && state.highestNumber == null)) {
-        state.highestNumber = player.guess;
-      }
-    },
+    submitGuessToStore(state, highLow) {
+      console.log("Enter submit guessGuessToStore with value: "+highLow);
+      
+      switch(highLow){
+        case "low":
+        console.log("Enter Low Sitch");
+          if (state.guessNumber>state.lowestNumber){
+            state.lowestNumber=state.guessNumber;
+          }
+          break;
+        case "high":
+          console.log("Enter high switch");
+          if(state.guessNumber<state.highestNumber){
+           state.highestNumber=state.guessNumber; 
+          }
+          break;  
 
-    delayModeratorAnswer() {
-      this.dispatch('delayModeratorAnswer')
-    },
-
-    seeWhosTurn(state, player) {
-      if (state.gameState == true) {
-        this.dispatch('delaySwitchTurn', player)
       }
-    },
+     
+      },
 
     //This function pushes the player into the "activePlayers array"
     addToActivePlayers: function (state, payload) {
       state.activePlayers.push(payload);
     },
+
     //Changes the value of lowestNumber if payload is larger
     setLowestNumber: function (state, payload) {
       if (payload > state.lowestNumber) {
@@ -221,6 +223,7 @@ export const store = new Vuex.Store({
         state.highestNumber = payload;
       }
     },
+
     //close modal box
     closeWinnerBox: function (state) {
       state.isWinnerBoxVisible = false;
@@ -233,35 +236,49 @@ export const store = new Vuex.Store({
     updateLastGuess(state, guess) {
       state.guessNumber = guess;
     },
+    resetLastGuess(state) {
+      state.guessNumber = null;
+    },
     //changes the active players turn
     switchTurn(state, player) {
-      if (state.gameState == true) {
-        if (state.activePlayers[player.id].id == state.activePlayers.length - 1) {
-          state.activePlayers[player.id].isMyTurn = !state.activePlayers[player.id].isMyTurn;
-          state.activePlayers[0].isMyTurn = !state.activePlayers[0].isMyTurn;
-          state.round++;
-          state.disableInputButton = !state.disableInputButton;
-        } else {
-          state.activePlayers[player.id].isMyTurn = !state.activePlayers[player.id].isMyTurn;
-          state.activePlayers[player.id + 1].isMyTurn = !state.activePlayers[player.id + 1].isMyTurn;
-        }
-      }
+      
+      state.test+="enter switchTurn,"
+          player.guess = null;
+          if (state.activePlayers[player.id].id == state.activePlayers.length - 1) {
+            console.log("Enter if inside switchTurn with player.id: "+player.id);
+            state.activePlayers[player.id].isMyTurn = !state.activePlayers[player.id].isMyTurn;
+            state.activePlayers[0].isMyTurn = !state.activePlayers[0].isMyTurn;
+            state.i=0;
+            state.round++;
+            state.toggleInputButton=!state.toggleInputButton;
+            
 
-
-      // check if it is a bot's turn. If true - the "makeBotDecision" method runs
-      for (let i = 0; i < state.activePlayers.length; i++) {
-        if (state.activePlayers[i].isMyTurn == true && state.activePlayers[i].isHuman == false) {
-          this.dispatch('makeBotDecision', state.activePlayers[i])
-        }
-      }
+          } else {
+            console.log("Enter else inside switchTurn with player.id: "+player.id);
+            state.activePlayers[player.id].isMyTurn = !state.activePlayers[player.id].isMyTurn;
+            state.activePlayers[player.id + 1].isMyTurn = !state.activePlayers[player.id + 1].isMyTurn;
+            state.i++
+          }
+          state.guessNumber=null;
+          
+      
     },
 
     showRules(state) {
       state.showRules = !state.showRules;
     },
 
-    setSeconds(state, nr) {
-      state.seconds = nr;
+    setGameState(state) {
+      state.gameState = !state.gameState;
+    },
+
+   
+
+    increaseTimer(state) {
+      state.time--;
+    },
+    resetTimer(state) {
+      state.time=10;
     },
 
     //Resets round to 1
@@ -272,6 +289,11 @@ export const store = new Vuex.Store({
     addGuesses(state) {
       state.activePlayers.guesses++;
     },
+
+    addtoTest(state,payload) {
+      state.test+=payload;
+    },
+
 
     // gets playerName from StartMenu
     assignPlayerName(state, playerName) {
@@ -289,72 +311,182 @@ export const store = new Vuex.Store({
       //Sets the highestNumber that a bot can guess to 2 times the correct answer.
       state.highestNumber = state.question.answer * 2;
     }
+
   },
   actions: {
 
     //Martin Test
     resetModeratorTalk(context) {
       setTimeout(function () {
-        context.commit("resetModeratorTalk");
-        context.commit("resetPlayersGuess");
+        context.commit("updateModeratorAnswer","");
+        
       }, 1000)
-    },
-
-    delaySwitchTurn(context, player) {
-      setTimeout(function () {
-        context.commit("switchTurn", player);
-      }, 3000)
     },
 
     showResult(context) {
       setTimeout(function () {
         context.commit("openWinnerBox");
-      }, 1500)
+      }, 500)
     },
+    playGame(context){
+      
+      
+      var player=context.state.activePlayers[context.state.i];
+      console.log("Enter game with player.id: "+player.id);
+      
+      context.dispatch("startTimer");
+      //Check if player is human and wait for user input
+      if(player.id==0){
+        console.log("Players turn, is about to call userMethod with player.id: "+player.id);
+        
+        context.dispatch("userMethod", player);
+                
+              
+          //Check if player is bot, 
+          } else if (player.id!==0){
+            console.log("bots turn, is about to call makeBotDecision with player.id: "+player.id);
+            
+            context.dispatch("makeBotDecision", player);
+           
+          }
+          
+        
+      },
+      userMethod(context,player){
+          console.log("Enter userMethod with player.id: "+player.id);
+          // Waits for user-input
+        if(context.state.guessNumber==null&&context.state.time>0){ // Lägg in tidparameter här
+          setTimeout(function(){ 
+             context.dispatch("userMethod",player);
+            },590); 
+
+        } else{
+          console.log("App is no longer waiting for user-input");
+          console.log("is about to send player.guess to updateLastGuess mutation with player.guess: "+player.guess);
+          context.commit("updateLastGuess",player.guess);
+          
+          context.dispatch("response",player);
+        }
+        
+      },
 
     makeBotDecision(context, player) {
 
-      let randomTime = 1000 + Math.floor(Math.random() * 8000);
+      console.log("Enter botDecision with player.id: "+player.id)
+          let randomTime = 1000 + Math.floor(Math.random() * 5000);
 
-      setTimeout(function () {
-        switch (player.id) {
-          case 1:
-            player.guess = context.state.lowestNumber + Math.floor((context.state.highestNumber - context.state.lowestNumber) / 2)
-            break;
-          case 2:
-            player.guess = context.state.lowestNumber + (Math.floor(Math.random() * (context.state.highestNumber - context.state.lowestNumber)))
-            break;
-          case 3:
-            player.guess = context.state.lowestNumber + (Math.floor(Math.random() * (context.state.highestNumber - context.state.lowestNumber)))
-            break;
+          setTimeout(function(){
+            
+            switch (player.id) {
+          
+              case 1:
+                //This bots logic: highestNumber - lowestNumber / 2
+                player.guess = context.state.lowestNumber + Math.floor((context.state.highestNumber - context.state.lowestNumber) / 2)
+                break;
+              case 2:
+                //This bots logic: highestNumber - lowestNumber * randomNumber
+                player.guess = context.state.lowestNumber + (Math.floor(Math.random() * (context.state.highestNumber - context.state.lowestNumber)))
+                break;
+              case 3:
+                //This bots logic: highestNumber - lowestNumber * 10% 
+                player.guess = context.state.lowestNumber + (Math.floor(
+                  (context.state.highestNumber - context.state.lowestNumber) * 0.1))
+                break;
+            }
+            console.log("is about to send player.guess to updateLastGuess mutation with player.guess: "+player.guess);
+            context.commit("updateLastGuess",player.guess);
+            console.log("is about to call responseMethod with player.id: "+player.id);
+            context.dispatch("response",player);  
+            
+            },randomTime);
 
-        }
-
-        context.commit("updateLastGuess", player.guess);
-        context.commit("submitGuessToStore", player);
-        context.dispatch("delayModeratorAnswer")
-          ;
-        context.commit("seeWhosTurn", player)
-
-      }, randomTime);
-
+ 
+    },
+    response(context,player){
+      console.log("enter responseMethod with player.id: "+player.id);
+      context.dispatch("stopTimer");
+      console.log("is about to call highLowMethod");
+      context.dispatch("highLow");
+        if(context.state.gameState){
+        setTimeout(function(){
+          context.commit("resetModeratorTalk");
+           context.commit("resetTimer");
+          console.log("is about to call switchTurnMethod with player.id: "+player.id);
+          context.commit("switchTurn",player);
+          console.log("is about to call playerGame to start over");
+          context.dispatch("playGame");
+          },2000);
+        } 
+       
+      
+      
     },
 
-    delayModeratorAnswer(context) {
+    highLow(context){
+      console.log("Enter HighLowMethod, is about to check answer and give response, guessNUumber: "+context.state.guessNumber);
+      
+      var respons = null;
+      if (context.state.guessNumber == context.state.question.answer) {
+        console.log("The answer is correct!");
+        respons = "Correct!";
+        context.commit("setGameState");
+        context.dispatch("showResult");
+        
+      } else if (context.state.guessNumber < context.state.question.answer) {
+        console.log("The answer is too Low!");
+         
+        respons = "Too Low";
+        console.log("Is about to call submitGuessToStore with value low ");
+        // Send data to method submitGuessToStore
+        context.commit("submitGuessToStore","low");
+        
+      } else if (context.state.guessNumber > context.state.question.answer) {
+        respons = "Too High";
+        console.log("The answer is too high!");
+        // Send data to method submitGuessToStore
+        context.commit("submitGuessToStore","high");
+      } else if (context.state.guessNumber==null) {
+        console.log("The answer is null!");
+        respons = "Times up!";
+        
+      }
+      console.log("IS about to call updateModeratorAnswer with response: "+respons);
+      // Send response to moderatoranswer
+       setTimeout(function(){
+        context.commit("updateModeratorAnswer",respons);
+        },600);
+      
+      
+      //skicka antal gissningar till player[] ????
+      
+      },
+
+    delayModeratorAnswer(context,talk) {
       setTimeout(function () {
-        context.commit("updateModeratorAnswer")
+        context.commit("updateModeratorAnswer",talk)
       }, 1000)
     },
 
-         //Timer should be started via playGame
-      startSecondCounter(seconds){
-        seconds -= 1;
-
-          if (seconds == -1){
-            seconds = 10
-          }
-          return seconds;
-
-      }
+    startTimer(context){
+      console.log("Start timer");
+      
+      context.state.timer=setInterval(()=>{
+      context.commit("increaseTimer");
+     },1000);
+      
     },
+    stopTimer(context){
+      console.log("Stop Timer");
+      clearInterval(context.state.timer);
+
+    },
+  
+    
+    }
+  
+
+  
+  
+
+
 })
