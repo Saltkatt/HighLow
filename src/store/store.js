@@ -5,32 +5,42 @@ import Vuex from 'vuex'
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
-    //Prevents changes in components without store involvement
-    // strict: true,
     state: {
       //Array with questions and answers which the moderator gets from the store
       questionBank: [
         {
           iths: [
             {
-              question: 'Hur högt är Mount Everest i antal meter räknat?',
+              question: 'How high is Mount Everest in meters?',
               correct_answer: 8848
             },
             {
-              question: 'Hur många trappsteg är i ITHS trappuppgång?',
+              question: 'How many stairs are there from the ground level to ITHS floor level?',
               correct_answer: 135
             },
             {
-              question: 'Hur högt är Eiffel-tornet i antal meter räknat?',
+              question: 'How high is the Eiffel Tower in meters?',
               correct_answer: 324
             },
             {
-              question: 'Hur många kort finns i en vanlig kortlek?',
+              question: 'How many cards are there in an average deck?',
               correct_answer: 32
             },
             {
-              question: 'Hur många dollar tjänar Bill Gates per minut?',
+              question: 'How many dollars does Bill Gates make per minute?',
               correct_answer: 23148
+            },
+            {
+              question: 'What year was Sputnik 1 launched into orbit around Earth?',
+              correct_answer: 1957
+            },
+            {
+              question: 'How long is a martian year?',
+              correct_answer: 687
+            },
+            {
+              question: 'How many arms does an octopus have?',
+              correct_answer: 6
             },
           ]
         }
@@ -38,20 +48,28 @@ export const store = new Vuex.Store({
       //Array with bots
       bots: [
         {
-          id: 1,
-          name: 'Anna',
-          guess: null,
-          image: require("@/assets/kajsa.jpg"),
-          isMyTurn: false,
-          isHuman: false
+          id: 1, 
+          name: "Grandma", 
+          guess: null, 
+          image: require("@/assets/grandma.png"), 
+          isMyTurn: false, 
+          isHuman: false, 
         },
         {
-          id: 2,
-          name: 'Pelle',
-          guess: null,
-          image: require("@/assets/martin.jpg"),
-          isMyTurn: false,
-          isHuman: false
+          id: 2, 
+          name: "Pelle", 
+          guess: null, 
+          image: require("@/assets/bot2.png"), 
+          isMyTurn: false, 
+          isHuman: false,
+        },
+        {
+          id: 3, 
+          name: "Wall-E", 
+          guess: null, 
+          image: require("@/assets/wall-e.png"), 
+          isMyTurn: false, 
+          isHuman: false, 
         },
       ],
       // question to be used by playgame
@@ -61,10 +79,18 @@ export const store = new Vuex.Store({
       },
     //Players & bots in the active game
     activePlayers: [
-      { id: 0, name: "Kalle", guess: null, image: require("@/assets/sixten.png"), isMyTurn: true, isHuman: true, guesses: 0, slateImage: require("@/assets/slate.png") },
+      { id: 0, name: "Player", guess: null, image: require("@/assets/sixten.png"), isMyTurn: true, isHuman: true, guesses: 0, slateImage: require("@/assets/slate.png") },
       { id: 1, name: "Grandma", guess: null, image: require("@/assets/grandma.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
       { id: 2, name: "Pelle", guess: null, image: require("@/assets/bot2.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
       { id: 3, name: "Wall-E", guess: null, image: require("@/assets/wall-e.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
+    ],
+    scoreBoard: [
+      { name: "Ilari", guesses: 3 },
+      { name: "Joel", guesses: 2 },
+      { name: "Tonny", guesses: 5 },
+      { name: "Elin", guesses: 3 },
+      { name: "Martin", guesses: 6},
+      { name: "Bob", guesses: 4 },
     ],
     //This is the guess of players/bots, and moderator will get this number
     guessNumber: null,
@@ -91,13 +117,55 @@ export const store = new Vuex.Store({
     test:null,
 
   },
-  
+
   mutations: {
+      /*
+        Following some functions to reset several states when called upon.
+      */
+      //This enables the gameState again when questions are submitted from the StarMenu.
+      defaultGameState(state) {
+        state.gameState = true;
+      },
+      //This resets the guess of each player in the activePlayers to null.
+      defaultActivePlayersGuess(state) {
+        var players = state.activePlayers;
+
+        for(var i = 0; i < players.length; i++) {
+          players[i].guess = null;
+        }
+      },
+      //This resets the state of isMyTurn so that bots have false and the player has true.
+      defaultActivePlayersMyTurn(state) {
+        var players = state.activePlayers;
+
+        for(var i = 0; i < players.length; i++) {
+          if(players[i].isHuman == true) {
+            players[i].isMyTurn = true;
+          }
+          else {
+            players[i].isMyTurn = false;
+          }
+        }
+      },
+      //This function resets states which is required to keep scores and being able to replay game.
+      defaultStates(state) {
+        state.lowestNumber = 0;
+        state.highestNumber = 10000;
+        state.round = 1;
+        state.guessNumber = null;
+        state.isWinnerBoxVisible = false;
+        state.question.question = null;
+        state.question.answer = null;
+        state.moderatorAnswer = null;
+        state.disableInputButton = false;
+      },
+
 
     updateModeratorAnswer(state,talk) {
       
         state.moderatorAnswer = talk;
       
+
     },
 
     toggleInputButton(state){
@@ -114,6 +182,7 @@ export const store = new Vuex.Store({
       }
     
     },
+
     submitGuessToStore(state, highLow) {
       console.log("Enter submit guessGuessToStore with value: "+highLow);
       
@@ -130,6 +199,7 @@ export const store = new Vuex.Store({
            state.highestNumber=state.guessNumber; 
           }
           break;  
+
       }
      
       },
@@ -138,8 +208,22 @@ export const store = new Vuex.Store({
     addToActivePlayers: function (state, payload) {
       state.activePlayers.push(payload);
     },
-   
-     
+
+    //Changes the value of lowestNumber if payload is larger
+    setLowestNumber: function (state, payload) {
+      if (payload > state.lowestNumber) {
+        state.lowestNumber = payload;
+      }
+
+     },
+
+    //changes the value of highestNumber if payload is lesser
+    setHighestNumber: function (state, payload) {
+      if (payload < state.highestNumber) {
+        state.highestNumber = payload;
+      }
+    },
+
     //close modal box
     closeWinnerBox: function (state) {
       state.isWinnerBoxVisible = false;
@@ -205,20 +289,29 @@ export const store = new Vuex.Store({
     addGuesses(state) {
       state.activePlayers.guesses++;
     },
+
     addtoTest(state,payload) {
       state.test+=payload;
     },
+
+
+    // gets playerName from StartMenu
     assignPlayerName(state, playerName) {
-          if (playerName != null) {
-            state.activePlayers[0].name = playerName;
-          }
-        },
-        assignQuestion(state, selectedQuestion) {
-          state.question.question = selectedQuestion.question;
-          state.question.answer = selectedQuestion.correct_answer;
-        }
-        
-        
+      if (playerName != null) { // if playerName is null, the name will not change
+        state.activePlayers[0].name = playerName; // changes
+      }
+    },
+
+    // gets selectedQuestion from StartMenu
+    assignQuestion(state, selectedQuestion) {
+      // sets question and answer
+      state.question.question = selectedQuestion.question;
+      state.question.answer = selectedQuestion.correct_answer;
+
+      //Sets the highestNumber that a bot can guess to 2 times the correct answer.
+      state.highestNumber = state.question.answer * 2;
+    }
+
   },
   actions: {
 
@@ -373,6 +466,7 @@ export const store = new Vuex.Store({
         context.commit("updateModeratorAnswer",talk)
       }, 1000)
     },
+
     startTimer(context){
       console.log("Start timer");
       
@@ -393,4 +487,6 @@ export const store = new Vuex.Store({
 
   
   
+
+
 })

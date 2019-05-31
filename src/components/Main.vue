@@ -4,12 +4,15 @@
 
     <header>
         <!-- Navigation Bar -->
-            <nav>
+            <nav class="nav-bar">
                 <ul>
+
                     <router-link to="/"><li>Main Menu</li></router-link>
                     <router-link to="/statistics"><li>Statistics</li></router-link>
                     <button class="rulesButton" @click="showRules()">Play</button>
                     <button class="rulesButton" @click="play()">?</button>
+
+
                 </ul>
 
             </nav>
@@ -64,23 +67,34 @@ export default {
 
 <style scoped>
 
-.navBar{
-    display: flex;
-    justify-content: space-evenly;
-}
 nav {
-    font-size: 5vw;
-    background-color: none;
+    font-size: 3vw;
     padding: 2px;
     color: white;
 }
+
+.nav-bar{
+    display: flex;
+    justify-content: space-evenly;
+}
+
 ul {
     align-items: baseline;
     padding: 0;
 }
+
 li {
     display: inline-block;
-    margin: 0px;
+    margin: 5px;
+}
+.link{
+    color:white;
+}
+.link:hover{
+    color: lightgoldenrodyellow;
+}
+.link:visited{
+    color:lightgray;
 }
 
 .rulesButton{
@@ -90,8 +104,8 @@ li {
     background-image: url("../assets/treerings.png");
     background-size: contain;
     background-repeat: no-repeat;
-    padding: 5px 10px 5px 10px;
-    margin: 0%;
+    padding: 1px 15px 5px 20px;
+    margin: 0 0 0 15px;
     color: black;
     font-size: 5vw;
     float: right;
@@ -99,10 +113,13 @@ li {
     text-align: center;
 }
 
-.rulesButton:focus { outline: none; } 
+.rulesButton:focus { outline: none; }
 
-.container{
-    background-image: url("../assets/bg.jpg");
+/* Small screen */
+@media screen and (max-width: 500px) {
+   nav{
+       font-size: 5vw;
+   }
 }
 
 

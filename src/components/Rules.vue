@@ -2,7 +2,7 @@
   <div class="modalBox" v-show="isRulesClicked">
     <div>
       <div class="header">
-        
+
       </div>
       <div class="modalContent">
           <button class="button-close" v-on:click="showRules">x</button>
@@ -31,7 +31,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .modalBox {
   width: 100%;
   height: 100%;
@@ -43,7 +43,6 @@ export default {
 }
 
 .modalContent {
-  
   text-align: left;
   background-color: #fff;
   padding: 30px 50px;
