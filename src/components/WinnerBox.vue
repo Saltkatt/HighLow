@@ -91,7 +91,7 @@ export default {
 
 <style scoped>
 .modalBox {
-
+  font-family: 'Passion One', cursive;
 
   width: 100%;
   height: 100%;
@@ -136,6 +136,7 @@ export default {
 }
 /*Temporary CSS for the replay button*/
 .again-button{
+  font-family: 'Passion One', cursive;
   background-color: #fff;
   border: 2px solid black;
   border-radius: 12px;
@@ -144,10 +145,11 @@ export default {
   text-align: center;
   display: inline-block;
   font-size: 18px;
-  font-weight: bold;
+  
   margin: 10px;
 }
 .add-button{
+  font-family: 'Passion One', cursive;
   background-color: #fff;
   border: 2px solid black;
   border-radius: 12px;
@@ -155,8 +157,8 @@ export default {
   padding: 10px 20px;
   text-align: center;
   display: inline-block;
-  font-size: 12px;
-  font-weight: bold;
+  font-size: 18px;
+  
   margin: 10px;
 }
 </style>
