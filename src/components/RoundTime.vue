@@ -22,7 +22,7 @@ export default {
             return this.$store.state.round;
         },
         seconds(){
-             return this.$store.state.seconds;
+             return this.$store.state.time;
         }
        
     }
