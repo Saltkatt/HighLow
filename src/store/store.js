@@ -24,7 +24,7 @@ export const store = new Vuex.Store({
             },
             {
               question: 'How many cards are there in an average deck?',
-              correct_answer: 32
+              correct_answer: 52
             },
             {
               question: 'How many dollars does Bill Gates make per minute?',
@@ -42,6 +42,14 @@ export const store = new Vuex.Store({
               question: 'How many arms does an octopus have?',
               correct_answer: 6
             },
+            {
+              question: 'How many kW is 500 horse powers?',
+              correct_answer: 670
+            },
+            {
+              question: 'How many episodes does the Game of Thrones TV-series have?',
+              correct_answer: 73
+            }
           ]
         }
       ],
