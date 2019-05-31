@@ -27,7 +27,7 @@
 
 
 
-    <div class="inputArea" v-bind:class="{invisible: !players[0].isMyTurn}"> >
+    <div class="inputArea" v-bind:class="{invisible: !players[0].isMyTurn}">
 
       <input class="inputField" type="number" v-model.number.lazy="players[0].guess">
       <input
