@@ -110,16 +110,16 @@ export default {
   padding: 20px 30px;
   color: black;
   font-size: 18px;
-  margin: 10% auto;
+  margin: 5% auto;
   width: 60%;
-  height: 80%;
+  height: 75vh;
 }
 
 .cup{
-  width: 20vw;
+  height: 20vh;
 }
 .winning-player{
-  margin-top: 30%;
+  margin-top: 10vh;
 }
 
 .button-close {
