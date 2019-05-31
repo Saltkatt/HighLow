@@ -6,9 +6,10 @@
         <!-- Navigation Bar -->
             <nav class="nav-bar">
                 <ul>
-                    <router-link to="/"><li class="link"> Main Menu </li></router-link>
-                    <router-link to="/statistics"><li class="link"> Statistics </li></router-link>
-                    <button class="rulesButton" @click="showRules()">?</button>
+                    <router-link to="/"><li class="link">Main Menu</li></router-link>
+                    <router-link to="/statistics"><li class="link">Statistics</li></router-link>
+                    <button class="rulesButton" @click="showRules()">Play</button>
+                    <button class="rulesButton" @click="play()">?</button>
                 </ul>
 
             </nav>
@@ -52,6 +53,10 @@ export default {
         showRules(){
 
             this.$store.commit("showRules");
+        },
+        play(){
+
+            this.$store.dispatch("playGame");
         }
     }
 }
@@ -62,7 +67,7 @@ export default {
 nav {
     font-size: 3vw;
     padding: 2px;
-    color: white; 
+    color: white;
 }
 
 .nav-bar{
@@ -109,9 +114,7 @@ li {
     
 }
 
-.rulesButton:focus { outline: none; } 
-
-
+.rulesButton:focus { outline: none; }
 
 /* Small screen */
 @media screen and (max-width: 500px) {

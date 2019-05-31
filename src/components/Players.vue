@@ -24,14 +24,18 @@
   
   </div>
 
+
+
+
     <div class="inputArea" v-bind:class="{invisible: !players[0].isMyTurn}">
+
       <input class="inputField" type="number" v-model.number.lazy="players[0].guess">
       <input
         id="submitButton"
         type="submit"
         value="Submit"
         @click="makeGuess(players[0])"
-        :disabled="inputButtonState"
+        
       >
     </div>
 
@@ -43,6 +47,10 @@ export default {
   methods: {
     // this method is called when the submit button is clicked and calls three mutations in store
     makeGuess(player) {
+      
+      this.$store.commit("updateLastGuess", player.guess)
+      this.$store.commit("toggleInputButton");
+      /*
       //toggles the input button
       this.$store.commit("toggleInputButton");
 
@@ -60,6 +68,7 @@ export default {
 
       //Increases active players guesses with +1
       // this.$store.commit("updateGuesses", player);
+      */
     },
 
     randomPhrase() {
