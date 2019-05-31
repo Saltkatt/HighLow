@@ -53,7 +53,8 @@ export const store = new Vuex.Store({
           guess: null, 
           image: require("@/assets/grandma.png"), 
           isMyTurn: false, 
-          isHuman: false, 
+          isHuman: false,
+          slateImage: require("@/assets/slate.png") 
         },
         {
           id: 2, 
@@ -62,6 +63,7 @@ export const store = new Vuex.Store({
           image: require("@/assets/bot2.png"), 
           isMyTurn: false, 
           isHuman: false,
+          slateImage: require("@/assets/slate.png")
         },
         {
           id: 3, 
@@ -69,7 +71,8 @@ export const store = new Vuex.Store({
           guess: null, 
           image: require("@/assets/wall-e.png"), 
           isMyTurn: false, 
-          isHuman: false, 
+          isHuman: false,
+          slateImage: require("@/assets/slate.png") 
         },
       ],
       // question to be used by playgame
@@ -79,10 +82,10 @@ export const store = new Vuex.Store({
       },
     //Players & bots in the active game
     activePlayers: [
-      { id: 0, name: "Player", guess: null, image: require("@/assets/sixten.png"), isMyTurn: true, isHuman: true, guesses: 0, slateImage: require("@/assets/slate.png") },
+      /*{ id: 0, name: "Player", guess: null, image: require("@/assets/sixten.png"), isMyTurn: true, isHuman: true, guesses: 0, slateImage: require("@/assets/slate.png") },
       { id: 1, name: "Grandma", guess: null, image: require("@/assets/grandma.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
       { id: 2, name: "Pelle", guess: null, image: require("@/assets/bot2.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
-      { id: 3, name: "Wall-E", guess: null, image: require("@/assets/wall-e.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
+    { id: 3, name: "Wall-E", guess: null, image: require("@/assets/wall-e.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },*/
     ],
     scoreBoard: [
       { name: "Ilari", guesses: 3 },
@@ -125,6 +128,14 @@ export const store = new Vuex.Store({
       //This enables the gameState again when questions are submitted from the StarMenu.
       defaultGameState(state) {
         state.gameState = true;
+      },
+      loadGame(state) {
+        //Push selected bots into activePlayer
+        for(let i=0;i<state.bots.length;i++){
+          if(state.bots[i].selected==true){
+            state.activePlayers.push("state.bots[i]");
+          }
+        }
       },
       //This resets the guess of each player in the activePlayers to null.
       defaultActivePlayersGuess(state) {
