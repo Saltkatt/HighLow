@@ -312,6 +312,8 @@ h2{
     border-radius: 15px;
 }
 
+#nameInput:focus { outline: none; }
+
 /* Bot selection area */
 .botWrapper {
     grid-column: 1 / span 3;

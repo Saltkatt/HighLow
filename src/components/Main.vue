@@ -110,9 +110,11 @@ li {
 }
 
 .rulesButton{
+
     background-image: url("../assets/divbg.jpg");
     background-size: contain;
     background-repeat: repeat;
+
     font-size: 2vw;
     border-radius: 12px;
     padding: 0px 1vw;

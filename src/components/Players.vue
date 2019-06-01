@@ -150,7 +150,7 @@ export default {
   left: 10px;
 }
 .slateArea {
-  
+ 
   grid-area: s;
   background: none;
   position: relative;
@@ -158,8 +158,9 @@ export default {
 
 .slate {
   width: 12vw;
-  margin-top: 50%;
-  margin-bottom: 50%;
+  margin-top: 4vh;
+  margin-bottom: 4vh;
+  
 
 }
 .playerGuessInSlate {
@@ -168,7 +169,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 3vw;
-  margin-bottom: 4vh;
+  
 }
 
 
