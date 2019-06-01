@@ -8,7 +8,7 @@
                 <ul>
                     <router-link to="/"><li class="link">Main Menu</li></router-link>
                     <router-link to="/statistics"><li class="link">Statistics</li></router-link>
-                    <button class="btn playButton" @click="play()">Play</button>
+                    
                     <button class="btn rulesButton" @click="showRules()">?</button>
                 </ul>
 

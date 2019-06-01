@@ -107,9 +107,9 @@ export default {
             this.$store.commit('putSelectedBotsInActivePlayers')
             // alert("was here");
             
-            /*setTimeout(() => {
+            setTimeout(() => {
                this.$store.dispatch("playGame"); 
-            }, 1000);*/
+            }, 1000);
 
             // go to /game
         },
