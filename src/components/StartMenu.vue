@@ -4,14 +4,18 @@
 
     <!-- avatar images and names -->
     <div class="text">Choose an Avatar and Name:</div>
-    <div class="avatarWrapper">
+    <div class="avatarWrapper"> <!-- from the 6 columns: first for default, next 3 divs are for 3 avatars, 1 div is space, last div is selected avatar -->
+        <div class="avatar" id="defaultAvatar"><img :src=defaultPlayerAvatarImage style="width:100px; cursor:pointer;" v-on:click="selectDefaultAvatar()" ></div>
         <div 
-        class="avatar" v-for="avatar in avatars" :key="avatar.id" v-on:click="selectAvatar(avatar.id, avatar.image)">
+        class="avatar" v-for="avatar in avatars" :key="avatar.id" v-on:click="selectAvatar(avatar.id, avatar.image, avatar.name)">
             <div :id="'avatar'+avatar.id" style="cursor:pointer;">
                 <div><img class="avatarImage" v-bind:src="avatar.image"></div>
                 <div class="avatarName">{{ avatar.name }}</div>
             </div>
         </div>
+        <div> <!-- space --></div>
+        <div id="playerAvatar" class='avatarAnimation'></div>
+
     </div>
 
     <div class="input">
@@ -20,14 +24,12 @@
         <label id="nameInputLabel" for="nameInput">Name:</label>
         <input id="nameInput" name="nameInput" type="text" maxlength="15" placeholder="Enter your name..." v-model="nameValue">
     </div>
-    <div id="playerAvatar"></div>
     </div>
 
 
     <!-- Bots list -->
     <div class="botWrapper">
-            <div 
-            class="bot" v-for="bot in bots" :key="bot.id" v-on:click="selectBot(bot.id)">
+            <div class="bot" v-for="bot in bots" :key="bot.id" v-on:click="selectBot(bot.id)" v-bind:class="{'selected': bot.selected}">
                 <div :id="'bot'+bot.id" style="cursor:pointer;">
                     <div><img class="botImage" v-bind:src="bot.image"></div>
                     <div class="botName">Name: {{ bot.name }}</div>
@@ -52,11 +54,12 @@
 
 </div>
 
-
-
 </template>
 
+
+
 <script>
+
 import axios from 'axios';
 import { setTimeout } from 'timers';
 
@@ -71,17 +74,21 @@ export default {
             categoryValue: "0",
             selectedQuestion: null,
             
-            arrSelectedBots: [], //update_29maj2019
             preparedPlayer: {},
             tempBotId: 1, //an id that will be extracted from "bot1", etc. as available with each bot div
-            preparedBot: {},
 
-            playerAvatarImage: require("@/assets/sixten.png") //updated to avatar image
+            defaultPlayerAvatarImage: require("@/assets/sixten.png"), //default image for player
+            playerAvatarImage: require("@/assets/sixten.png") //update to avatar image
         }
     },
+
     methods: {
         sendToStore(nameValue) {
             this.getCategoryQuestions(this.categoryValue); // get a random question in selected category
+            this.$store.commit('assignQuestion', this.selectedQuestion);
+            
+            this.$store.commit('resetActivePlayers');
+            
             this.preparedPlayer = {
                 id: 0,
                 name: nameValue,
@@ -91,38 +98,14 @@ export default {
                 isHuman: true,
                 guesses: 0,
                 slateImage: require("@/assets/slate.png")
-            }
+            };
             // alert("preparedPlayer: " + this.preparedPlayer);
-            // this.$store.commit('assignPlayerName', nameValue);
-            this.$store.commit('assignQuestion', this.selectedQuestion);
+
             // send user to store:
             this.$store.commit('addToActivePlayers', this.preparedPlayer);
             // send bots to store:
-            // alert ("bot list length: " + this.arrSelectedBots.length);
-            for (var botI=0; botI<this.arrSelectedBots.length; botI++) {
-                // alert("botI:" +botI);
-                this.tempBotId = this.arrSelectedBots[botI] //get from array in form bot1, bot3, etc.
-                this.tempBotId = this.tempBotId.substring(3,4); //take "3" from "bot3"
-                // alert("tempBotI:" +this.tempBotId);
-    
-                this.preparedBot = {
-                    id: Number(this.tempBotId),
-                    name: this.$store.state.bots[this.tempBotId].name,
-                    guess: null,
-                    image: this.$store.state.bots[this.tempBotId].image,
-                    isMyTurn: false,
-                    isHuman: false,
-                    guesses: 0,
-                    slateImage: require("@/assets/slate.png")
-                }
-               this.$store.commit('addToActivePlayers', this.preparedBot);
-               
-                  
-               
-            //    alert("add bot with id: " + this.preparedBot.id);
-            }
-            console.log("Was here");
-            
+            this.$store.commit('putSelectedBotsInActivePlayers')
+            // alert("was here");
             
             /*setTimeout(() => {
                this.$store.dispatch("playGame"); 
@@ -130,6 +113,7 @@ export default {
 
             // go to /game
         },
+
         getCategoryQuestions(categoryId) {
             categoryId = Number(categoryId);
 
@@ -152,46 +136,51 @@ export default {
             }
         },
 
-        //added selectBots function:
+        //select Bots function:
         selectBot: function(getBotId) {
             var botId = "bot" + getBotId;
-            // "selected bot. add bot id. change style");
             document.getElementById(botId).style.animation = "none";
-            // document.getElementById(botId).style.backgroundColor = "blue";
-            // alert("bot: " + botId);
-            // document.getElementById(botId).setAttribute('style','mask-image: radial-gradient(circle at 100% 100%, black 10%, rgba(255,165,0, 0.6) 50%);');
-            // document.getElementById(botId).setAttribute('style','border: 5px solid green;');
-            // document.getElementById(botId).setAttribute('style','background-color: orange;');
-            this.arrSelectedBots.push(botId);
-            // alert(this.arrSelectedBots);
+            for (var countI=0; countI<this.$store.state.bots.length; countI++) {
+                if (this.$store.state.bots[countI].id == getBotId) {
+                    //this was the bot clicked. toggle selected:
+                    this.$store.state.bots[countI].selected = !this.$store.state.bots[countI].selected;
+                    }
+                }
         },
 
 
-        //added selectBots function:
+        //select default avatar
+        selectDefaultAvatar: function() {
+            this.playerAvatarImage = this.defaultPlayerAvatarImage;   
+            document.getElementById("defaultAvatar").style="border: 1px solid orange;";
+            document.getElementById("playerAvatar").innerHTML = "";
+        },
+
+        //select Avatar function:
         selectAvatar: function(getAvatarId, getImage, avatarImageName) {
+            document.getElementById("defaultAvatar").style="";
             document.getElementById("playerAvatar").innerHTML = 
-                "<img width=100 src='" + 
-                    getImage + "' " + 
-                    `style =
-                            border-radius: 50%;
-                            border: 1px solid orange;
-                            width: 100px;
-                        ` +
-                ">";
-            this.playerAvatarImage = avatarImageName;   
-            this.nameValue = this.$store.state.avatarsObjs[getAvatarId].name;
+                "<img  src='" + getImage + "' " + 
+                    "style = ' \
+                            border-radius: 50%; \
+                            width: 100px; \
+                    ' >";
+            this.playerAvatarImage = getImage;   
+            this.nameValue = avatarImageName;
         },
 
     },
+
     computed: {
         bots() {
             return this.$store.state.bots;
         },
 
         avatars() {
-            return this.$store.state.avatarsObjs;
+            return this.$store.state.avatars;
         }
     },
+
     mounted() {
 
         // get questions from questionBank
@@ -226,8 +215,47 @@ export default {
 
 /* Desktop */
 @media screen and (min-width: 501px) {
+/* Avatar Desktop */
+
+.avatarWrapper {
+    margin: auto;
+    width:50%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 150px 100px;
+}
+
+#avatar {
+
+}
+
+.avatarImage {
+    border-radius: 50%;
+    border: 1px solid orange;
+    width: 100px;
+}
+
+.avatarName {
+    /* */
+}
+
+.avatarAnimation {
+    /* right left animation */
+    -webkit-animation: moveRightLeftAnimation 2s linear infinite;
+    -moz-animation: moveRightLeftAnimation 2s linear infinite;
+    -o-animation: moveRightLeftAnimation 2s linear infinite;
+    animation: moveRightLeftAnimation 2s linear infinite;
+    position: relative;
+    left:0;
+    bottom:0;
+}
+
+/* end of Avatar Desktop */
 
 
+.selected {
+    background-color: chartreuse;
+    border: 10px solid orange;
+}
 
 /* update: add selected bot style */
 .selectedBot {
@@ -377,6 +405,32 @@ label{
             }
 
 
+
+
+
+
+            @keyframes moveRightLeftAnimation {
+                0%,100%  { left: 0;}
+                50% { left: 50px;}
+            }
+            @-o-keyframes moveRightLeftAnimation {
+                0%,100%  { left: 0;}
+                50% { left: 50px; }
+            }
+            @-moz-keyframes moveRightLeftAnimation {
+                0%,100%  { left: 0;}
+                50% { left: 50px;}            
+            }
+            @-webkit-keyframes moveRightLeftAnimation {
+                0%,100%  { left: 0;}
+                50% { left: 50px;}            
+            }
+
+
+
+
+
+
             #bot1 {
                 /* up down animation */
                 -webkit-animation: moveUpDownAnimation 2s linear infinite;
@@ -426,6 +480,46 @@ label{
 
 /* Small screen */
 @media screen and (max-width: 500px) {
+
+/* Avatar Small screen*/
+
+.avatarWrapper {
+    margin: auto;
+    width:50%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 50px 50px;
+}
+
+#avatar {
+
+}
+
+
+.avatarImage {
+    border-radius: 50%;
+    border: 1px solid orange;
+    width: 60px;
+}
+
+.avatarName {
+                /* */
+}
+
+.avatarAnimation {
+    /* right left animation */
+    -webkit-animation: moveRightLeftAnimation 2s linear infinite;
+    -moz-animation: moveRightLeftAnimation 2s linear infinite;
+    -o-animation: moveRightLeftAnimation 2s linear infinite;
+    animation: moveRightLeftAnimation 2s linear infinite;
+    position: relative;
+    left:0;
+    bottom:0;
+}
+
+
+.selected {
+    background-color: chartreuse;
+}
 
 /* Name area */
 .playerName {
@@ -527,30 +621,6 @@ label{
     border-radius: 10px;
     margin-top: 10px;
     
-}
-
-/* Avatar */
-
-.avatarWrapper {
-    margin: auto;
-    width:50%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-}
-
-#avatar {
-
-}
-
-
-.avatarImage {
-    border-radius: 50%;
-    border: 1px solid orange;
-    width: 100px;
-}
-
-.avatarName {
-                /* */
 }
 
 }
