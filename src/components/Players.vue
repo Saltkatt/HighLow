@@ -140,6 +140,7 @@ export default {
   background: none;
   width:100px;
   height:100px;
+  margin: 0px 40px 0px 0px;
   
 }
 .profileImage {
@@ -148,6 +149,7 @@ export default {
   position: relative;
   top: 0px;
   left: 10px;
+  
 }
 .slateArea {
  

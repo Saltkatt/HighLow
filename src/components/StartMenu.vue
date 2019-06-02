@@ -5,7 +5,7 @@
     <!-- avatar images and names -->
     <div class="text">Choose an Avatar and Name:</div>
     <div class="avatarWrapper"> <!-- from the 6 columns: first for default, next 3 divs are for 3 avatars, 1 div is space, last div is selected avatar -->
-        <div class="avatar" id="defaultAvatar"><img :src=defaultPlayerAvatarImage style="width:100px; cursor:pointer;" v-on:click="selectDefaultAvatar()" ></div>
+        <div class="avatar" ><img id="defaultAvatar" :src=defaultPlayerAvatarImage style="cursor:pointer;" v-on:click="selectDefaultAvatar()" ></div>
         <div 
         class="avatar" v-for="avatar in avatars" :key="avatar.id" v-on:click="selectAvatar(avatar.id, avatar.image, avatar.name)">
             <div :id="'avatar'+avatar.id" style="cursor:pointer;">
@@ -163,7 +163,7 @@ export default {
                 "<img  src='" + getImage + "' " + 
                     "style = ' \
                             border-radius: 50%; \
-                            width: 100px; \
+                            width: 80%; \ margin-top: 15%; \
                     ' >";
             this.playerAvatarImage = getImage;   
             this.nameValue = avatarImageName;
@@ -215,41 +215,6 @@ export default {
 
 /* Desktop */
 @media screen and (min-width: 501px) {
-/* Avatar Desktop */
-
-.avatarWrapper {
-    margin: auto;
-    width:50%;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 150px 100px;
-}
-
-#avatar {
-
-}
-
-.avatarImage {
-    border-radius: 50%;
-    border: 1px solid orange;
-    width: 100px;
-}
-
-.avatarName {
-    /* */
-}
-
-.avatarAnimation {
-    /* right left animation */
-    -webkit-animation: moveRightLeftAnimation 2s linear infinite;
-    -moz-animation: moveRightLeftAnimation 2s linear infinite;
-    -o-animation: moveRightLeftAnimation 2s linear infinite;
-    animation: moveRightLeftAnimation 2s linear infinite;
-    position: relative;
-    left:0;
-    bottom:0;
-}
-
-/* end of Avatar Desktop */
 
 
 .selected {
@@ -267,7 +232,7 @@ export default {
     color:whitesmoke;
     display: grid;
     grid-template-rows: auto auto auto auto auto auto;
-    /* justify-content: center; */
+   
 }
 
 /* Choose avatar */
@@ -275,6 +240,53 @@ export default {
     grid-column: 1 / span 3;
     font-size: 3vw;
 }
+
+/* Avatar Desktop */
+
+.avatarWrapper {
+    grid-column: 1 / span 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 50px 150px;
+    grid-template-rows: auto;
+    justify-content: center;
+    background-image: url("../assets/divbg.jpg");
+    background-size: cover;
+    background-repeat: repeat;
+    margin: 2%;
+}
+
+#avatar {
+
+}
+
+
+.avatarImage {
+    border-radius: 50%;
+    border: 1px solid orange;
+    width: 80%;
+}
+
+#defaultAvatar{
+    width:80%;
+}
+
+
+.avatarName {
+    /* */
+}
+
+.avatarAnimation {
+    /* right left animation */
+    -webkit-animation: moveRightLeftAnimation 2s linear infinite;
+    -moz-animation: moveRightLeftAnimation 2s linear infinite;
+    -o-animation: moveRightLeftAnimation 2s linear infinite;
+    animation: moveRightLeftAnimation 2s linear infinite;
+    position: relative;
+    left:0;
+    bottom:0;
+}
+
+/* end of Avatar Desktop */
 
 /* Name area */
 .playerName {
@@ -314,6 +326,8 @@ h2{
 
 #nameInput:focus { outline: none; }
 
+/* End of name area - desktop */
+
 /* Bot selection area */
 .botWrapper {
     grid-column: 1 / span 3;
@@ -341,6 +355,7 @@ h2{
     margin-top: 20px;
     width: 60%;
 }
+/* End of bot area - desktop */
 
 /* Question Categories */
 .category {
@@ -385,7 +400,11 @@ label{
    
 }
 
+/* End of category and button area - desktop */
 
+/* Animation area */
+
+/* Bot animation */
             @keyframes moveUpDownAnimation {
                 0%,100%  { bottom: -10px;}
                 50% { bottom: 10px;}
@@ -406,11 +425,7 @@ label{
                 50% { bottom: 50px;}
             }
 
-
-
-
-
-
+/* Avatar animation */
             @keyframes moveRightLeftAnimation {
                 0%,100%  { left: 0;}
                 50% { left: 50px;}
@@ -428,11 +443,9 @@ label{
                 50% { left: 50px;}            
             }
 
+/* End of animation area */
 
-
-
-
-
+/* Adding animation to bots */
             #bot1 {
                 /* up down animation */
                 -webkit-animation: moveUpDownAnimation 2s linear infinite;
@@ -444,8 +457,7 @@ label{
                 bottom:0;
 
             }
-
-            #bot2 {
+             #bot2 {
                 /* up down animation */
                 -webkit-animation: moveUpDownAnimation 2s linear infinite;
                 -moz-animation: moveUpDownAnimation 2s linear infinite;
@@ -454,8 +466,9 @@ label{
                 position: relative;
                 left:0;
                 bottom:0;
+
             }
-            #bot3 {
+             #bot3 {
                 /* up down animation */
                 -webkit-animation: moveUpDownAnimation 2s linear infinite;
                 -moz-animation: moveUpDownAnimation 2s linear infinite;
@@ -464,19 +477,8 @@ label{
                 position: relative;
                 left:0;
                 bottom:0;
-            }
-            #bot4 {
 
-                /* up down animation */
-                -webkit-animation: moveUpDownAnimation 2s linear infinite;
-                -moz-animation: moveUpDownAnimation 2s linear infinite;
-                -o-animation: moveUpDownAnimation 2s linear infinite;
-                animation: moveUpDownAnimation 2s linear infinite;
-                position: relative;
-                left:0;
-                bottom:0;
             }
-
            
 }
 
@@ -486,22 +488,31 @@ label{
 /* Avatar Small screen*/
 
 .avatarWrapper {
-    margin: auto;
-    width:50%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 50px 50px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 20px 60px;
+    grid-template-rows: auto;
+    background-image: url("../assets/divbg.jpg");
+    background-size: cover;
+    background-repeat: repeat;
+    margin: 2%;
 }
 
 #avatar {
 
 }
 
-
 .avatarImage {
     border-radius: 50%;
     border: 1px solid orange;
-    width: 60px;
+    width: 80%;
+    margin-top: 20%;
 }
+
+#defaultAvatar{
+    margin-top: 15%;
+    width: 100%;
+}
+
 
 .avatarName {
                 /* */
@@ -517,7 +528,6 @@ label{
     left:0;
     bottom:0;
 }
-
 
 .selected {
     background-color: chartreuse;
@@ -556,7 +566,6 @@ h2{
     text-align: center;
     border: 1px solid brown;
     width: 40vw;
-    /* height: 5vh; */
     margin-top: 2vh;
     border-radius: 15px;
 }
@@ -567,7 +576,7 @@ h2{
 .botWrapper {
     display: grid;
     grid-template-columns: 20% 20% 20%;
-    grid-template-rows: 10% 10% ;
+    grid-template-rows: auto ;
     grid-gap: 5%;
     justify-content: center;
     margin: 2%;
@@ -616,7 +625,7 @@ label{
     grid-column: 2;
     font-family: 'Passion One', cursive;
     font-size: 180%;
-    width: 100%;
+    width: 80%;
     background-image: url("../assets/divbg.jpg");
     background-size: cover;
     background-repeat: repeat;
