@@ -117,10 +117,10 @@ export const store = new Vuex.Store({
     //Players & bots in the active game
     activePlayers: [
       /*{ id: 0, name: "Player", guess: null, image: require("@/assets/sixten.png"), isMyTurn: true, isHuman: true, guesses: 0, slateImage: require("@/assets/slate.png") },
-      
-      
+
+
       { id: 2, name: "Pelle", guess: null, image: require("@/assets/bot2.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
-      
+
       { id: 1, name: "Grandma", guess: null, image: require("@/assets/grandma.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
     { id: 3, name: "Wall-E", guess: null, image: require("@/assets/wall-e.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },*/
   ],
@@ -143,7 +143,7 @@ export const store = new Vuex.Store({
     showRules: false,
     seconds: 10,
     round: 1,
-    
+
     // Martin test
     gameState: true,
     correctGuess: 8848,
@@ -152,31 +152,41 @@ export const store = new Vuex.Store({
     time:10,
     //PlayGame use this
     i:0,
-    
+
     timer:null,
     test:null,
-    
+
   },
-  
+
   mutations: {
-    
+
     //reset active players list
     resetActivePlayers: function (state) {
-      state.activePlayers = [];
+      // state.activePlayers = [];
+      state.activePlayers.length = 0;
     },
-    
+
     //push player detail into the activePlayers array
     //note: it is assumed the player has id 0
     addToActivePlayers: function (state, payload) {
       state.activePlayers.push(payload);
+      console.log("activePlayers length: " + state.activePlayers.length);
     },
-    
+
     //put bots with field "selected" as true into activePlayers
     putSelectedBotsInActivePlayers: function (state) {
       for (var botI=0; botI<state.bots.length; botI++) {
-        if (state.bots[botI].selected) {
+        if (state.bots[botI].selected == true) {
+          //Rest state of bots - guess and isMyTurn - to default
+          state.bots[botI].guess = null;
+          state.bots[botI].isMyTurn = false;
           state.activePlayers.push(state.bots[botI]);
+          console.log("activePlayer length after bot insert: " + state.activePlayers.length);
           // alert ("added bot: " + state.bots[botI].name);
+        }
+        var player = state.activePlayers;
+        for(var i = 0; i < player.length; i++) {
+          console.log("id: " + player[i].id + " Name: " + player[i].name + " isTurn: " + player[i].isMyTurn);
         }
       }
 
@@ -188,14 +198,16 @@ export const store = new Vuex.Store({
       defaultGameState(state) {
         state.gameState = true;
       },
-      loadGame(state) {
-        //Push selected bots into activePlayer
-        for(let i=0;i<state.bots.length;i++){
-          if(state.bots[i].selected==true){
-            state.activePlayers.push("state.bots[i]");
-          }
-        }
-      },
+      // loadGame(state) {
+      //   //Push selected bots into activePlayer
+      //   for(let i=0;i<state.bots.length;i++){
+      //     if(state.bots[i].selected==true){
+      //       state.bots[i].guess = null;
+      //       state.bots[i].isMyTurn = null;
+      //       state.activePlayers.push(state.bots[i]); //was push("state.bots[i]");
+      //     }
+      //   }
+      // },
       //This resets the guess of each player in the activePlayers to null.
       defaultActivePlayersGuess(state) {
         var players = state.activePlayers;
@@ -223,6 +235,7 @@ export const store = new Vuex.Store({
         state.highestNumber = 10000;
         state.round = 1;
         state.time = 10;
+        state.i = 0;
         state.activePlayers.length = 0;
         state.gameState = true;
         state.guessNumber = null;
@@ -233,12 +246,8 @@ export const store = new Vuex.Store({
         state.disableInputButton = false;
       },
 
-
     updateModeratorAnswer(state,talk) {
-
         state.moderatorAnswer = talk;
-
-
     },
 
     toggleInputButton(state){
@@ -272,9 +281,9 @@ export const store = new Vuex.Store({
           state.highestNumber=state.guessNumber;
         }
         break;
-        
+
       }
-      
+
     },
 
 
@@ -378,7 +387,7 @@ export const store = new Vuex.Store({
       state.question.answer = selectedQuestion.correct_answer;
 
       //Sets the highestNumber that a bot can guess to 2 times the correct answer.
-      state.highestNumber = state.question.answer * 2;
+      // state.highestNumber = state.question.answer * 2;
     }
 
   },
@@ -399,9 +408,8 @@ export const store = new Vuex.Store({
     },
     playGame(context){
 
-
       var player=context.state.activePlayers[context.state.i];
-      console.log("Enter game with player.id: "+player.id);
+      console.log("Enter game with player.id: "+player.id + player.name);
 
       context.dispatch("startTimer");
       //Check if player is human and wait for user input
