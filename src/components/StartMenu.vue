@@ -4,9 +4,9 @@
 
     <!-- avatar images and names -->
     <div class="statistics">
-      <ul>
+      
         <router-link to="/statistics"><li class="link">Statistics</li></router-link>
-      </ul>
+      
     </div>
     <div class="text">Choose an Avatar and Name:</div>
     <div class="avatarWrapper"> <!-- from the 6 columns: first for default, next 3 divs are for 3 avatars, 1 div is space, last div is selected avatar -->
@@ -236,9 +236,30 @@ export default {
     background: none;
     color:whitesmoke;
     display: grid;
-    grid-template-rows: auto auto auto auto auto auto;
+    grid-template-rows: auto auto auto auto auto auto auto;
 
 }
+/* Statistics Link */
+.link{
+  font-size: 3vw;
+  text-decoration: none;
+  color: #fff;
+  display: inline-block;
+  margin: 5px;
+}
+
+.link{
+    color:white;
+}
+
+.link:hover{
+    color: lightgoldenrodyellow;
+}
+.link:visited{
+    color:lightgray;
+}
+/* End of Statistics Link */
+
 
 /* Choose avatar */
 .text {
@@ -260,11 +281,6 @@ export default {
     margin: 2%;
 }
 
-#avatar {
-
-}
-
-
 .avatarImage {
     border-radius: 50%;
     border: 1px solid orange;
@@ -273,11 +289,6 @@ export default {
 
 #defaultAvatar{
     width:80%;
-}
-
-
-.avatarName {
-    /* */
 }
 
 .avatarAnimation {
@@ -404,13 +415,6 @@ label{
     margin-top: 10px;
 
 }
-.link{
-  font-size: 6vw;
-  text-decoration: none;
-  color: #fff;
-  display: inline-block;
-  margin: 5px;
-}
 
 /* End of category and button area - desktop */
 
@@ -496,10 +500,40 @@ label{
 
 /* Small screen */
 @media screen and (max-width: 500px) {
+.main{
+    display: grid;
+    grid-template-rows: auto auto auto auto auto auto;
+}
+
+.text{
+    grid-column: 1 / span 3;
+    font-size: 6vw;
+}
+
+/* Statistics Link */
+.link{
+  font-size: 4vw;
+  text-decoration: none;
+  text-align: left;
+  color: #fff;
+  display: inline-block;
+  margin: 0;
+}
+.link{
+    color:white;
+}
+
+.link:hover{
+    color: lightgoldenrodyellow;
+}
+.link:visited{
+    color:lightgray;
+}
+/* End of Statistics Link */
 
 /* Avatar Small screen*/
-
 .avatarWrapper {
+    grid-column: 1 / span 3;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 20px 60px;
     grid-template-rows: auto;
@@ -507,10 +541,6 @@ label{
     background-size: cover;
     background-repeat: repeat;
     margin: 2%;
-}
-
-#avatar {
-
 }
 
 .avatarImage {
@@ -523,11 +553,6 @@ label{
 #defaultAvatar{
     margin-top: 15%;
     width: 100%;
-}
-
-
-.avatarName {
-                /* */
 }
 
 .avatarAnimation {
@@ -547,16 +572,12 @@ label{
 
 /* Name area */
 .playerName {
+    grid-column: 1 / span 3;
     display: grid;
     grid-template-columns: 80% 80% 80%;
     grid-template-rows: auto auto;
     margin: 0 20% 0 20% ;
     width: 25%;
-}
-
-h2{
-    grid-column: 1 / span 3;
-    font-size: 6vw;
 }
 
 .input{
@@ -582,10 +603,9 @@ h2{
     border-radius: 15px;
 }
 
-
 /* Bot selection area */
-
 .botWrapper {
+    grid-column: 1 / span 3;
     display: grid;
     grid-template-columns: 20% 20% 20%;
     grid-template-rows: auto ;
@@ -606,8 +626,8 @@ h2{
 }
 
 /* Question Categories */
-
 .category {
+    grid-column: 1 / span 3;
     display: grid;
     grid-template-rows: auto auto;
     grid-gap: 2%;
@@ -633,25 +653,18 @@ label{
 }
 
 .startBtn{
-    grid-row: 2;
     grid-column: 2;
     font-family: 'Passion One', cursive;
     font-size: 180%;
-    width: 80%;
+    width: 100%;
     background-image: url("../assets/divbg.jpg");
     background-size: cover;
     background-repeat: repeat;
     border-radius: 10px;
-    margin-top: 10px;
+    margin: 10% 0 0 200%;
 
 }
-.link{
-  font-size: 5vw;
-  text-decoration: none;
-  color: #fff;
-  display: inline-block;
-  margin: 5px;
-}
+
 
 }
 </style>
