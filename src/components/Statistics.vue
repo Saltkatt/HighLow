@@ -38,7 +38,6 @@ export default {
   height: 5.5vh;
   background-image: url("../assets/divbg.jpg");
   background-size: cover;
-  
   border-radius: 15px;
 }
 </style>
