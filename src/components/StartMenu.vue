@@ -1,12 +1,12 @@
 <template>
 <div class="main">
-    
+
 
     <!-- avatar images and names -->
     <div class="text">Choose an Avatar and Name:</div>
     <div class="avatarWrapper"> <!-- from the 6 columns: first for default, next 3 divs are for 3 avatars, 1 div is space, last div is selected avatar -->
         <div class="avatar" ><img id="defaultAvatar" :src=defaultPlayerAvatarImage style="cursor:pointer;" v-on:click="selectDefaultAvatar()" ></div>
-        <div 
+        <div
         class="avatar" v-for="avatar in avatars" :key="avatar.id" v-on:click="selectAvatar(avatar.id, avatar.image, avatar.name)">
             <div :id="'avatar'+avatar.id" style="cursor:pointer;">
                 <div><img class="avatarImage" v-bind:src="avatar.image"></div>
@@ -73,7 +73,7 @@ export default {
             apiQuestions: [],
             categoryValue: "0",
             selectedQuestion: null,
-            
+
             preparedPlayer: {},
             tempBotId: 1, //an id that will be extracted from "bot1", etc. as available with each bot div
 
@@ -86,9 +86,9 @@ export default {
         sendToStore(nameValue) {
             this.getCategoryQuestions(this.categoryValue); // get a random question in selected category
             this.$store.commit('assignQuestion', this.selectedQuestion);
-            
+
             this.$store.commit('resetActivePlayers');
-            
+
             this.preparedPlayer = {
                 id: 0,
                 name: nameValue,
@@ -106,9 +106,9 @@ export default {
             // send bots to store:
             this.$store.commit('putSelectedBotsInActivePlayers')
             // alert("was here");
-            
+          
             setTimeout(() => {
-               this.$store.dispatch("playGame"); 
+               this.$store.dispatch("playGame");
             }, 1000);
 
             // go to /game
@@ -125,7 +125,7 @@ export default {
 
             }
             else if (categoryId == 0) {
-                
+
                 // assign a random question
                 let randomNumber = Math.floor(Math.random() * Math.floor(this.bankQuestions.length));
                 let randomQuestion = this.bankQuestions[randomNumber];
@@ -151,7 +151,7 @@ export default {
 
         //select default avatar
         selectDefaultAvatar: function() {
-            this.playerAvatarImage = this.defaultPlayerAvatarImage;   
+            this.playerAvatarImage = this.defaultPlayerAvatarImage;
             document.getElementById("defaultAvatar").style="border: 1px solid orange;";
             document.getElementById("playerAvatar").innerHTML = "";
         },
@@ -159,13 +159,13 @@ export default {
         //select Avatar function:
         selectAvatar: function(getAvatarId, getImage, avatarImageName) {
             document.getElementById("defaultAvatar").style="";
-            document.getElementById("playerAvatar").innerHTML = 
-                "<img  src='" + getImage + "' " + 
+            document.getElementById("playerAvatar").innerHTML =
+                "<img  src='" + getImage + "' " +
                     "style = ' \
                             border-radius: 50%; \
                             width: 80%; \ margin-top: 15%; \
                     ' >";
-            this.playerAvatarImage = getImage;   
+            this.playerAvatarImage = getImage;
             this.nameValue = avatarImageName;
         },
 
@@ -232,7 +232,7 @@ export default {
     color:whitesmoke;
     display: grid;
     grid-template-rows: auto auto auto auto auto auto;
-   
+
 }
 
 /* Choose avatar */
@@ -337,7 +337,7 @@ h2{
     grid-gap: 10%;
     justify-content: center;
     margin: 2%;
-   
+
 }
 
 .bot{
@@ -365,7 +365,7 @@ h2{
     grid-gap: 2%;
     justify-content: center;
     margin: auto;
-    
+
 }
 label{
     margin-top:10%;
@@ -377,7 +377,7 @@ label{
     font-family: 'Passion One', cursive;
     font-size: 180%;
     color: whitesmoke;
-    text-align: center; 
+    text-align: center;
     border: 1px solid brown;
     width: 100%;
     margin-top: 2vh;
@@ -391,13 +391,13 @@ label{
     font-family: 'Passion One', cursive;
     font-size: 180%;
     width: 30%;
-    height: 10vh; 
+    height: 10vh;
     background-image: url("../assets/divbg.jpg");
     background-size: cover;
     background-repeat: repeat;
     border-radius: 10px;
     margin-top: 10px;
-   
+
 }
 
 /* End of category and button area - desktop */
@@ -436,11 +436,11 @@ label{
             }
             @-moz-keyframes moveRightLeftAnimation {
                 0%,100%  { left: 0;}
-                50% { left: 50px;}            
+                50% { left: 50px;}
             }
             @-webkit-keyframes moveRightLeftAnimation {
                 0%,100%  { left: 0;}
-                50% { left: 50px;}            
+                50% { left: 50px;}
             }
 
 /* End of animation area */
@@ -479,7 +479,7 @@ label{
                 bottom:0;
 
             }
-           
+
 }
 
 /* Small screen */
@@ -601,7 +601,7 @@ h2{
     grid-gap: 2%;
     justify-content: center;
     margin: auto;
-    
+
 }
 label{
     margin-top:10%;
@@ -613,7 +613,7 @@ label{
     font-family: 'Passion One', cursive;
     font-size: 180%;
     color: whitesmoke;
-    text-align: center; 
+    text-align: center;
     border: 1px solid brown;
     width: 100%;
     margin-top: 2vh;
@@ -631,7 +631,7 @@ label{
     background-repeat: repeat;
     border-radius: 10px;
     margin-top: 10px;
-    
+
 }
 
 }

@@ -145,7 +145,7 @@ export default {
   text-align: center;
   display: inline-block;
   font-size: 18px;
-  
+
   margin: 10px;
 }
 .add-button{
@@ -158,7 +158,7 @@ export default {
   text-align: center;
   display: inline-block;
   font-size: 18px;
-  
+
   margin: 10px;
 }
 </style>
