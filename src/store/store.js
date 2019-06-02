@@ -137,7 +137,7 @@ export const store = new Vuex.Store({
     //If moderator says that the guess is too low, then it will become lowestNumber
     lowestNumber: 0,
     //If moderator says that the guess is too high, then it will become highestNumber
-    highestNumber: 10000,
+    highestNumber: 30000,
     //A boolean value to show or not show the modal box (winnerBox) when someone guessed correctly
     isWinnerBoxVisible: false,
     showRules: false,
