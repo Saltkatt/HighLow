@@ -7,7 +7,7 @@
           </li>
         </ol>
         <div>
-          <router-link to="/game">
+          <router-link to="/">
             <button class="back-button" type="button">Back</button>
           </router-link>
         </div>

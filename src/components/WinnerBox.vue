@@ -13,7 +13,7 @@
           The correct answer was: {{correctAnswer}}
         </div>
         <div>Total guesses: {{guesses}}</div>
-        <button class="add-button" type="button" v-on:click="addWinnerToScoreBoard()">Add to Scoreboard</button>
+        <button class="add-button" type="button" v-on:click.once="addWinnerToScoreBoard()">Add to Scoreboard</button>
         <div>
           <!--
             A button which will route you to main menu and
@@ -145,8 +145,17 @@ export default {
   text-align: center;
   display: inline-block;
   font-size: 18px;
-
+  box-shadow: 0 9px #725119;
   margin: 10px;
+}
+.again-button:hover{
+  background-color: #4da0d1;
+  cursor: pointer;
+}
+.again-button:active{
+  background-color: #4da0d1;
+  box-shadow: 0 5px #493410;
+  transform: translateY(4px);
 }
 .add-button{
   font-family: 'Passion One', cursive;
@@ -158,7 +167,16 @@ export default {
   text-align: center;
   display: inline-block;
   font-size: 18px;
-
+  box-shadow: 0 9px #725119;
   margin: 10px;
+}
+.add-button:hover{
+  background-color: #4da0d1;
+  cursor: pointer;
+}
+.add-button:active{
+  background-color: #4da0d1;
+  box-shadow: 0 5px #493410;
+  transform: translateY(4px);
 }
 </style>

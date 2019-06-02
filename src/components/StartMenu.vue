@@ -3,6 +3,11 @@
 
 
     <!-- avatar images and names -->
+    <div class="statistics">
+      <ul>
+        <router-link to="/statistics"><li class="link">Statistics</li></router-link>
+      </ul>
+    </div>
     <div class="text">Choose an Avatar and Name:</div>
     <div class="avatarWrapper"> <!-- from the 6 columns: first for default, next 3 divs are for 3 avatars, 1 div is space, last div is selected avatar -->
         <div class="avatar" ><img id="defaultAvatar" :src=defaultPlayerAvatarImage style="cursor:pointer;" v-on:click="selectDefaultAvatar()" ></div>
@@ -106,7 +111,7 @@ export default {
             // send bots to store:
             this.$store.commit('putSelectedBotsInActivePlayers')
             // alert("was here");
-          
+
             setTimeout(() => {
                this.$store.dispatch("playGame");
             }, 1000);
@@ -399,6 +404,13 @@ label{
     margin-top: 10px;
 
 }
+.link{
+  font-size: 6vw;
+  text-decoration: none;
+  color: #fff;
+  display: inline-block;
+  margin: 5px;
+}
 
 /* End of category and button area - desktop */
 
@@ -632,6 +644,13 @@ label{
     border-radius: 10px;
     margin-top: 10px;
 
+}
+.link{
+  font-size: 5vw;
+  text-decoration: none;
+  color: #fff;
+  display: inline-block;
+  margin: 5px;
 }
 
 }
