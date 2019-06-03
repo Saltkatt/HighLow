@@ -4,22 +4,24 @@
 
     <!-- avatar images and names -->
     <div class="statistics">
-      
+
         <router-link to="/statistics"><li class="link">Statistics</li></router-link>
-      
+
+        <button class="btn rulesButton" @click="showRules()">?</button>
+
     </div>
     <div class="text">Choose an Avatar and Name:</div>
     <div class="avatarWrapper"> <!-- from the 6 columns: first for default, next 3 divs are for 3 avatars, 1 div is space, last div is selected avatar -->
-        <div class="avatar" ><img id="defaultAvatar" :src=defaultPlayerAvatarImage style="cursor:pointer;" v-on:click="selectDefaultAvatar()" ></div>
+        <!-- <div class="avatar" ><img id="defaultAvatar" :src=defaultPlayerAvatarImage style="cursor:pointer;" v-on:click="selectDefaultAvatar()" ></div> -->
         <div
         class="avatar" v-for="avatar in avatars" :key="avatar.id" v-on:click="selectAvatar(avatar.id, avatar.image, avatar.name)">
-            <div :id="'avatar'+avatar.id" style="cursor:pointer;">
-                <div><img class="avatarImage" v-bind:src="avatar.image"></div>
-                <div class="avatarName">{{ avatar.name }}</div>
+            <div :id="'avatar'+avatar.id">
+                <div><img class="avatarImage" v-bind:src="avatar.image" v-bind:class="{'selected': avatar.selected}"></div>
+                <!-- <div class="avatarName">{{ avatar.name }}</div> -->
             </div>
         </div>
-        <div> <!-- space --></div>
-        <div id="playerAvatar" class='avatarAnimation'></div>
+        <!-- <div> </div> -->
+        <!-- <div id="playerAvatar" class='avatarAnimation'></div> -->
 
     </div>
 
@@ -33,10 +35,12 @@
 
 
     <!-- Bots list -->
+    <div class="text">Choose your opponents:</div>
     <div class="botWrapper">
-            <div class="bot" v-for="bot in bots" :key="bot.id" v-on:click="selectBot(bot.id)" v-bind:class="{'selected': bot.selected}">
-                <div :id="'bot'+bot.id" style="cursor:pointer;">
-                    <div><img class="botImage" v-bind:src="bot.image"></div>
+        
+            <div class="bot" v-for="bot in bots" :key="bot.id" v-on:click="selectBot(bot.id)" >
+                <div :id="'bot'+bot.id">
+                    <div><img class="botImage" v-bind:class="{'selected': bot.selected}" v-bind:src="bot.image"></div>
                     <div class="botName">Name: {{ bot.name }}</div>
                     <div class="botDescription">- {{ bot.description }}</div>
                 </div>
@@ -57,6 +61,8 @@
         <router-link to="/game"><button @click="sendToStore(nameValue)" class="startBtn">Start!</button></router-link>
     </div>
 
+    <Rules></Rules>
+
 </div>
 
 </template>
@@ -67,12 +73,16 @@
 
 import axios from 'axios';
 import { setTimeout } from 'timers';
+import Rules from '../components/Rules.vue'
 
 export default {
     name: "StartMenu",
+    components: {
+        Rules,
+    },
     data() {
         return {
-            nameValue: null,
+            nameValue: "",
             rawResponse: null,
             bankQuestions: [],
             apiQuestions: [],
@@ -82,8 +92,8 @@ export default {
             preparedPlayer: {},
             tempBotId: 1, //an id that will be extracted from "bot1", etc. as available with each bot div
 
-            defaultPlayerAvatarImage: require("@/assets/sixten.png"), //default image for player
-            playerAvatarImage: require("@/assets/sixten.png") //update to avatar image
+            //defaultPlayerAvatarImage: require("@/assets/sixten.png"), //default image for player
+            playerAvatarImage: require("@/assets/avatar1.png") //update to avatar image
         }
     },
 
@@ -93,6 +103,10 @@ export default {
             this.$store.commit('assignQuestion', this.selectedQuestion);
 
             this.$store.commit('resetActivePlayers');
+
+            if(nameValue == ""){
+                nameValue = "Player"
+            }
 
             this.preparedPlayer = {
                 id: 0,
@@ -153,25 +167,30 @@ export default {
                 }
         },
 
-
         //select default avatar
-        selectDefaultAvatar: function() {
-            this.playerAvatarImage = this.defaultPlayerAvatarImage;
-            document.getElementById("defaultAvatar").style="border: 1px solid orange;";
-            document.getElementById("playerAvatar").innerHTML = "";
-        },
+        // selectDefaultAvatar: function() {
+        //     this.playerAvatarImage = this.defaultPlayerAvatarImage;
+        //     document.getElementById("defaultAvatar").style="border: 1px solid orange;";
+        //     document.getElementById("playerAvatar").innerHTML = "";
+        // },
 
         //select Avatar function:
         selectAvatar: function(getAvatarId, getImage, avatarImageName) {
-            document.getElementById("defaultAvatar").style="";
-            document.getElementById("playerAvatar").innerHTML =
-                "<img  src='" + getImage + "' " +
-                    "style = ' \
-                            border-radius: 50%; \
-                            width: 80%; \ margin-top: 15%; \
-                    ' >";
+            //document.getElementById("defaultAvatar").style="";
+            // document.getElementById("playerAvatar").innerHTML =
+            //     "<img  src='" + getImage + "' " +
+            //         "style = ' \
+            //                 border-radius: 50%; \
+            //                 width: 80%; \ margin-top: 15%; \
+            //         ' >";
+            this.$store.commit("toggleAvatar", getAvatarId);
             this.playerAvatarImage = getImage;
-            this.nameValue = avatarImageName;
+           // this.nameValue = avatarImageName;
+        },
+
+        showRules(){
+
+            this.$store.commit("showRules");
         },
 
     },
@@ -220,27 +239,43 @@ export default {
 
 /* Desktop */
 @media screen and (min-width: 501px) {
-
+.avatarImage{
+    cursor: pointer;
+}
+.img{
+    cursor: pointer;
+}
 
 .selected {
-    background-color: chartreuse;
-    border: 10px solid orange;
+    background: rgba(61, 45, 8, 0.4);
+    border-radius: 5px;
+    /* border: 3px solid black; */
+    margin: 0px;
+    -webkit-animation: moveUpDownAnimation 2s linear infinite;
+                -moz-animation: moveUpDownAnimation 2s linear infinite;
+                -o-animation: moveUpDownAnimation 2s linear infinite;
+                animation: moveUpDownAnimation 2s linear infinite;
+                position: relative;
+                left:0;
+                bottom:0;
 }
 
 /* update: add selected bot style */
-.selectedBot {
+/* .selectedBot {
     background: green;
-}
+} */
 
 .main {
+    
     background: none;
     color:whitesmoke;
-    display: grid;
-    grid-template-rows: auto auto auto auto auto auto auto;
+    /* display: grid;
+    grid-template-rows: auto; */
 
 }
 /* Statistics Link */
 .link{
+    
   font-size: 3vw;
   text-decoration: none;
   color: #fff;
@@ -260,6 +295,22 @@ export default {
 }
 /* End of Statistics Link */
 
+.btn{
+    font-family: 'Passion One', cursive;
+    
+    
+}
+.rulesButton{
+    background-image: url("../assets/divbg.jpg");
+    background-size: contain;
+    background-repeat: repeat;
+    font-size: 3vw;
+    border-radius: 12px;
+    padding: 0px 1vw;
+    margin: 12px 0 0 10px;
+}
+
+.rulesButton:focus { outline: none; }
 
 /* Choose avatar */
 .text {
@@ -269,7 +320,7 @@ export default {
 
 /* Avatar Desktop */
 
-.avatarWrapper {
+/* .avatarWrapper {
     grid-column: 1 / span 3;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 50px 150px;
@@ -279,12 +330,22 @@ export default {
     background-size: cover;
     background-repeat: repeat;
     margin: 2%;
+} */
+
+.avatarWrapper{
+    width: 50vw;
+    display: flex;
+    background-image: url("../assets/divbg.jpg");
+    background-size: cover;
+    background-repeat: repeat;
+    margin-left: 25vw;
+    margin-right: 25vw;
+    justify-content: space-around;
 }
 
 .avatarImage {
-    border-radius: 50%;
-    border: 1px solid orange;
-    width: 80%;
+    width: 6vw;
+    
 }
 
 #defaultAvatar{
@@ -345,7 +406,7 @@ h2{
 /* End of name area - desktop */
 
 /* Bot selection area */
-.botWrapper {
+/* .botWrapper {
     grid-column: 1 / span 3;
     display: grid;
     grid-template-columns: 20% 20% 20%;
@@ -354,6 +415,16 @@ h2{
     justify-content: center;
     margin: 2%;
 
+} */
+
+.botWrapper {
+    display: flex;
+    justify-content: space-around;
+    margin-left: 25vw;
+    margin-right: 25vw;
+    height: 30vh;
+    
+
 }
 
 .bot{
@@ -361,14 +432,14 @@ h2{
     background-size: cover;
     background-repeat: repeat;
     /* padding: 45px; */
-    margin: 0px auto;
+    
     color: sienna;
-    width: 150px;
-    height: 230px;
+    width: 12vw;
 }
 
 .botImage {
-    margin-top: 20px;
+    cursor: pointer;
+    margin-top: 3vh;
     width: 60%;
 }
 /* End of bot area - desktop */
@@ -413,7 +484,7 @@ label{
     background-repeat: repeat;
     border-radius: 10px;
     margin-top: 10px;
-
+    cursor: pointer;
 }
 
 /* End of category and button area - desktop */
@@ -441,66 +512,19 @@ label{
                 50% { bottom: 50px;}
             }
 
-/* Avatar animation */
-            @keyframes moveRightLeftAnimation {
-                0%,100%  { left: 0;}
-                50% { left: 50px;}
-            }
-            @-o-keyframes moveRightLeftAnimation {
-                0%,100%  { left: 0;}
-                50% { left: 50px; }
-            }
-            @-moz-keyframes moveRightLeftAnimation {
-                0%,100%  { left: 0;}
-                50% { left: 50px;}
-            }
-            @-webkit-keyframes moveRightLeftAnimation {
-                0%,100%  { left: 0;}
-                50% { left: 50px;}
-            }
+
 
 /* End of animation area */
 
 /* Adding animation to bots */
-            #bot1 {
-                /* up down animation */
-                -webkit-animation: moveUpDownAnimation 2s linear infinite;
-                -moz-animation: moveUpDownAnimation 2s linear infinite;
-                -o-animation: moveUpDownAnimation 2s linear infinite;
-                animation: moveUpDownAnimation 2s linear infinite;
-                position: relative;
-                left:0;
-                bottom:0;
 
-            }
-             #bot2 {
-                /* up down animation */
-                -webkit-animation: moveUpDownAnimation 2s linear infinite;
-                -moz-animation: moveUpDownAnimation 2s linear infinite;
-                -o-animation: moveUpDownAnimation 2s linear infinite;
-                animation: moveUpDownAnimation 2s linear infinite;
-                position: relative;
-                left:0;
-                bottom:0;
-
-            }
-             #bot3 {
-                /* up down animation */
-                -webkit-animation: moveUpDownAnimation 2s linear infinite;
-                -moz-animation: moveUpDownAnimation 2s linear infinite;
-                -o-animation: moveUpDownAnimation 2s linear infinite;
-                animation: moveUpDownAnimation 2s linear infinite;
-                position: relative;
-                left:0;
-                bottom:0;
-
-            }
 
 }
 
 /* Small screen */
 @media screen and (max-width: 500px) {
 .main{
+    
     display: grid;
     grid-template-rows: auto auto auto auto auto auto;
 }
@@ -544,7 +568,7 @@ label{
 }
 
 .avatarImage {
-    border-radius: 50%;
+    
     border: 1px solid orange;
     width: 80%;
     margin-top: 20%;
@@ -662,7 +686,7 @@ label{
     background-repeat: repeat;
     border-radius: 10px;
     margin: 10% 0 0 200%;
-
+    cursor:pointer;
 }
 
 

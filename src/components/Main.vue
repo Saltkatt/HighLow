@@ -83,7 +83,7 @@ ul {
 li {
     display: inline-block;
     padding: 15px;
-   
+
 }
 .link{
     color:white;
@@ -91,6 +91,7 @@ li {
 
 .link:hover{
     color: lightgoldenrodyellow;
+    cursor: pointer;
 }
 .link:visited{
     color:lightgray;
@@ -106,7 +107,7 @@ li {
     float: right;
     text-align: center;
     align-items: baseline;
-    
+    cursor: pointer;
 }
 
 .rulesButton{
@@ -117,6 +118,7 @@ li {
     border-radius: 12px;
     padding: 0px 1vw;
     margin: 12px 0 0 10px;
+    cursor: pointer;
 }
 
 .rulesButton:focus { outline: none; }
