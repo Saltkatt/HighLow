@@ -10,16 +10,16 @@
     </div>
     <div class="text">Choose an Avatar and Name:</div>
     <div class="avatarWrapper"> <!-- from the 6 columns: first for default, next 3 divs are for 3 avatars, 1 div is space, last div is selected avatar -->
-        <div class="avatar" ><img id="defaultAvatar" :src=defaultPlayerAvatarImage style="cursor:pointer;" v-on:click="selectDefaultAvatar()" ></div>
+        <!-- <div class="avatar" ><img id="defaultAvatar" :src=defaultPlayerAvatarImage style="cursor:pointer;" v-on:click="selectDefaultAvatar()" ></div> -->
         <div
         class="avatar" v-for="avatar in avatars" :key="avatar.id" v-on:click="selectAvatar(avatar.id, avatar.image, avatar.name)">
-            <div :id="'avatar'+avatar.id" style="cursor:pointer;">
+            <div :id="'avatar'+avatar.id">
                 <div><img class="avatarImage" v-bind:src="avatar.image"></div>
                 <div class="avatarName">{{ avatar.name }}</div>
             </div>
         </div>
-        <div> <!-- space --></div>
-        <div id="playerAvatar" class='avatarAnimation'></div>
+        <!-- <div> </div> -->
+        <!-- <div id="playerAvatar" class='avatarAnimation'></div> -->
 
     </div>
 
@@ -33,10 +33,12 @@
 
 
     <!-- Bots list -->
+    <div class="text">Choose your opponents:</div>
     <div class="botWrapper">
-            <div class="bot" v-for="bot in bots" :key="bot.id" v-on:click="selectBot(bot.id)" v-bind:class="{'selected': bot.selected}">
-                <div :id="'bot'+bot.id" style="cursor:pointer;">
-                    <div><img class="botImage" v-bind:src="bot.image"></div>
+        
+            <div class="bot" v-for="bot in bots" :key="bot.id" v-on:click="selectBot(bot.id)" >
+                <div :id="'bot'+bot.id">
+                    <div><img class="botImage" v-bind:class="{'selected': bot.selected}" v-bind:src="bot.image"></div>
                     <div class="botName">Name: {{ bot.name }}</div>
                     <div class="botDescription">- {{ bot.description }}</div>
                 </div>
@@ -153,7 +155,6 @@ export default {
                 }
         },
 
-
         //select default avatar
         selectDefaultAvatar: function() {
             this.playerAvatarImage = this.defaultPlayerAvatarImage;
@@ -223,20 +224,22 @@ export default {
 
 
 .selected {
-    background-color: chartreuse;
-    border: 10px solid orange;
+    background: #4f300b;
+    border-radius: 5px;
+    /* border: 3px solid black; */
+    margin: 0px;
 }
 
 /* update: add selected bot style */
-.selectedBot {
+/* .selectedBot {
     background: green;
-}
+} */
 
 .main {
     background: none;
     color:whitesmoke;
-    display: grid;
-    grid-template-rows: auto auto auto auto auto auto auto;
+    /* display: grid;
+    grid-template-rows: auto; */
 
 }
 /* Statistics Link */
@@ -269,7 +272,7 @@ export default {
 
 /* Avatar Desktop */
 
-.avatarWrapper {
+/* .avatarWrapper {
     grid-column: 1 / span 3;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 50px 150px;
@@ -279,12 +282,22 @@ export default {
     background-size: cover;
     background-repeat: repeat;
     margin: 2%;
+} */
+
+.avatarWrapper{
+    width: 50vw;
+    display: flex;
+    background-image: url("../assets/divbg.jpg");
+    background-size: cover;
+    background-repeat: repeat;
+    margin-left: 25vw;
+    margin-right: 25vw;
+    justify-content: space-around;
 }
 
 .avatarImage {
-    border-radius: 50%;
-    border: 1px solid orange;
-    width: 80%;
+    width: 6vw;
+
 }
 
 #defaultAvatar{
@@ -345,7 +358,7 @@ h2{
 /* End of name area - desktop */
 
 /* Bot selection area */
-.botWrapper {
+/* .botWrapper {
     grid-column: 1 / span 3;
     display: grid;
     grid-template-columns: 20% 20% 20%;
@@ -354,6 +367,16 @@ h2{
     justify-content: center;
     margin: 2%;
 
+} */
+
+.botWrapper {
+    display: flex;
+    justify-content: space-around;
+    margin-left: 25vw;
+    margin-right: 25vw;
+    height: 30vh;
+    
+
 }
 
 .bot{
@@ -361,14 +384,13 @@ h2{
     background-size: cover;
     background-repeat: repeat;
     /* padding: 45px; */
-    margin: 0px auto;
+    
     color: sienna;
-    width: 150px;
-    height: 230px;
+    width: 12vw;
 }
 
 .botImage {
-    margin-top: 20px;
+    margin-top: 3vh;
     width: 60%;
 }
 /* End of bot area - desktop */
@@ -544,7 +566,7 @@ label{
 }
 
 .avatarImage {
-    border-radius: 50%;
+    
     border: 1px solid orange;
     width: 80%;
     margin-top: 20%;
