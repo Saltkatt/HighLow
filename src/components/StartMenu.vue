@@ -7,6 +7,8 @@
 
         <router-link to="/statistics"><li class="link">Statistics</li></router-link>
 
+        <button class="btn rulesButton" @click="showRules()">?</button>
+
     </div>
     <div class="text">Choose an Avatar and Name:</div>
     <div class="avatarWrapper"> <!-- from the 6 columns: first for default, next 3 divs are for 3 avatars, 1 div is space, last div is selected avatar -->
@@ -15,7 +17,7 @@
         class="avatar" v-for="avatar in avatars" :key="avatar.id" v-on:click="selectAvatar(avatar.id, avatar.image, avatar.name)">
             <div :id="'avatar'+avatar.id">
                 <div><img class="avatarImage" v-bind:src="avatar.image" v-bind:class="{'selected': avatar.selected}"></div>
-                <div class="avatarName">{{ avatar.name }}</div>
+                <!-- <div class="avatarName">{{ avatar.name }}</div> -->
             </div>
         </div>
         <!-- <div> </div> -->
@@ -35,7 +37,7 @@
     <!-- Bots list -->
     <div class="text">Choose your opponents:</div>
     <div class="botWrapper">
-        
+
             <div class="bot" v-for="bot in bots" :key="bot.id" v-on:click="selectBot(bot.id)" >
                 <div :id="'bot'+bot.id">
                     <div><img class="botImage" v-bind:class="{'selected': bot.selected}" v-bind:src="bot.image"></div>
@@ -59,6 +61,8 @@
         <router-link to="/game"><button @click="sendToStore(nameValue)" class="startBtn">Start!</button></router-link>
     </div>
 
+    <Rules></Rules>
+
 </div>
 
 </template>
@@ -69,23 +73,27 @@
 
 import axios from 'axios';
 import { setTimeout } from 'timers';
+import Rules from '../components/Rules.vue'
 
 export default {
     name: "StartMenu",
+    components: {
+        Rules,
+    },
     data() {
         return {
-            nameValue: null,
+            nameValue: "",
             rawResponse: null,
             bankQuestions: [],
             apiQuestions: [],
             categoryValue: "0",
             selectedQuestion: null,
-            preparedPlayer: {},
 
+            preparedPlayer: {},
             tempBotId: 1, //an id that will be extracted from "bot1", etc. as available with each bot div
 
-            defaultPlayerAvatarImage: require("@/assets/sixten.png"), //default image for player
-            playerAvatarImage: require("@/assets/sixten.png") //update to avatar image
+            //defaultPlayerAvatarImage: require("@/assets/sixten.png"), //default image for player
+            playerAvatarImage: require("@/assets/avatar1.png") //update to avatar image
         }
     },
 
@@ -95,6 +103,10 @@ export default {
             this.$store.commit('assignQuestion', this.selectedQuestion);
 
             this.$store.commit('resetActivePlayers');
+
+            if(nameValue == ""){
+                nameValue = "Player"
+            }
 
             this.preparedPlayer = {
                 id: 0,
@@ -106,7 +118,6 @@ export default {
                 guesses: 0,
                 slateImage: require("@/assets/slate.png")
             };
-            // alert("preparedPlayer: " + this.preparedPlayer);
 
             // send user to store:
             this.$store.commit('addToActivePlayers', this.preparedPlayer);
@@ -145,8 +156,10 @@ export default {
 
         //select Bots function:
         selectBot: function(getBotId) {
+
+
             var botId = "bot" + getBotId;
-            document.getElementById(botId).style.animation = "none";
+            //document.getElementById(botId).style.animation = "none";
             for (var countI=0; countI<this.$store.state.bots.length; countI++) {
                 if (this.$store.state.bots[countI].id == getBotId) {
                     //this was the bot clicked. toggle selected:
@@ -156,17 +169,29 @@ export default {
         },
 
         //select default avatar
-        selectDefaultAvatar: function() {
-            this.playerAvatarImage = this.defaultPlayerAvatarImage;
-            document.getElementById("defaultAvatar").style="border: 1px solid orange;";
-            document.getElementById("playerAvatar").innerHTML = "";
-        },
+        // selectDefaultAvatar: function() {
+        //     this.playerAvatarImage = this.defaultPlayerAvatarImage;
+        //     document.getElementById("defaultAvatar").style="border: 1px solid orange;";
+        //     document.getElementById("playerAvatar").innerHTML = "";
+        // },
 
         //select Avatar function:
         selectAvatar: function(getAvatarId, getImage, avatarImageName) {
+            //document.getElementById("defaultAvatar").style="";
+            // document.getElementById("playerAvatar").innerHTML =
+            //     "<img  src='" + getImage + "' " +
+            //         "style = ' \
+            //                 border-radius: 50%; \
+            //                 width: 80%; \ margin-top: 15%; \
+            //         ' >";
             this.$store.commit("toggleAvatar", getAvatarId);
             this.playerAvatarImage = getImage;
-            this.nameValue = avatarImageName;
+           // this.nameValue = avatarImageName;
+        },
+
+        showRules(){
+
+            this.$store.commit("showRules");
         },
 
     },
@@ -197,17 +222,13 @@ export default {
         const countQuestions = async () => {
             this.rawResponse = await getQuestions()
 
-            // Checks for a result
             if (this.rawResponse.data.results) {
-                // Loops and sorts Api questions to find the ones with numerical answers.
                 for(let i = 0; i < this.rawResponse.data.results.length; i++) {
                     if (this.rawResponse.data.results[i].correct_answer.match(/^[0-9]*$/g)) {
                         this.apiQuestions.push(this.rawResponse.data.results[i])
                     }
                 }
-            }
-            else {
-                this.apiQuestions = this.bankQuestions;
+                console.log(`Got ${Object.entries(this.rawResponse.data.results).length} questions`)
             }
         }
         countQuestions()
@@ -219,31 +240,54 @@ export default {
 
 /* Desktop */
 @media screen and (min-width: 501px) {
-
+.avatarImage{
+    cursor: pointer;
+}
+.img{
+    cursor: pointer;
+}
 
 .selected {
-    background: #4f300b;
+    background: rgba(61, 45, 8, 0.4);
     border-radius: 5px;
+    /* border: 3px solid black; */
     margin: 0px;
+    -webkit-animation: moveUpDownAnimation 2s linear infinite;
+                -moz-animation: moveUpDownAnimation 2s linear infinite;
+                -o-animation: moveUpDownAnimation 2s linear infinite;
+                animation: moveUpDownAnimation 2s linear infinite;
+                position: relative;
+                left:0;
+                bottom:0;
 }
 
+/* update: add selected bot style */
+/* .selectedBot {
+    background: green;
+} */
 
 .main {
+
     background: none;
     color:whitesmoke;
-}
+    /* display: grid;
+    grid-template-rows: auto; */
 
+}
 /* Statistics Link */
 .link{
+
   font-size: 3vw;
   text-decoration: none;
   color: #fff;
   display: inline-block;
   margin: 5px;
 }
+
 .link{
     color:white;
 }
+
 .link:hover{
     color: lightgoldenrodyellow;
 }
@@ -252,6 +296,23 @@ export default {
 }
 /* End of Statistics Link */
 
+.btn{
+    font-family: 'Passion One', cursive;
+
+
+}
+.rulesButton{
+    background-image: url("../assets/divbg.jpg");
+    background-size: contain;
+    background-repeat: repeat;
+    font-size: 3vw;
+    border-radius: 12px;
+    padding: 0px 1vw;
+    margin: 12px 0 0 10px;
+    cursor: pointer;
+}
+
+.rulesButton:focus { outline: none; }
 
 /* Choose avatar */
 .text {
@@ -260,6 +321,19 @@ export default {
 }
 
 /* Avatar Desktop */
+
+/* .avatarWrapper {
+    grid-column: 1 / span 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 50px 150px;
+    grid-template-rows: auto;
+    justify-content: center;
+    background-image: url("../assets/divbg.jpg");
+    background-size: cover;
+    background-repeat: repeat;
+    margin: 2%;
+} */
+
 .avatarWrapper{
     width: 50vw;
     display: flex;
@@ -314,16 +388,18 @@ h2{
 
 #nameInputLabel{
     margin: 10px 0 0 50px;
+    font-size: 3vw;
 }
 
 #nameInput{
     background-color: black;
     font-family: 'Passion One', cursive;
-    font-size: 180%;
+    font-size: 3vw;
     color: whitesmoke;
     text-align: center;
     border: 1px solid brown;
     width: 130%;
+    /* height: 5vh; */
     margin-top: 2vh;
     border-radius: 15px;
 }
@@ -333,23 +409,39 @@ h2{
 /* End of name area - desktop */
 
 /* Bot selection area */
+/* .botWrapper {
+    grid-column: 1 / span 3;
+    display: grid;
+    grid-template-columns: 20% 20% 20%;
+    grid-template-rows: 20% 20% 20%;
+    grid-gap: 10%;
+    justify-content: center;
+    margin: 2%;
+
+} */
+
 .botWrapper {
     display: flex;
     justify-content: space-around;
     margin-left: 25vw;
     margin-right: 25vw;
     height: 30vh;
+
+
 }
 
 .bot{
     background-image: url("../assets/divbg.jpg");
     background-size: cover;
     background-repeat: repeat;
+    /* padding: 45px; */
+
     color: sienna;
     width: 12vw;
 }
 
 .botImage {
+    cursor: pointer;
     margin-top: 3vh;
     width: 60%;
 }
@@ -398,11 +490,16 @@ label{
     cursor: pointer;
 }
 
+.botName, .botDescription{
+    color: black;
+}
+
+
 /* End of category and button area - desktop */
 
 /* Animation area */
 
-            /* Bot animation */
+/* Bot animation */
             @keyframes moveUpDownAnimation {
                 0%,100%  { bottom: -10px;}
                 50% { bottom: 10px;}
@@ -423,52 +520,46 @@ label{
                 50% { bottom: 50px;}
             }
 
+
+
 /* End of animation area */
 
 /* Adding animation to bots */
-            #bot1 {
-                /* up down animation */
-                -webkit-animation: moveUpDownAnimation 2s linear infinite;
-                -moz-animation: moveUpDownAnimation 2s linear infinite;
-                -o-animation: moveUpDownAnimation 2s linear infinite;
-                animation: moveUpDownAnimation 2s linear infinite;
-                position: relative;
-                left:0;
-                bottom:0;
 
-            }
-             #bot2 {
-                /* up down animation */
-                -webkit-animation: moveUpDownAnimation 2s linear infinite;
-                -moz-animation: moveUpDownAnimation 2s linear infinite;
-                -o-animation: moveUpDownAnimation 2s linear infinite;
-                animation: moveUpDownAnimation 2s linear infinite;
-                position: relative;
-                left:0;
-                bottom:0;
-
-            }
-             #bot3 {
-                /* up down animation */
-                -webkit-animation: moveUpDownAnimation 2s linear infinite;
-                -moz-animation: moveUpDownAnimation 2s linear infinite;
-                -o-animation: moveUpDownAnimation 2s linear infinite;
-                animation: moveUpDownAnimation 2s linear infinite;
-                position: relative;
-                left:0;
-                bottom:0;
-
-            }
 
 }
 
 /* Small screen */
 @media screen and (max-width: 500px) {
-.main{
-    display: grid;
-    grid-template-rows: auto auto auto auto auto auto;
+.main {
+
+    background: none;
+    color:whitesmoke;
+    /* display: grid;
+    grid-template-rows: auto; */
+
+}
+.btn{
+    font-family: 'Passion One', cursive;
+
+
+}
+.rulesButton{
+    background-image: url("../assets/divbg.jpg");
+    background-size: contain;
+    background-repeat: repeat;
+    font-size: 3vw;
+    border-radius: 12px;
+    padding: 0px 1vw;
+    margin: 12px 0 0 10px;
+    cursor: pointer;
 }
 
+.rulesButton:focus { outline: none; }
+
+.statistics{
+    margin-bottom: 2vh;
+}
 .text{
     grid-column: 1 / span 3;
     font-size: 6vw;
@@ -496,22 +587,21 @@ label{
 /* End of Statistics Link */
 
 /* Avatar Small screen*/
-.avatarWrapper {
-    grid-column: 1 / span 3;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 20px 60px;
-    grid-template-rows: auto;
+.avatarWrapper{
+    height: 7vh;
+    display: flex;
     background-image: url("../assets/divbg.jpg");
     background-size: cover;
     background-repeat: repeat;
-    margin: 2%;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    margin-top: 3vh;
+    justify-content: space-around;
 }
 
 .avatarImage {
-    
-    border: 1px solid orange;
-    width: 80%;
-    margin-top: 20%;
+    width: 10vw;
+    cursor: pointer;
 }
 
 #defaultAvatar{
@@ -531,9 +621,38 @@ label{
 }
 
 .selected {
-    background-color: chartreuse;
+    background: rgba(61, 45, 8, 0.4);
+    border-radius: 5px;
+    /* border: 3px solid black; */
+    margin: 0px;
+    -webkit-animation: moveUpDownAnimation 2s linear infinite;
+                -moz-animation: moveUpDownAnimation 2s linear infinite;
+                -o-animation: moveUpDownAnimation 2s linear infinite;
+                animation: moveUpDownAnimation 2s linear infinite;
+                position: relative;
+                left:0;
+                bottom:0;
 }
 
+@keyframes moveUpDownAnimation {
+                0%,100%  { bottom: -5px;}
+                50% { bottom: 5px;}
+            }
+
+            @-o-keyframes moveUpDownAnimation {
+                0%,100%  { bottom: 0;}
+                50% { bottom: 25px;}
+            }
+
+            @-moz-keyframes moveUpDownAnimation {
+                0%,100%  { bottom: 0;}
+                50% { bottom: 25px;}
+            }
+
+            @-webkit-keyframes moveUpDownAnimation {
+                0%,100%  { bottom: 0;}
+                50% { bottom: 25px;}
+            }
 /* Name area */
 .playerName {
     grid-column: 1 / span 3;
@@ -553,40 +672,51 @@ label{
 #nameInputLabel{
     margin-top: 15px;
     font-size: 5vw;
+    margin: 5vh;
 }
 
 #nameInput{
     background-color: black;
     font-family: 'Passion One', cursive;
-    font-size: 5vw;
+    font-size: 4vw;
     color: whitesmoke;
     text-align: center;
     border: 1px solid brown;
     width: 40vw;
-    margin-top: 2vh;
+    height: 7vw;
+    margin: 5vh;
     border-radius: 15px;
 }
 
 /* Bot selection area */
 .botWrapper {
-    grid-column: 1 / span 3;
-    display: grid;
-    grid-template-columns: 20% 20% 20%;
-    grid-template-rows: auto ;
-    grid-gap: 5%;
-    justify-content: center;
-    margin: 2%;
+    display: flex;
+    justify-content: space-around;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    height: 30vh;
+
+
 }
 
 .bot{
-    background-image:url("../assets/divbg.jpg");
+    background-image: url("../assets/divbg.jpg");
     background-size: cover;
-    padding: 1%;
+    background-repeat: repeat;
+    /* padding: 45px; */
+
     color: sienna;
+    width: 20vw;
+    margin-top: 5vh;
 }
 
-.botImage{
-    width: 80%;
+.botImage {
+    cursor: pointer;
+    margin-top: 3vh;
+    width: 60%;
+}
+.botName, .botDescription{
+    color: black;
 }
 
 /* Question Categories */
@@ -617,16 +747,16 @@ label{
 }
 
 .startBtn{
-    grid-column: 2;
     font-family: 'Passion One', cursive;
     font-size: 180%;
-    width: 100%;
+    width: 70%;
+    height: 10vh;
     background-image: url("../assets/divbg.jpg");
     background-size: cover;
     background-repeat: repeat;
     border-radius: 10px;
-    margin: 10% 0 0 200%;
-    cursor:pointer;
+    margin-top: 5vh;
+    cursor: pointer;
 }
 
 
