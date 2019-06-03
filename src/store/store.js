@@ -67,6 +67,7 @@ export const store = new Vuex.Store({
           isHuman: false,
           slateImage: require("@/assets/slate.png"),
           selected: false, //is bot selected by user to compete
+          description: "Confused"
         },
         {
           id: 2,
@@ -77,6 +78,7 @@ export const store = new Vuex.Store({
           isHuman: false,
           slateImage: require("@/assets/slate.png"),
           selected: false, //is bot selected by user to compete
+          description: "Shoots from the hip!"
         },
         {
           id: 3,
@@ -87,6 +89,7 @@ export const store = new Vuex.Store({
           isHuman: false,
           slateImage: require("@/assets/slate.png"),
           selected: false, //is bot selected by user to compete
+          description: "Pratically Perfect!"
         },
       ],
 
