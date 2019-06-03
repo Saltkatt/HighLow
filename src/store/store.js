@@ -113,8 +113,8 @@ export const store = new Vuex.Store({
 
       // question to be used by playgame
       question: {
-        question: 'Hur högt är Mount Everest i antal meter räknat?',
-        answer: 8848
+        question: null,
+        answer: null
       },
     //Players & bots in the active game
     activePlayers: [],
