@@ -7,6 +7,8 @@
 
         <router-link to="/statistics"><li class="link">Statistics</li></router-link>
 
+        <button class="btn rulesButton" @click="showRules()">?</button>
+
     </div>
     <div class="text">Choose an Avatar and Name:</div>
     <div class="avatarWrapper"> <!-- from the 6 columns: first for default, next 3 divs are for 3 avatars, 1 div is space, last div is selected avatar -->
@@ -59,6 +61,8 @@
         <router-link to="/game"><button @click="sendToStore(nameValue)" class="startBtn">Start!</button></router-link>
     </div>
 
+    <Rules></Rules>
+
 </div>
 
 </template>
@@ -69,9 +73,13 @@
 
 import axios from 'axios';
 import { setTimeout } from 'timers';
+import Rules from '../components/Rules.vue'
 
 export default {
     name: "StartMenu",
+    components: {
+        Rules,
+    },
     data() {
         return {
             nameValue: null,
@@ -176,6 +184,11 @@ export default {
             this.nameValue = avatarImageName;
         },
 
+        showRules(){
+
+            this.$store.commit("showRules");
+        },
+
     },
 
     computed: {
@@ -222,13 +235,25 @@ export default {
 
 /* Desktop */
 @media screen and (min-width: 501px) {
-
+.avatarImage{
+    cursor: pointer;
+}
+.img{
+    cursor: pointer;
+}
 
 .selected {
-    background: #4f300b;
+    background: rgba(61, 45, 8, 0.4);
     border-radius: 5px;
     /* border: 3px solid black; */
     margin: 0px;
+    -webkit-animation: moveUpDownAnimation 2s linear infinite;
+                -moz-animation: moveUpDownAnimation 2s linear infinite;
+                -o-animation: moveUpDownAnimation 2s linear infinite;
+                animation: moveUpDownAnimation 2s linear infinite;
+                position: relative;
+                left:0;
+                bottom:0;
 }
 
 /* update: add selected bot style */
@@ -237,6 +262,7 @@ export default {
 } */
 
 .main {
+    
     background: none;
     color:whitesmoke;
     /* display: grid;
@@ -245,6 +271,7 @@ export default {
 }
 /* Statistics Link */
 .link{
+    
   font-size: 3vw;
   text-decoration: none;
   color: #fff;
@@ -264,6 +291,22 @@ export default {
 }
 /* End of Statistics Link */
 
+.btn{
+    font-family: 'Passion One', cursive;
+    
+    
+}
+.rulesButton{
+    background-image: url("../assets/divbg.jpg");
+    background-size: contain;
+    background-repeat: repeat;
+    font-size: 3vw;
+    border-radius: 12px;
+    padding: 0px 1vw;
+    margin: 12px 0 0 10px;
+}
+
+.rulesButton:focus { outline: none; }
 
 /* Choose avatar */
 .text {
@@ -298,7 +341,7 @@ export default {
 
 .avatarImage {
     width: 6vw;
-
+    
 }
 
 #defaultAvatar{
@@ -391,6 +434,7 @@ h2{
 }
 
 .botImage {
+    cursor: pointer;
     margin-top: 3vh;
     width: 60%;
 }
@@ -464,66 +508,19 @@ label{
                 50% { bottom: 50px;}
             }
 
-/* Avatar animation */
-            @keyframes moveRightLeftAnimation {
-                0%,100%  { left: 0;}
-                50% { left: 50px;}
-            }
-            @-o-keyframes moveRightLeftAnimation {
-                0%,100%  { left: 0;}
-                50% { left: 50px; }
-            }
-            @-moz-keyframes moveRightLeftAnimation {
-                0%,100%  { left: 0;}
-                50% { left: 50px;}
-            }
-            @-webkit-keyframes moveRightLeftAnimation {
-                0%,100%  { left: 0;}
-                50% { left: 50px;}
-            }
+
 
 /* End of animation area */
 
 /* Adding animation to bots */
-            #bot1 {
-                /* up down animation */
-                -webkit-animation: moveUpDownAnimation 2s linear infinite;
-                -moz-animation: moveUpDownAnimation 2s linear infinite;
-                -o-animation: moveUpDownAnimation 2s linear infinite;
-                animation: moveUpDownAnimation 2s linear infinite;
-                position: relative;
-                left:0;
-                bottom:0;
 
-            }
-             #bot2 {
-                /* up down animation */
-                -webkit-animation: moveUpDownAnimation 2s linear infinite;
-                -moz-animation: moveUpDownAnimation 2s linear infinite;
-                -o-animation: moveUpDownAnimation 2s linear infinite;
-                animation: moveUpDownAnimation 2s linear infinite;
-                position: relative;
-                left:0;
-                bottom:0;
-
-            }
-             #bot3 {
-                /* up down animation */
-                -webkit-animation: moveUpDownAnimation 2s linear infinite;
-                -moz-animation: moveUpDownAnimation 2s linear infinite;
-                -o-animation: moveUpDownAnimation 2s linear infinite;
-                animation: moveUpDownAnimation 2s linear infinite;
-                position: relative;
-                left:0;
-                bottom:0;
-
-            }
 
 }
 
 /* Small screen */
 @media screen and (max-width: 500px) {
 .main{
+    
     display: grid;
     grid-template-rows: auto auto auto auto auto auto;
 }

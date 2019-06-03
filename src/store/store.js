@@ -66,7 +66,7 @@ export const store = new Vuex.Store({
           isMyTurn: false,
           isHuman: false,
           slateImage: require("@/assets/slate.png"),
-          selected: true, //is bot selected by user to compete
+          selected: false, //is bot selected by user to compete
         },
         {
           id: 2,
