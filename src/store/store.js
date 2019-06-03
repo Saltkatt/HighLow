@@ -154,6 +154,14 @@ export const store = new Vuex.Store({
   },
 
   mutations: {
+      
+      //toggle avatar selection
+        toggleAvatar: function (state, avatarId) {
+        for(let i= 0; i < state.avatars.length; i++){
+        state.avatars[i].selected = false;
+      }
+      state.avatars[avatarId-1].selected = !state.avatars[avatarId-1].selected;
+    },
 
     //reset active players list
     resetActivePlayers: function (state) {
