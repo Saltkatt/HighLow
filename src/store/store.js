@@ -165,7 +165,6 @@ export const store = new Vuex.Store({
     //note: it is assumed the player has id 0
     addToActivePlayers: function (state, payload) {
       state.activePlayers.push(payload);
-      console.log("activePlayers length: " + state.activePlayers.length);
     },
 
     //put bots with field "selected" as true into activePlayers
@@ -176,12 +175,10 @@ export const store = new Vuex.Store({
           state.bots[botI].guess = null;
           state.bots[botI].isMyTurn = false;
           state.activePlayers.push(state.bots[botI]);
-          console.log("activePlayer length after bot insert: " + state.activePlayers.length);
           // alert ("added bot: " + state.bots[botI].name);
         }
         var player = state.activePlayers;
         for(var i = 0; i < player.length; i++) {
-          console.log("id: " + player[i].id + " Name: " + player[i].name + " isTurn: " + player[i].isMyTurn);
         }
       }
 
@@ -250,10 +247,8 @@ export const store = new Vuex.Store({
       }
 
     },
-
+    //Receives high or low guess
     submitGuessToStore(state, highLow) {
-      console.log("Enter submit guessGuessToStore with value: "+highLow);
-
       switch(highLow){
         case "low":
         //Enter low switch
@@ -386,7 +381,7 @@ export const store = new Vuex.Store({
 
       }, 1000)
     },
-    
+
     //Show winner
     showResult(context) {
       setTimeout(function () {
