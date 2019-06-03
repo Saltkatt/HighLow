@@ -204,13 +204,17 @@ export default {
         const countQuestions = async () => {
             this.rawResponse = await getQuestions()
 
+            // Checks for a result
             if (this.rawResponse.data.results) {
+                // Loops and sorts Api questions to find the ones with numerical answers.
                 for(let i = 0; i < this.rawResponse.data.results.length; i++) {
                     if (this.rawResponse.data.results[i].correct_answer.match(/^[0-9]*$/g)) {
                         this.apiQuestions.push(this.rawResponse.data.results[i])
                     }
                 }
-                console.log(`Got ${Object.entries(this.rawResponse.data.results).length} questions`)
+            }
+            else {
+                this.apiQuestions = this.bankQuestions;
             }
         }
         countQuestions()

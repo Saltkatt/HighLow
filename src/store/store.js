@@ -118,15 +118,8 @@ export const store = new Vuex.Store({
         answer: 8848
       },
     //Players & bots in the active game
-    activePlayers: [
-      /*{ id: 0, name: "Player", guess: null, image: require("@/assets/sixten.png"), isMyTurn: true, isHuman: true, guesses: 0, slateImage: require("@/assets/slate.png") },
-
-
-      { id: 2, name: "Pelle", guess: null, image: require("@/assets/bot2.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
-
-      { id: 1, name: "Grandma", guess: null, image: require("@/assets/grandma.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
-    { id: 3, name: "Wall-E", guess: null, image: require("@/assets/wall-e.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },*/
-  ],
+    activePlayers: [],
+    //Hard-coded Scoreboard
     scoreBoard: [
       { name: "Ilari", guesses: 3 },
       { name: "Joel", guesses: 2 },
@@ -209,16 +202,7 @@ export const store = new Vuex.Store({
       defaultGameState(state) {
         state.gameState = true;
       },
-      // loadGame(state) {
-      //   //Push selected bots into activePlayer
-      //   for(let i=0;i<state.bots.length;i++){
-      //     if(state.bots[i].selected==true){
-      //       state.bots[i].guess = null;
-      //       state.bots[i].isMyTurn = null;
-      //       state.activePlayers.push(state.bots[i]); //was push("state.bots[i]");
-      //     }
-      //   }
-      // },
+ 
       //This resets the guess of each player in the activePlayers to null.
       defaultActivePlayersGuess(state) {
         var players = state.activePlayers;
@@ -452,7 +436,6 @@ export const store = new Vuex.Store({
           console.log("App is no longer waiting for user-input");
           console.log("is about to send player.guess to updateLastGuess mutation with player.guess: "+player.guess);
           context.commit("updateLastGuess",player.guess);
-
           context.dispatch("response",player);
         }
 
@@ -465,7 +448,6 @@ export const store = new Vuex.Store({
           setTimeout(function(){
 
             switch (player.id) {
-
               case 1:
                 //This bots logic: highestNumber - lowestNumber / 2
                 player.guess = context.state.lowestNumber + Math.floor((context.state.highestNumber - context.state.lowestNumber) / 2)
@@ -497,7 +479,7 @@ export const store = new Vuex.Store({
         if(context.state.gameState){
         setTimeout(function(){
           context.commit("resetModeratorTalk");
-           context.commit("resetTimer");
+          context.commit("resetTimer");
           console.log("is about to call switchTurnMethod with player.id: "+player.id);
           context.commit("switchTurn",player);
           console.log("is about to call playerGame to start over");
@@ -543,9 +525,6 @@ export const store = new Vuex.Store({
         context.commit("updateModeratorAnswer",respons);
         },600);
 
-
-
-
       },
 
     delayModeratorAnswer(context,talk) {
@@ -568,12 +547,6 @@ export const store = new Vuex.Store({
 
     },
 
-
     }
-
-
-
-
-
 
 })
