@@ -115,6 +115,10 @@ export default {
   height: 75vh;
 }
 
+h1{
+  margin: 0px;
+}
+
 .cup{
   height: 20vh;
 }
