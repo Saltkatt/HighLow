@@ -34,19 +34,25 @@ export default {
 
 .list-scores{
   font-size: 25px;
+  
+}
+
+.container{
+  margin: 0 20% 0 20%;
 }
 
 .back-button{
   font-family: 'Passion One', cursive;
   font-size: 30px;
-  width: 120px;
-  height: 5.5vh;
+  
+  
   background-image: url("../assets/divbg.jpg");
   background-size: cover;
   border-radius: 15px;
   text-align: center;
   margin: 5%;
   cursor: pointer;
+  padding: 10px;
 }
 
 /* Small screen */
@@ -55,7 +61,7 @@ export default {
 
   .back-button{
     font-size: 6vw;
-    width: 20%;
+    
   }
 
 
