@@ -46,6 +46,7 @@ export default {
   border-radius: 15px;
   text-align: center;
   margin: 5%;
+  cursor: pointer;
 }
 
 /* Small screen */
@@ -56,7 +57,7 @@ export default {
     font-size: 6vw;
     width: 20%;
   }
-    
+
 
 
 }
