@@ -13,7 +13,7 @@
           The correct answer was: {{correctAnswer}}
         </div>
         <div>Total guesses: {{guesses}}</div>
-        <button class="add-button" type="button" v-on:click="addWinnerToScoreBoard()">Add to Scoreboard</button>
+        <button class="add-button" type="button" v-on:click.once="addWinnerToScoreBoard()">Add to Scoreboard</button>
         <div>
           <!--
             A button which will route you to main menu and
@@ -91,7 +91,7 @@ export default {
 
 <style scoped>
 .modalBox {
-
+  font-family: 'Passion One', cursive;
 
   width: 100%;
   height: 100%;
@@ -110,16 +110,16 @@ export default {
   padding: 20px 30px;
   color: black;
   font-size: 18px;
-  margin: 10% auto;
+  margin: 5% auto;
   width: 60%;
-  height: 80%;
+  height: 75vh;
 }
 
 .cup{
-  width: 20vw;
+  height: 20vh;
 }
 .winning-player{
-  margin-top: 30%;
+  margin-top: 10vh;
 }
 
 .button-close {
@@ -136,6 +136,7 @@ export default {
 }
 /*Temporary CSS for the replay button*/
 .again-button{
+  font-family: 'Passion One', cursive;
   background-color: #fff;
   border: 2px solid black;
   border-radius: 12px;
@@ -144,10 +145,20 @@ export default {
   text-align: center;
   display: inline-block;
   font-size: 18px;
-  font-weight: bold;
+  box-shadow: 0 9px #725119;
   margin: 10px;
 }
+.again-button:hover{
+  background-color: #4da0d1;
+  cursor: pointer;
+}
+.again-button:active{
+  background-color: #4da0d1;
+  box-shadow: 0 5px #493410;
+  transform: translateY(4px);
+}
 .add-button{
+  font-family: 'Passion One', cursive;
   background-color: #fff;
   border: 2px solid black;
   border-radius: 12px;
@@ -155,8 +166,17 @@ export default {
   padding: 10px 20px;
   text-align: center;
   display: inline-block;
-  font-size: 12px;
-  font-weight: bold;
+  font-size: 18px;
+  box-shadow: 0 9px #725119;
   margin: 10px;
+}
+.add-button:hover{
+  background-color: #4da0d1;
+  cursor: pointer;
+}
+.add-button:active{
+  background-color: #4da0d1;
+  box-shadow: 0 5px #493410;
+  transform: translateY(4px);
 }
 </style>

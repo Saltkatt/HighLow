@@ -1,31 +1,40 @@
 <template>
 <div class="main">
-    
+
 
     <!-- avatar images and names -->
+    <div class="statistics">
+      
+        <router-link to="/statistics"><li class="link">Statistics</li></router-link>
+      
+    </div>
     <div class="text">Choose an Avatar and Name:</div>
-    <div class="avatarWrapper">
-        <div 
-        class="avatar" v-for="avatar in avatars" :key="avatar.id" v-on:click="selectAvatar(avatar.id, avatar.image)">
+    <div class="avatarWrapper"> <!-- from the 6 columns: first for default, next 3 divs are for 3 avatars, 1 div is space, last div is selected avatar -->
+        <div class="avatar" ><img id="defaultAvatar" :src=defaultPlayerAvatarImage style="cursor:pointer;" v-on:click="selectDefaultAvatar()" ></div>
+        <div
+        class="avatar" v-for="avatar in avatars" :key="avatar.id" v-on:click="selectAvatar(avatar.id, avatar.image, avatar.name)">
             <div :id="'avatar'+avatar.id" style="cursor:pointer;">
                 <div><img class="avatarImage" v-bind:src="avatar.image"></div>
                 <div class="avatarName">{{ avatar.name }}</div>
             </div>
         </div>
+        <div> <!-- space --></div>
+        <div id="playerAvatar" class='avatarAnimation'></div>
+
     </div>
 
+    <div class="input">
     <div class="playerName">
         <!-- Name input max length 15 -->
-        <div id="playerAvatar"></div>
         <label id="nameInputLabel" for="nameInput">Name:</label>
         <input id="nameInput" name="nameInput" type="text" maxlength="15" placeholder="Enter your name..." v-model="nameValue">
+    </div>
     </div>
 
 
     <!-- Bots list -->
     <div class="botWrapper">
-            <div 
-            class="bot" v-for="bot in bots" :key="bot.id" v-on:click="selectBot(bot.id)">
+            <div class="bot" v-for="bot in bots" :key="bot.id" v-on:click="selectBot(bot.id)" v-bind:class="{'selected': bot.selected}">
                 <div :id="'bot'+bot.id" style="cursor:pointer;">
                     <div><img class="botImage" v-bind:src="bot.image"></div>
                     <div class="botName">Name: {{ bot.name }}</div>
@@ -33,7 +42,6 @@
                 </div>
             </div>
     </div>
-
 
     <!-- Category list -->
     <div class="category">
@@ -44,19 +52,19 @@
         </select>
     </div>
 
-
     <!-- Submit game setup to store -->
-    <div>
-        <router-link to="/game"><button @click="sendToStore(nameValue)" class="button1">Start!</button></router-link>
+    <div class="btn">
+        <router-link to="/game"><button @click="sendToStore(nameValue)" class="startBtn">Start!</button></router-link>
     </div>
 
 </div>
 
-
-
 </template>
 
+
+
 <script>
+
 import axios from 'axios';
 import { setTimeout } from 'timers';
 
@@ -70,18 +78,22 @@ export default {
             apiQuestions: [],
             categoryValue: "0",
             selectedQuestion: null,
-            
-            arrSelectedBots: [], //update_29maj2019
+
             preparedPlayer: {},
             tempBotId: 1, //an id that will be extracted from "bot1", etc. as available with each bot div
-            preparedBot: {},
 
-            playerAvatarImage: require("@/assets/sixten.png") //updated to avatar image
+            defaultPlayerAvatarImage: require("@/assets/sixten.png"), //default image for player
+            playerAvatarImage: require("@/assets/sixten.png") //update to avatar image
         }
     },
+
     methods: {
         sendToStore(nameValue) {
             this.getCategoryQuestions(this.categoryValue); // get a random question in selected category
+            this.$store.commit('assignQuestion', this.selectedQuestion);
+
+            this.$store.commit('resetActivePlayers');
+
             this.preparedPlayer = {
                 id: 0,
                 name: nameValue,
@@ -91,45 +103,22 @@ export default {
                 isHuman: true,
                 guesses: 0,
                 slateImage: require("@/assets/slate.png")
-            }
+            };
             // alert("preparedPlayer: " + this.preparedPlayer);
-            // this.$store.commit('assignPlayerName', nameValue);
-            this.$store.commit('assignQuestion', this.selectedQuestion);
+
             // send user to store:
             this.$store.commit('addToActivePlayers', this.preparedPlayer);
             // send bots to store:
-            // alert ("bot list length: " + this.arrSelectedBots.length);
-            for (var botI=0; botI<this.arrSelectedBots.length; botI++) {
-                // alert("botI:" +botI);
-                this.tempBotId = this.arrSelectedBots[botI] //get from array in form bot1, bot3, etc.
-                this.tempBotId = this.tempBotId.substring(3,4); //take "3" from "bot3"
-                // alert("tempBotI:" +this.tempBotId);
-    
-                this.preparedBot = {
-                    id: Number(this.tempBotId),
-                    name: this.$store.state.bots[this.tempBotId].name,
-                    guess: null,
-                    image: this.$store.state.bots[this.tempBotId].image,
-                    isMyTurn: false,
-                    isHuman: false,
-                    guesses: 0,
-                    slateImage: require("@/assets/slate.png")
-                }
-               this.$store.commit('addToActivePlayers', this.preparedBot);
-               
-                  
-               
-            //    alert("add bot with id: " + this.preparedBot.id);
-            }
-            console.log("Was here");
-            
-            
+            this.$store.commit('putSelectedBotsInActivePlayers')
+            // alert("was here");
+
             setTimeout(() => {
-               this.$store.dispatch("playGame"); 
+               this.$store.dispatch("playGame");
             }, 1000);
 
             // go to /game
         },
+
         getCategoryQuestions(categoryId) {
             categoryId = Number(categoryId);
 
@@ -141,7 +130,7 @@ export default {
 
             }
             else if (categoryId == 0) {
-                
+
                 // assign a random question
                 let randomNumber = Math.floor(Math.random() * Math.floor(this.bankQuestions.length));
                 let randomQuestion = this.bankQuestions[randomNumber];
@@ -152,46 +141,51 @@ export default {
             }
         },
 
-        //added selectBots function:
+        //select Bots function:
         selectBot: function(getBotId) {
             var botId = "bot" + getBotId;
-            // "selected bot. add bot id. change style");
             document.getElementById(botId).style.animation = "none";
-            // document.getElementById(botId).style.backgroundColor = "blue";
-            // alert("bot: " + botId);
-            document.getElementById(botId).setAttribute('style','mask-image: radial-gradient(circle at 100% 100%, black 10%, rgba(255,165,0, 0.6) 50%);');
-            document.getElementById(botId).setAttribute('style','border: 5px solid green;');
-            document.getElementById(botId).setAttribute('style','background-color: orange;');
-            this.arrSelectedBots.push(botId);
-            // alert(this.arrSelectedBots);
+            for (var countI=0; countI<this.$store.state.bots.length; countI++) {
+                if (this.$store.state.bots[countI].id == getBotId) {
+                    //this was the bot clicked. toggle selected:
+                    this.$store.state.bots[countI].selected = !this.$store.state.bots[countI].selected;
+                    }
+                }
         },
 
 
-        //added selectBots function:
+        //select default avatar
+        selectDefaultAvatar: function() {
+            this.playerAvatarImage = this.defaultPlayerAvatarImage;
+            document.getElementById("defaultAvatar").style="border: 1px solid orange;";
+            document.getElementById("playerAvatar").innerHTML = "";
+        },
+
+        //select Avatar function:
         selectAvatar: function(getAvatarId, getImage, avatarImageName) {
-            document.getElementById("playerAvatar").innerHTML = 
-                "<img width=100 src='" + 
-                    getImage + "' " + 
-                    `style =
-                            border-radius: 50%;
-                            border: 1px solid orange;
-                            width: 100px;
-                        ` +
-                ">";
-            this.playerAvatarImage = avatarImageName;   
-            this.nameValue = this.$store.state.avatarsObjs[getAvatarId].name;
+            document.getElementById("defaultAvatar").style="";
+            document.getElementById("playerAvatar").innerHTML =
+                "<img  src='" + getImage + "' " +
+                    "style = ' \
+                            border-radius: 50%; \
+                            width: 80%; \ margin-top: 15%; \
+                    ' >";
+            this.playerAvatarImage = getImage;
+            this.nameValue = avatarImageName;
         },
 
     },
+
     computed: {
         bots() {
             return this.$store.state.bots;
         },
 
         avatars() {
-            return this.$store.state.avatarsObjs;
+            return this.$store.state.avatars;
         }
     },
+
     mounted() {
 
         // get questions from questionBank
@@ -223,15 +217,14 @@ export default {
 </script>
 
 <style scoped>
-.button1 {
-    font-size: 25px;
-    margin: 25px;
-    height: 50px;
-}
 
-.text {
-    font-size: 25px;
-    margin: 15px;
+/* Desktop */
+@media screen and (min-width: 501px) {
+
+
+.selected {
+    background-color: chartreuse;
+    border: 10px solid orange;
 }
 
 /* update: add selected bot style */
@@ -240,48 +233,194 @@ export default {
 }
 
 .main {
-    background: #3b3b3b;
-    color: azure;
+    background: none;
+    color:whitesmoke;
+    display: grid;
+    grid-template-rows: auto auto auto auto auto auto auto;
+
+}
+/* Statistics Link */
+.link{
+  font-size: 3vw;
+  text-decoration: none;
+  color: #fff;
+  display: inline-block;
+  margin: 5px;
 }
 
+.link{
+    color:white;
+}
+
+.link:hover{
+    color: lightgoldenrodyellow;
+}
+.link:visited{
+    color:lightgray;
+}
+/* End of Statistics Link */
+
+
+/* Choose avatar */
+.text {
+    grid-column: 1 / span 3;
+    font-size: 3vw;
+}
+
+/* Avatar Desktop */
+
+.avatarWrapper {
+    grid-column: 1 / span 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 50px 150px;
+    grid-template-rows: auto;
+    justify-content: center;
+    background-image: url("../assets/divbg.jpg");
+    background-size: cover;
+    background-repeat: repeat;
+    margin: 2%;
+}
+
+.avatarImage {
+    border-radius: 50%;
+    border: 1px solid orange;
+    width: 80%;
+}
+
+#defaultAvatar{
+    width:80%;
+}
+
+.avatarAnimation {
+    /* right left animation */
+    -webkit-animation: moveRightLeftAnimation 2s linear infinite;
+    -moz-animation: moveRightLeftAnimation 2s linear infinite;
+    -o-animation: moveRightLeftAnimation 2s linear infinite;
+    animation: moveRightLeftAnimation 2s linear infinite;
+    position: relative;
+    left:0;
+    bottom:0;
+}
+
+/* end of Avatar Desktop */
+
+/* Name area */
 .playerName {
     display: grid;
-    margin: auto;
+    grid-template-columns: 80% 80% 80%;
+    grid-template-rows: auto auto;
+    margin: 0 20% 0 20% ;
     width: 25%;
-    align-self: center;
-    justify-self: center;
+    align-items: center;
 }
 
+h2{
+    grid-column: 1 / span 3;
+    font-size: 3vw;
+}
+
+.input{
+    grid-column: 1 / span 3;
+}
+
+#nameInputLabel{
+    margin: 10px 0 0 50px;
+}
+
+#nameInput{
+    background-color: black;
+    font-family: 'Passion One', cursive;
+    font-size: 180%;
+    color: whitesmoke;
+    text-align: center;
+    border: 1px solid brown;
+    width: 130%;
+    /* height: 5vh; */
+    margin-top: 2vh;
+    border-radius: 15px;
+}
+
+#nameInput:focus { outline: none; }
+
+/* End of name area - desktop */
+
+/* Bot selection area */
 .botWrapper {
-    margin: auto;
-    width:50%;
+    grid-column: 1 / span 3;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 20% 20% 20%;
+    grid-template-rows: 20% 20% 20%;
+    grid-gap: 10%;
+    justify-content: center;
+    margin: 2%;
+
 }
 
 .bot{
-    background: url("../assets/background_wood.jpg");
-    padding: 10px;
-    margin: 5px auto;
-    width: 200px;
-    align-self: center;
-    justify-self: center;
-    width: 50%;
+    background-image: url("../assets/divbg.jpg");
+    background-size: cover;
+    background-repeat: repeat;
+    /* padding: 45px; */
+    margin: 0px auto;
+    color: sienna;
+    width: 150px;
+    height: 230px;
 }
 
 .botImage {
-    margin: auto;
-    width: 100px;
-    height: 100px;
+    margin-top: 20px;
+    width: 60%;
 }
+/* End of bot area - desktop */
 
+/* Question Categories */
 .category {
+    grid-column: 1 / span 3;
     display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 2%;
+    justify-content: center;
     margin: auto;
-    width: 25%;
+
+}
+label{
+    margin-top:10%;
+    font-size: 200%;
 }
 
+#selectCategory{
+    background-color: black;
+    font-family: 'Passion One', cursive;
+    font-size: 180%;
+    color: whitesmoke;
+    text-align: center;
+    border: 1px solid brown;
+    width: 100%;
+    margin-top: 2vh;
+    border-radius: 10px;
+}
 
+.btn{
+    grid-column: 1 / span 3;
+}
+.startBtn{
+    font-family: 'Passion One', cursive;
+    font-size: 180%;
+    width: 30%;
+    height: 10vh;
+    background-image: url("../assets/divbg.jpg");
+    background-size: cover;
+    background-repeat: repeat;
+    border-radius: 10px;
+    margin-top: 10px;
+
+}
+
+/* End of category and button area - desktop */
+
+/* Animation area */
+
+/* Bot animation */
             @keyframes moveUpDownAnimation {
                 0%,100%  { bottom: -10px;}
                 50% { bottom: 10px;}
@@ -302,7 +441,27 @@ export default {
                 50% { bottom: 50px;}
             }
 
+/* Avatar animation */
+            @keyframes moveRightLeftAnimation {
+                0%,100%  { left: 0;}
+                50% { left: 50px;}
+            }
+            @-o-keyframes moveRightLeftAnimation {
+                0%,100%  { left: 0;}
+                50% { left: 50px; }
+            }
+            @-moz-keyframes moveRightLeftAnimation {
+                0%,100%  { left: 0;}
+                50% { left: 50px;}
+            }
+            @-webkit-keyframes moveRightLeftAnimation {
+                0%,100%  { left: 0;}
+                50% { left: 50px;}
+            }
 
+/* End of animation area */
+
+/* Adding animation to bots */
             #bot1 {
                 /* up down animation */
                 -webkit-animation: moveUpDownAnimation 2s linear infinite;
@@ -314,8 +473,7 @@ export default {
                 bottom:0;
 
             }
-
-            #bot2 {
+             #bot2 {
                 /* up down animation */
                 -webkit-animation: moveUpDownAnimation 2s linear infinite;
                 -moz-animation: moveUpDownAnimation 2s linear infinite;
@@ -324,8 +482,9 @@ export default {
                 position: relative;
                 left:0;
                 bottom:0;
+
             }
-            #bot3 {
+             #bot3 {
                 /* up down animation */
                 -webkit-animation: moveUpDownAnimation 2s linear infinite;
                 -moz-animation: moveUpDownAnimation 2s linear infinite;
@@ -334,37 +493,91 @@ export default {
                 position: relative;
                 left:0;
                 bottom:0;
-            }
-            #bot4 {
 
-                /* up down animation */
-                -webkit-animation: moveUpDownAnimation 2s linear infinite;
-                -moz-animation: moveUpDownAnimation 2s linear infinite;
-                -o-animation: moveUpDownAnimation 2s linear infinite;
-                animation: moveUpDownAnimation 2s linear infinite;
-                position: relative;
-                left:0;
-                bottom:0;
             }
 
-           
-
+}
 
 /* Small screen */
 @media screen and (max-width: 500px) {
+.main{
+    display: grid;
+    grid-template-rows: auto auto auto auto auto auto;
+}
+
+.text{
+    grid-column: 1 / span 3;
+    font-size: 6vw;
+}
+
+/* Statistics Link */
+.link{
+  font-size: 4vw;
+  text-decoration: none;
+  text-align: left;
+  color: #fff;
+  display: inline-block;
+  margin: 0;
+}
+.link{
+    color:white;
+}
+
+.link:hover{
+    color: lightgoldenrodyellow;
+}
+.link:visited{
+    color:lightgray;
+}
+/* End of Statistics Link */
+
+/* Avatar Small screen*/
+.avatarWrapper {
+    grid-column: 1 / span 3;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 20px 60px;
+    grid-template-rows: auto;
+    background-image: url("../assets/divbg.jpg");
+    background-size: cover;
+    background-repeat: repeat;
+    margin: 2%;
+}
+
+.avatarImage {
+    border-radius: 50%;
+    border: 1px solid orange;
+    width: 80%;
+    margin-top: 20%;
+}
+
+#defaultAvatar{
+    margin-top: 15%;
+    width: 100%;
+}
+
+.avatarAnimation {
+    /* right left animation */
+    -webkit-animation: moveRightLeftAnimation 2s linear infinite;
+    -moz-animation: moveRightLeftAnimation 2s linear infinite;
+    -o-animation: moveRightLeftAnimation 2s linear infinite;
+    animation: moveRightLeftAnimation 2s linear infinite;
+    position: relative;
+    left:0;
+    bottom:0;
+}
+
+.selected {
+    background-color: chartreuse;
+}
 
 /* Name area */
 .playerName {
+    grid-column: 1 / span 3;
     display: grid;
     grid-template-columns: 80% 80% 80%;
     grid-template-rows: auto auto;
     margin: 0 20% 0 20% ;
     width: 25%;
-}
-
-h2{
-    grid-column: 1 / span 3;
-    font-size: 6vw;
 }
 
 .input{
@@ -374,30 +587,28 @@ h2{
 }
 
 #nameInputLabel{
-    margin-top: 10px;
-    font-size: 6vw;
+    margin-top: 15px;
+    font-size: 5vw;
 }
 
 #nameInput{
     background-color: black;
     font-family: 'Passion One', cursive;
-    font-size: 6vw;
+    font-size: 5vw;
     color: whitesmoke;
     text-align: center;
     border: 1px solid brown;
-    width: 100%;
-    /* height: 5vh; */
+    width: 40vw;
     margin-top: 2vh;
     border-radius: 15px;
 }
 
-
 /* Bot selection area */
-
 .botWrapper {
+    grid-column: 1 / span 3;
     display: grid;
     grid-template-columns: 20% 20% 20%;
-    grid-template-rows: 10% 10% ;
+    grid-template-rows: auto ;
     grid-gap: 5%;
     justify-content: center;
     margin: 2%;
@@ -410,30 +621,50 @@ h2{
     color: sienna;
 }
 
-.image{
+.botImage{
     width: 80%;
 }
 
-            .avatarWrapper {
-                margin: auto;
-                width:50%;
-                display: grid;
-                grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-            }
+/* Question Categories */
+.category {
+    grid-column: 1 / span 3;
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-gap: 2%;
+    justify-content: center;
+    margin: auto;
 
-            #avatar {
+}
+label{
+    margin-top:10%;
+    font-size: 200%;
+}
 
-            }
+#selectCategory{
+    background-color: black;
+    font-family: 'Passion One', cursive;
+    font-size: 180%;
+    color: whitesmoke;
+    text-align: center;
+    border: 1px solid brown;
+    width: 100%;
+    margin-top: 2vh;
+    border-radius: 10px;
+}
+
+.startBtn{
+    grid-column: 2;
+    font-family: 'Passion One', cursive;
+    font-size: 180%;
+    width: 100%;
+    background-image: url("../assets/divbg.jpg");
+    background-size: cover;
+    background-repeat: repeat;
+    border-radius: 10px;
+    margin: 10% 0 0 200%;
+
+}
 
 
-            .avatarImage {
-                border-radius: 50%;
-                border: 1px solid orange;
-                width: 100px;
-            }
-
-            .avatarName {
-                /* */
-            }
-            }
+}
 </style>
