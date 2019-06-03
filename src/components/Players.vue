@@ -21,7 +21,7 @@
       </div>
 
     </div>
-  
+
   </div>
 
 
@@ -35,7 +35,7 @@
         type="submit"
         value="Submit"
         @click="makeGuess(players[0])"
-        
+
       >
     </div>
 
@@ -47,7 +47,7 @@ export default {
   methods: {
     // this method is called when the submit button is clicked and calls three mutations in store
     makeGuess(player) {
-      
+
       this.$store.commit("updateLastGuess", player.guess)
       this.$store.commit("toggleInputButton");
       /*
@@ -100,12 +100,12 @@ export default {
 @media screen and (min-width: 501px) {
   div {
   display: inline-block;
-  
+
 }
 .playerArea {
   display: grid;
-  grid-template-areas: 
-  'hp b1 b2 b3' 
+  grid-template-areas:
+  'hp b1 b2 b3'
   'in in in in';
   grid-gap: 1.5%;
   align-content: center;
@@ -115,7 +115,7 @@ export default {
 .player{
   /* height: 15vw; */
   display: grid;
-  grid-template-areas: 
+  grid-template-areas:
   'n n'
   'im s';
   width: 70%;
@@ -141,7 +141,7 @@ export default {
   width:100px;
   height:100px;
   margin: 0px 40px 0px 0px;
-  
+
 }
 .profileImage {
   grid-area: im;
@@ -149,10 +149,10 @@ export default {
   position: relative;
   top: 0px;
   left: 10px;
-  
+
 }
 .slateArea {
- 
+
   grid-area: s;
   background: none;
   position: relative;
@@ -162,7 +162,7 @@ export default {
   width: 12vw;
   margin-top: 4vh;
   margin-bottom: 4vh;
-  
+
 
 }
 .playerGuessInSlate {
@@ -171,7 +171,7 @@ export default {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 3vw;
-  
+
 }
 
 
@@ -229,6 +229,7 @@ export default {
   background-repeat: repeat;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
+  cursor: pointer;
 }
 
 #submitButton:focus {
@@ -237,7 +238,7 @@ export default {
 .invisible {
   opacity: 0;
 }
-  
+
 
 
 }
@@ -252,7 +253,7 @@ export default {
 .player {
   height: 15vw;
   background-image: url("../assets/planka3.png");
-  background-size: contain; 
+  background-size: contain;
   background-repeat: no-repeat;
   display: flex;
   width: 90%;
@@ -319,7 +320,7 @@ export default {
     width: 90%;
   }
   to {
-    width: 95%;   
+    width: 95%;
   }
 }
 
@@ -332,7 +333,7 @@ export default {
   font-family: 'Passion One', cursive;
   font-size: 5vw;
   color: whitesmoke;
-  text-align: center; 
+  text-align: center;
   border: 1px solid brown;
   width: 50%;
   height: 5vh;
@@ -353,6 +354,7 @@ export default {
   background-repeat: repeat;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
+  cursor: pointer;
 }
 
 #submitButton:focus { outline: none; }

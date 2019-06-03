@@ -4,9 +4,11 @@
 
     <!-- avatar images and names -->
     <div class="statistics">
-      
+
         <router-link to="/statistics"><li class="link">Statistics</li></router-link>
+
         <button class="btn rulesButton" @click="showRules()">?</button>
+
     </div>
     <div class="text">Choose an Avatar and Name:</div>
     <div class="avatarWrapper"> <!-- from the 6 columns: first for default, next 3 divs are for 3 avatars, 1 div is space, last div is selected avatar -->
@@ -478,7 +480,7 @@ label{
     background-repeat: repeat;
     border-radius: 10px;
     margin-top: 10px;
-
+    cursor: pointer;
 }
 
 /* End of category and button area - desktop */
@@ -680,7 +682,7 @@ label{
     background-repeat: repeat;
     border-radius: 10px;
     margin: 10% 0 0 200%;
-
+    cursor:pointer;
 }
 
 
