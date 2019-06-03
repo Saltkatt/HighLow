@@ -110,7 +110,7 @@ export default {
 
             this.preparedPlayer = {
                 id: 0,
-                name: "nameValue",
+                name: nameValue,
                 guess: null,
                 image: this.playerAvatarImage, //require("@/assets/sixten.png"),
                 isMyTurn: true,
