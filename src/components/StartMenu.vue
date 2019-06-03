@@ -110,7 +110,7 @@ export default {
 
             this.preparedPlayer = {
                 id: 0,
-                name: nameValue,
+                name: "nameValue",
                 guess: null,
                 image: this.playerAvatarImage, //require("@/assets/sixten.png"),
                 isMyTurn: true,
@@ -157,8 +157,10 @@ export default {
 
         //select Bots function:
         selectBot: function(getBotId) {
+
+            
             var botId = "bot" + getBotId;
-            document.getElementById(botId).style.animation = "none";
+            //document.getElementById(botId).style.animation = "none";
             for (var countI=0; countI<this.$store.state.bots.length; countI++) {
                 if (this.$store.state.bots[countI].id == getBotId) {
                     //this was the bot clicked. toggle selected:
