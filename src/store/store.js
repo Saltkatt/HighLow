@@ -118,6 +118,7 @@ export const store = new Vuex.Store({
       },
     //Players & bots in the active game
     activePlayers: [],
+    
     //Hard-coded Scoreboard
     scoreBoard: [
       { name: "Ilari", guesses: 3 },
