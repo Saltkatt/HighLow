@@ -149,7 +149,7 @@ export const store = new Vuex.Store({
     correctGuess: 8848,
     moderatorAnswer: null,
     disableInputButton: false,
-    time:10,
+    time:20,
     //PlayGame use this
     i:0,
 
@@ -247,7 +247,7 @@ export const store = new Vuex.Store({
         state.lowestNumber = 0;
         state.highestNumber = 10000;
         state.round = 1;
-        state.time = 10;
+        state.time = 20;
         state.i = 0;
         state.activePlayers.length = 0;
         state.gameState = true;
@@ -367,7 +367,7 @@ export const store = new Vuex.Store({
       state.time--;
     },
     resetTimer(state) {
-      state.time=10;
+      state.time=20;
     },
 
     //Resets round to 1
