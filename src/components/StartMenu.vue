@@ -386,12 +386,13 @@ h2{
 
 #nameInputLabel{
     margin: 10px 0 0 50px;
+    font-size: 3vw;
 }
 
 #nameInput{
     background-color: black;
     font-family: 'Passion One', cursive;
-    font-size: 180%;
+    font-size: 3vw;
     color: whitesmoke;
     text-align: center;
     border: 1px solid brown;
@@ -487,6 +488,11 @@ label{
     cursor: pointer;
 }
 
+.botName, .botDescription{
+    color: black;
+}
+
+
 /* End of category and button area - desktop */
 
 /* Animation area */
@@ -523,12 +529,34 @@ label{
 
 /* Small screen */
 @media screen and (max-width: 500px) {
-.main{
+.main {
     
-    display: grid;
-    grid-template-rows: auto auto auto auto auto auto;
+    background: none;
+    color:whitesmoke;
+    /* display: grid;
+    grid-template-rows: auto; */
+
+}
+.btn{
+    font-family: 'Passion One', cursive;
+    
+    
+}
+.rulesButton{
+    background-image: url("../assets/divbg.jpg");
+    background-size: contain;
+    background-repeat: repeat;
+    font-size: 3vw;
+    border-radius: 12px;
+    padding: 0px 1vw;
+    margin: 12px 0 0 10px;
 }
 
+.rulesButton:focus { outline: none; }
+
+.statistics{
+    margin-bottom: 2vh;
+}
 .text{
     grid-column: 1 / span 3;
     font-size: 6vw;
@@ -556,22 +584,21 @@ label{
 /* End of Statistics Link */
 
 /* Avatar Small screen*/
-.avatarWrapper {
-    grid-column: 1 / span 3;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 20px 60px;
-    grid-template-rows: auto;
+.avatarWrapper{
+    height: 7vh;
+    display: flex;
     background-image: url("../assets/divbg.jpg");
     background-size: cover;
     background-repeat: repeat;
-    margin: 2%;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    margin-top: 3vh;
+    justify-content: space-around;
 }
 
 .avatarImage {
+    width: 10vw;
     
-    border: 1px solid orange;
-    width: 80%;
-    margin-top: 20%;
 }
 
 #defaultAvatar{
@@ -591,9 +618,38 @@ label{
 }
 
 .selected {
-    background-color: chartreuse;
+    background: rgba(61, 45, 8, 0.4);
+    border-radius: 5px;
+    /* border: 3px solid black; */
+    margin: 0px;
+    -webkit-animation: moveUpDownAnimation 2s linear infinite;
+                -moz-animation: moveUpDownAnimation 2s linear infinite;
+                -o-animation: moveUpDownAnimation 2s linear infinite;
+                animation: moveUpDownAnimation 2s linear infinite;
+                position: relative;
+                left:0;
+                bottom:0;
 }
 
+@keyframes moveUpDownAnimation {
+                0%,100%  { bottom: -5px;}
+                50% { bottom: 5px;}
+            }
+
+            @-o-keyframes moveUpDownAnimation {
+                0%,100%  { bottom: 0;}
+                50% { bottom: 25px;}
+            }
+
+            @-moz-keyframes moveUpDownAnimation {
+                0%,100%  { bottom: 0;}
+                50% { bottom: 25px;}
+            }
+
+            @-webkit-keyframes moveUpDownAnimation {
+                0%,100%  { bottom: 0;}
+                50% { bottom: 25px;}
+            }
 /* Name area */
 .playerName {
     grid-column: 1 / span 3;
@@ -613,40 +669,51 @@ label{
 #nameInputLabel{
     margin-top: 15px;
     font-size: 5vw;
+    margin: 5vh;
 }
 
 #nameInput{
     background-color: black;
     font-family: 'Passion One', cursive;
-    font-size: 5vw;
+    font-size: 4vw;
     color: whitesmoke;
     text-align: center;
     border: 1px solid brown;
     width: 40vw;
-    margin-top: 2vh;
+    height: 7vw;
+    margin: 5vh;
     border-radius: 15px;
 }
 
 /* Bot selection area */
 .botWrapper {
-    grid-column: 1 / span 3;
-    display: grid;
-    grid-template-columns: 20% 20% 20%;
-    grid-template-rows: auto ;
-    grid-gap: 5%;
-    justify-content: center;
-    margin: 2%;
+    display: flex;
+    justify-content: space-around;
+    margin-left: 10vw;
+    margin-right: 10vw;
+    height: 30vh;
+    
+
 }
 
 .bot{
-    background-image:url("../assets/divbg.jpg");
+    background-image: url("../assets/divbg.jpg");
     background-size: cover;
-    padding: 1%;
+    background-repeat: repeat;
+    /* padding: 45px; */
+    
     color: sienna;
+    width: 20vw;
+    margin-top: 5vh;
 }
 
-.botImage{
-    width: 80%;
+.botImage {
+    cursor: pointer;
+    margin-top: 3vh;
+    width: 60%;
+}
+.botName, .botDescription{
+    color: black;
 }
 
 /* Question Categories */
@@ -677,16 +744,15 @@ label{
 }
 
 .startBtn{
-    grid-column: 2;
     font-family: 'Passion One', cursive;
     font-size: 180%;
-    width: 100%;
+    width: 70%;
+    height: 10vh;
     background-image: url("../assets/divbg.jpg");
     background-size: cover;
     background-repeat: repeat;
     border-radius: 10px;
-    margin: 10% 0 0 200%;
-    cursor:pointer;
+    margin-top: 5vh;
 }
 
 
