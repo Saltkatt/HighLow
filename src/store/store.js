@@ -190,7 +190,24 @@ export const store = new Vuex.Store({
             for(var i = 0; i < player.length; i++) {
             }
           }
-    
+
+          ]
+        }
+      ],
+
+      //Array with bots
+      bots: [
+        {
+          id: 1,
+          name: "Grandma",
+          guess: null,
+          image: require("@/assets/grandma.png"),
+          isMyTurn: false,
+          isHuman: false,
+          slateImage: require("@/assets/slate.png"),
+          selected: false, //is bot selected by user to complete
+          description: "Confused"
+
         },
         /*
         Following some functions to reset several states when called upon.
@@ -241,7 +258,7 @@ export const store = new Vuex.Store({
         updateModeratorAnswer(state,talk) {
             state.moderatorAnswer = talk;
         },
-    
+  
         toggleInputButton(state){
           state.disableInputButton = !state.disableInputButton;
         },
@@ -281,6 +298,7 @@ export const store = new Vuex.Store({
         setLowestNumber: function (state, payload) {
           if (payload > state.lowestNumber) {
             state.lowestNumber = payload;
+
           }
     
          },
@@ -290,6 +308,7 @@ export const store = new Vuex.Store({
           if (payload < state.highestNumber) {
             state.highestNumber = payload;
           }
+
         },
     
         //close modal box
@@ -331,7 +350,7 @@ export const store = new Vuex.Store({
     
     
         },
-    
+        //Shows rules
         showRules(state) {
           state.showRules = !state.showRules;
         },
@@ -339,12 +358,11 @@ export const store = new Vuex.Store({
         setGameState(state) {
           state.gameState = !state.gameState;
         },
-    
-    
-    
+        //Increases timer
         increaseTimer(state) {
           state.time--;
         },
+         //Resets timer
         resetTimer(state) {
           state.time=10;
         },
@@ -487,10 +505,8 @@ export const store = new Vuex.Store({
               context.dispatch("playGame");
               },2000);
             }
-    
-    
-    
         },
+          
     // highLow checks answers and gives an appropriate response and sends low or high value on to store.
         highLow(context){
           var respons = null;
@@ -547,5 +563,6 @@ export const store = new Vuex.Store({
         },
     
         }    
+
 
 })
