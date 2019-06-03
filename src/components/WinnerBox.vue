@@ -1,9 +1,9 @@
 <template>
   <div class="modalBox" v-if="show">
     <div class="modalContent">
-        <div class="header">
+        <!-- <div class="header">
             <button class="button-close" v-on:click='close'>x</button>
-        </div>
+        </div> -->
         <div class="winning-player">
             <h1>Winner!</h1>
             <img class="cup" v-bind:src="winner().image">
@@ -20,7 +20,7 @@
             call a function that will reset values to default.
           -->
           <router-link to="/">
-            <button class="again-button" type="button" @click="replay()">Play Again</button>
+            <button class="again-button" type="button" @click="replay()">Main Menu</button>
           </router-link>
 
         </div>
@@ -46,9 +46,9 @@ export default {
   },
   methods: {
       //This method calls the mutation (in store) for closing the modal box
-      close: function() {
-        this.$store.commit('closeWinnerBox');
-      },
+      // close: function() {
+      //   this.$store.commit('closeWinnerBox');
+      // },
       /*
         This method shows the player that is the current guesser. This should be
         called when we open the modal box.
