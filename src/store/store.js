@@ -257,13 +257,13 @@ export const store = new Vuex.Store({
 
       switch(highLow){
         case "low":
-        console.log("Enter Low Sitch");
+        //Enter low switch
           if (state.guessNumber>state.lowestNumber){
             state.lowestNumber=state.guessNumber;
           }
           break;
         case "high":
-        console.log("Enter high switch");
+        //Enter high switch
         if(state.guessNumber<state.highestNumber){
           state.highestNumber=state.guessNumber;
         }
@@ -479,36 +479,32 @@ export const store = new Vuex.Store({
 
 
     },
-
+// highLow checks answers and gives an appropriate response and sends low or high value on to store.
     highLow(context){
-      console.log("Enter HighLowMethod, is about to check answer and give response, guessNUumber: "+context.state.guessNumber);
-
       var respons = null;
+      // Answer is correct
       if (context.state.guessNumber == context.state.question.answer) {
-        console.log("The answer is correct!");
         respons = "Correct!";
         context.commit("setGameState");
         context.dispatch("showResult");
-
+      //Answer is too low
       } else if (context.state.guessNumber < context.state.question.answer&&context.state.guessNumber!==null) {
-        console.log("The answer is too Low!");
-
         respons = "Too Low";
-        console.log("Is about to call submitGuessToStore with value low ");
-        // Send data to method submitGuessToStore
+      // Send data to method submitGuessToStore
         context.commit("submitGuessToStore","low");
 
+      //Answer is too high  
       } else if (context.state.guessNumber > context.state.question.answer) {
         respons = "Too High";
-        console.log("The answer is too high!");
-        // Send data to method submitGuessToStore
+
+      // Send data to method submitGuessToStore
         context.commit("submitGuessToStore","high");
+
+      //Timer has reached 0 and no guess has been made, guess = null
       } else if (context.state.guessNumber==null) {
-        console.log("The answer is null!");
         respons = "Times up!";
 
       }
-      console.log("IS about to call updateModeratorAnswer with response: "+respons);
       // Send response to moderatoranswer
        setTimeout(function(){
         context.commit("updateModeratorAnswer",respons);
@@ -516,24 +512,23 @@ export const store = new Vuex.Store({
 
       },
 
-    delayModeratorAnswer(context,talk) {
+      // Delays moderator answers
+      delayModeratorAnswer(context,talk) {
       setTimeout(function () {
         context.commit("updateModeratorAnswer",talk)
       }, 1000)
     },
 
+    // Starts ten second count down.
     startTimer(context){
-      console.log("Start timer");
-
       context.state.timer=setInterval(()=>{
       context.commit("increaseTimer");
      },1000);
 
     },
+    // Stops ten second count down.
     stopTimer(context){
-      console.log("Stop Timer");
       clearInterval(context.state.timer);
-
     },
 
     }
