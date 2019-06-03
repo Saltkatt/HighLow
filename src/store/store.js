@@ -66,7 +66,11 @@ export const store = new Vuex.Store({
           isMyTurn: false,
           isHuman: false,
           slateImage: require("@/assets/slate.png"),
+<<<<<<< HEAD
           selected: false, //is bot selected by user to complete
+=======
+          selected: false, //is bot selected by user to compete
+>>>>>>> a3fb8a31cf0fd525e8e3d7fd8910a5c489eacb96
           description: "Confused"
         },
         {
@@ -89,7 +93,11 @@ export const store = new Vuex.Store({
           isHuman: false,
           slateImage: require("@/assets/slate.png"),
           selected: false, //is bot selected by user to compete
+<<<<<<< HEAD
           description: "Practically Perfect in Every Way"
+=======
+          description: "Pratically Perfect!"
+>>>>>>> a3fb8a31cf0fd525e8e3d7fd8910a5c489eacb96
         },
       ],
 
