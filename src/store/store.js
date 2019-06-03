@@ -140,7 +140,7 @@ export const store = new Vuex.Store({
             //A boolean value to show or not show the modal box (winnerBox) when someone guessed correctly
             isWinnerBoxVisible: false,
             showRules: false,
-            seconds: 10,
+            seconds: 20,
             round: 1,
 
             // Martin test
@@ -148,7 +148,7 @@ export const store = new Vuex.Store({
             correctGuess: 8848,
             moderatorAnswer: null,
             disableInputButton: false,
-            time:10,
+            time:20,
             //PlayGame use this
             i:0,
 
@@ -189,9 +189,9 @@ export const store = new Vuex.Store({
                   state.activePlayers.push(state.bots[botI]);
                   // alert ("added bot: " + state.bots[botI].name);
                 }
-                var player = state.activePlayers;
-                for(var i = 0; i < player.length; i++) {
-                }
+                // var player = state.activePlayers;
+                // for(var i = 0; i < player.length; i++) {
+                // }
               }
 
             },
@@ -350,7 +350,7 @@ export const store = new Vuex.Store({
               state.time--;
             },
             resetTimer(state) {
-              state.time=10;
+              state.time=20;
             },
 
             //Resets round to 1
