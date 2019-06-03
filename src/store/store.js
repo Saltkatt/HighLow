@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { stat } from 'fs';
 
 
 Vue.use(Vuex);
@@ -66,7 +65,9 @@ export const store = new Vuex.Store({
           isMyTurn: false,
           isHuman: false,
           slateImage: require("@/assets/slate.png"),
-          selected: true, //is bot selected by user to compete
+          selected: false, //is bot selected by user to compete
+          description: "Confused"
+
         },
         {
           id: 2,
@@ -77,6 +78,7 @@ export const store = new Vuex.Store({
           isHuman: false,
           slateImage: require("@/assets/slate.png"),
           selected: false, //is bot selected by user to compete
+          description: "Shoots from the hip!"
         },
         {
           id: 3,
@@ -87,6 +89,7 @@ export const store = new Vuex.Store({
           isHuman: false,
           slateImage: require("@/assets/slate.png"),
           selected: false, //is bot selected by user to compete
+          description: "Practically Perfect in Every Way"
         },
       ],
 
@@ -94,21 +97,18 @@ export const store = new Vuex.Store({
       avatars: [
         {
           id: 1,
-          image: require("@/assets/avatar1.png"),
+          image: require("@/assets/avatar1_dragon.png"),
           name: "Dragon",
-          selected: true,
         },
         {
           id: 2,
-          image: require("@/assets/avatar2.png"),
+          image: require("@/assets/avatar2_elfo.png"),
           name: "Elfo",
-          selected: false,
         },
         {
           id: 3,
-          image: require("@/assets/avatar3.png"),
+          image: require("@/assets/avatar3_hombre.png"),
           name: "Hombre",
-          selected: false,
         },
       ],
 
@@ -155,14 +155,6 @@ export const store = new Vuex.Store({
   },
 
   mutations: {
-
-    //toggle avatar selection
-    toggleAvatar: function (state, avatarId) {
-      for(let i= 0; i < state.avatars.length; i++){
-        state.avatars[i].selected = false;
-      }
-      state.avatars[avatarId-1].selected = !state.avatars[avatarId-1].selected;
-    },
 
     //reset active players list
     resetActivePlayers: function (state) {
@@ -413,15 +405,12 @@ export const store = new Vuex.Store({
 
         context.dispatch("userMethod", player);
 
-
           //Check if player is bot,
           } else if (player.id!==0){
             console.log("bots turn, is about to call makeBotDecision with player.id: "+player.id);
-
             context.dispatch("makeBotDecision", player);
 
           }
-
 
       },
       userMethod(context,player){
