@@ -94,17 +94,17 @@ export const store = new Vuex.Store({
       avatars: [
         {
           id: 1,
-          image: require("@/assets/avatar1_dragon.png"),
+          image: require("@/assets/avatar1.png"),
           name: "Dragon",
         },
         {
           id: 2,
-          image: require("@/assets/avatar2_elfo.png"),
+          image: require("@/assets/avatar2.png"),
           name: "Elfo",
         },
         {
           id: 3,
-          image: require("@/assets/avatar3_hombre.png"),
+          image: require("@/assets/avatar3.png"),
           name: "Hombre",
         },
       ],
