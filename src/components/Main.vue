@@ -8,7 +8,6 @@
                 <ul>
                     <router-link to="/"><li class="link">Main Menu</li></router-link>
                     <router-link to="/statistics"><li class="link">Statistics</li></router-link>
-                    <button class="btn playButton" @click="play()">Play</button>
                     <button class="btn rulesButton" @click="showRules()">?</button>
                 </ul>
 
@@ -79,16 +78,17 @@ ul {
     align-items: baseline;
     padding: 0;
     margin: 0;
-    font-size: 2vw;
 }
 
 li {
     display: inline-block;
-    margin: 5px;
+    padding: 15px;
+   
 }
 .link{
     color:white;
 }
+
 .link:hover{
     color: lightgoldenrodyellow;
 }
@@ -110,27 +110,26 @@ li {
 }
 
 .rulesButton{
-    background-image: url("../assets/treerings.png");
+    background-image: url("../assets/divbg.jpg");
+    background-size: contain;
+    background-repeat: repeat;
     font-size: 3vw;
     border-radius: 12px;
-    padding: 1px 15px 5px 20px;
-    margin: 0 0 0 10px;
+    padding: 0px 1vw;
+    margin: 12px 0 0 10px;
 }
 
 .rulesButton:focus { outline: none; }
 
-.playButton{
-    font-size: 3vw;
-    background-image: url("../assets/planka3.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    margin: 2% 0;
-}
-
 /* Small screen */
 @media screen and (max-width: 500px) {
    nav{
-       font-size: 5vw;
+       font-size: 6vw;
+   }
+
+   .rulesButton{
+       font-size: 6vw;
+       width: 5vw;
    }
 }
 

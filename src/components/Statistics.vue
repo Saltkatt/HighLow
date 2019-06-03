@@ -7,7 +7,7 @@
           </li>
         </ol>
         <div>
-          <router-link to="/game">
+          <router-link to="/">
             <button class="back-button" type="button">Back</button>
           </router-link>
         </div>
@@ -31,14 +31,33 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+.list-scores{
+  font-size: 25px;
+}
+
 .back-button{
   font-family: 'Passion One', cursive;
-  font-size: 2vw;
-  width: 6%;
+  font-size: 30px;
+  width: 120px;
   height: 5.5vh;
   background-image: url("../assets/divbg.jpg");
   background-size: cover;
-  border-top-right-radius: 15px;
-  border-bottom-right-radius: 15px;
+  border-radius: 15px;
+  text-align: center;
+  margin: 5%;
+}
+
+/* Small screen */
+@media screen and (max-width: 500px) {
+
+
+  .back-button{
+    font-size: 6vw;
+    width: 20%;
+  }
+    
+
+
 }
 </style>
