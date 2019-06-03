@@ -158,7 +158,7 @@ export default {
         selectBot: function(getBotId) {
 
 
-            var botId = "bot" + getBotId;
+            // var botId = "bot" + getBotId;
             //document.getElementById(botId).style.animation = "none";
             for (var countI=0; countI<this.$store.state.bots.length; countI++) {
                 if (this.$store.state.bots[countI].id == getBotId) {
@@ -176,7 +176,7 @@ export default {
         // },
 
         //select Avatar function:
-        selectAvatar: function(getAvatarId, getImage, avatarImageName) {
+        selectAvatar: function(getAvatarId, getImage) { // , avatarImageName was inside the function as a paramter
             //document.getElementById("defaultAvatar").style="";
             // document.getElementById("playerAvatar").innerHTML =
             //     "<img  src='" + getImage + "' " +
