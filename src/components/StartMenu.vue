@@ -14,7 +14,7 @@
         <div
         class="avatar" v-for="avatar in avatars" :key="avatar.id" v-on:click="selectAvatar(avatar.id, avatar.image, avatar.name)">
             <div :id="'avatar'+avatar.id">
-                <div><img class="avatarImage" v-bind:src="avatar.image"></div>
+                <div><img class="avatarImage" v-bind:src="avatar.image" v-bind:class="{'selected': avatar.selected}"></div>
                 <div class="avatarName">{{ avatar.name }}</div>
             </div>
         </div>
@@ -164,13 +164,14 @@ export default {
 
         //select Avatar function:
         selectAvatar: function(getAvatarId, getImage, avatarImageName) {
-            document.getElementById("defaultAvatar").style="";
-            document.getElementById("playerAvatar").innerHTML =
-                "<img  src='" + getImage + "' " +
-                    "style = ' \
-                            border-radius: 50%; \
-                            width: 80%; \ margin-top: 15%; \
-                    ' >";
+            //document.getElementById("defaultAvatar").style="";
+            // document.getElementById("playerAvatar").innerHTML =
+            //     "<img  src='" + getImage + "' " +
+            //         "style = ' \
+            //                 border-radius: 50%; \
+            //                 width: 80%; \ margin-top: 15%; \
+            //         ' >";
+            this.$store.commit("toggleAvatar", getAvatarId);
             this.playerAvatarImage = getImage;
             this.nameValue = avatarImageName;
         },
