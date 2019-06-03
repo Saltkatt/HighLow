@@ -6,8 +6,6 @@
         <!-- Navigation Bar -->
             <nav class="nav-bar">
                 <ul>
-                    <router-link to="/"><li class="link">Main Menu</li></router-link>
-                    <router-link to="/statistics"><li class="link">Statistics</li></router-link>
                     <button class="btn rulesButton" @click="showRules()">?</button>
                 </ul>
 
@@ -56,7 +54,7 @@ export default {
         play(){
 
             this.$store.dispatch("playGame");
-        }
+        },
     }
 }
 </script>
