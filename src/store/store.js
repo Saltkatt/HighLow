@@ -114,19 +114,13 @@ export const store = new Vuex.Store({
 
       // question to be used by playgame
       question: {
-        question: 'Hur högt är Mount Everest i antal meter räknat?',
-        answer: 8848
+        question: null,
+        answer: null
       },
     //Players & bots in the active game
-    activePlayers: [
-      /*{ id: 0, name: "Player", guess: null, image: require("@/assets/sixten.png"), isMyTurn: true, isHuman: true, guesses: 0, slateImage: require("@/assets/slate.png") },
-
-
-      { id: 2, name: "Pelle", guess: null, image: require("@/assets/bot2.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
-
-      { id: 1, name: "Grandma", guess: null, image: require("@/assets/grandma.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },
-    { id: 3, name: "Wall-E", guess: null, image: require("@/assets/wall-e.png"), isMyTurn: false, isHuman: false, guesses: 0, slateImage: require("@/assets/slate.png") },*/
-  ],
+    activePlayers: [],
+    
+    //Hard-coded Scoreboard
     scoreBoard: [
       { name: "Ilari", guesses: 3 },
       { name: "Joel", guesses: 2 },
@@ -189,7 +183,6 @@ export const store = new Vuex.Store({
     //note: it is assumed the player has id 0
     addToActivePlayers: function (state, payload) {
       state.activePlayers.push(payload);
-      console.log("activePlayers length: " + state.activePlayers.length);
     },
 
     //put bots with field "selected" as true into activePlayers
@@ -200,12 +193,10 @@ export const store = new Vuex.Store({
           state.bots[botI].guess = null;
           state.bots[botI].isMyTurn = false;
           state.activePlayers.push(state.bots[botI]);
-          console.log("activePlayer length after bot insert: " + state.activePlayers.length);
           // alert ("added bot: " + state.bots[botI].name);
         }
         var player = state.activePlayers;
         for(var i = 0; i < player.length; i++) {
-          console.log("id: " + player[i].id + " Name: " + player[i].name + " isTurn: " + player[i].isMyTurn);
         }
       }
 
@@ -283,10 +274,8 @@ export const store = new Vuex.Store({
       }
 
     },
-
+    //Receives high or low guess
     submitGuessToStore(state, highLow) {
-      console.log("Enter submit guessGuessToStore with value: "+highLow);
-
       switch(highLow){
         case "low":
         console.log("Enter Low Sitch");
@@ -420,6 +409,7 @@ export const store = new Vuex.Store({
       }, 1000)
     },
 
+    //Show winner
     showResult(context) {
       setTimeout(function () {
         context.commit("openWinnerBox");
