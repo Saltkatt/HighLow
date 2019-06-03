@@ -17,7 +17,7 @@
         class="avatar" v-for="avatar in avatars" :key="avatar.id" v-on:click="selectAvatar(avatar.id, avatar.image, avatar.name)">
             <div :id="'avatar'+avatar.id">
                 <div><img class="avatarImage" v-bind:src="avatar.image" v-bind:class="{'selected': avatar.selected}"></div>
-                <div class="avatarName">{{ avatar.name }}</div>
+                <!-- <div class="avatarName">{{ avatar.name }}</div> -->
             </div>
         </div>
         <!-- <div> </div> -->
@@ -82,7 +82,7 @@ export default {
     },
     data() {
         return {
-            nameValue: null,
+            nameValue: "",
             rawResponse: null,
             bankQuestions: [],
             apiQuestions: [],
@@ -92,8 +92,8 @@ export default {
             preparedPlayer: {},
             tempBotId: 1, //an id that will be extracted from "bot1", etc. as available with each bot div
 
-            defaultPlayerAvatarImage: require("@/assets/sixten.png"), //default image for player
-            playerAvatarImage: require("@/assets/sixten.png") //update to avatar image
+            //defaultPlayerAvatarImage: require("@/assets/sixten.png"), //default image for player
+            playerAvatarImage: require("@/assets/avatar1.png") //update to avatar image
         }
     },
 
@@ -103,6 +103,10 @@ export default {
             this.$store.commit('assignQuestion', this.selectedQuestion);
 
             this.$store.commit('resetActivePlayers');
+
+            if(nameValue == ""){
+                nameValue = "Player"
+            }
 
             this.preparedPlayer = {
                 id: 0,
@@ -164,11 +168,11 @@ export default {
         },
 
         //select default avatar
-        selectDefaultAvatar: function() {
-            this.playerAvatarImage = this.defaultPlayerAvatarImage;
-            document.getElementById("defaultAvatar").style="border: 1px solid orange;";
-            document.getElementById("playerAvatar").innerHTML = "";
-        },
+        // selectDefaultAvatar: function() {
+        //     this.playerAvatarImage = this.defaultPlayerAvatarImage;
+        //     document.getElementById("defaultAvatar").style="border: 1px solid orange;";
+        //     document.getElementById("playerAvatar").innerHTML = "";
+        // },
 
         //select Avatar function:
         selectAvatar: function(getAvatarId, getImage, avatarImageName) {
@@ -181,7 +185,7 @@ export default {
             //         ' >";
             this.$store.commit("toggleAvatar", getAvatarId);
             this.playerAvatarImage = getImage;
-            this.nameValue = avatarImageName;
+           // this.nameValue = avatarImageName;
         },
 
         showRules(){
@@ -217,17 +221,13 @@ export default {
         const countQuestions = async () => {
             this.rawResponse = await getQuestions()
 
-            // Checks for a result
             if (this.rawResponse.data.results) {
-                // Loops and sorts Api questions to find the ones with numerical answers.
                 for(let i = 0; i < this.rawResponse.data.results.length; i++) {
                     if (this.rawResponse.data.results[i].correct_answer.match(/^[0-9]*$/g)) {
                         this.apiQuestions.push(this.rawResponse.data.results[i])
                     }
                 }
-            }
-            else {
-                this.apiQuestions = this.bankQuestions;
+                console.log(`Got ${Object.entries(this.rawResponse.data.results).length} questions`)
             }
         }
         countQuestions()

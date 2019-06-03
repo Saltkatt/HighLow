@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { stat } from 'fs';
 
 
 Vue.use(Vuex);
@@ -65,8 +66,7 @@ export const store = new Vuex.Store({
           isMyTurn: false,
           isHuman: false,
           slateImage: require("@/assets/slate.png"),
-          selected: false, //is bot selected by user to complete
-          description: "Confused"
+          selected: false, //is bot selected by user to compete
         },
         {
           id: 2,
@@ -77,7 +77,6 @@ export const store = new Vuex.Store({
           isHuman: false,
           slateImage: require("@/assets/slate.png"),
           selected: false, //is bot selected by user to compete
-          description: "Shoots from the hip!"
         },
         {
           id: 3,
@@ -88,7 +87,6 @@ export const store = new Vuex.Store({
           isHuman: false,
           slateImage: require("@/assets/slate.png"),
           selected: false, //is bot selected by user to compete
-          description: "Practically Perfect in Every Way"
         },
       ],
 
@@ -96,18 +94,21 @@ export const store = new Vuex.Store({
       avatars: [
         {
           id: 1,
-          image: require("@/assets/avatar1_dragon.png"),
+          image: require("@/assets/avatar1.png"),
           name: "Dragon",
+          selected: true,
         },
         {
           id: 2,
-          image: require("@/assets/avatar2_elfo.png"),
+          image: require("@/assets/avatar2.png"),
           name: "Elfo",
+          selected: false,
         },
         {
           id: 3,
-          image: require("@/assets/avatar3_hombre.png"),
+          image: require("@/assets/avatar3.png"),
           name: "Hombre",
+          selected: false,
         },
       ],
 
@@ -155,6 +156,22 @@ export const store = new Vuex.Store({
   },
 
   mutations: {
+      
+      //toggle avatar selection
+        toggleAvatar: function (state, avatarId) {
+        for(let i= 0; i < state.avatars.length; i++){
+        state.avatars[i].selected = false;
+      }
+      state.avatars[avatarId-1].selected = !state.avatars[avatarId-1].selected;
+    },
+
+    //toggle avatar selection
+    toggleAvatar: function (state, avatarId) {
+      for(let i= 0; i < state.avatars.length; i++){
+        state.avatars[i].selected = false;
+      }
+      state.avatars[avatarId-1].selected = !state.avatars[avatarId-1].selected;
+    },
 
     //reset active players list
     resetActivePlayers: function (state) {
@@ -191,7 +208,16 @@ export const store = new Vuex.Store({
       defaultGameState(state) {
         state.gameState = true;
       },
- 
+      // loadGame(state) {
+      //   //Push selected bots into activePlayer
+      //   for(let i=0;i<state.bots.length;i++){
+      //     if(state.bots[i].selected==true){
+      //       state.bots[i].guess = null;
+      //       state.bots[i].isMyTurn = null;
+      //       state.activePlayers.push(state.bots[i]); //was push("state.bots[i]");
+      //     }
+      //   }
+      // },
       //This resets the guess of each player in the activePlayers to null.
       defaultActivePlayersGuess(state) {
         var players = state.activePlayers;
@@ -252,13 +278,13 @@ export const store = new Vuex.Store({
     submitGuessToStore(state, highLow) {
       switch(highLow){
         case "low":
-        //Enter low switch
+        console.log("Enter Low Sitch");
           if (state.guessNumber>state.lowestNumber){
             state.lowestNumber=state.guessNumber;
           }
           break;
         case "high":
-        //Enter high switch
+        console.log("Enter high switch");
         if(state.guessNumber<state.highestNumber){
           state.highestNumber=state.guessNumber;
         }
@@ -389,51 +415,55 @@ export const store = new Vuex.Store({
         context.commit("openWinnerBox");
       }, 500)
     },
-
-    //Engine - Receives and checks player information and calls methods
     playGame(context){
+
       var player=context.state.activePlayers[context.state.i];
       console.log("Enter game with player.id: "+player.id + player.name);
 
       context.dispatch("startTimer");
       //Check if player is human and wait for user input
       if(player.id==0){
-        //Players turn, is about to call userMethod with player.id
+        console.log("Players turn, is about to call userMethod with player.id: "+player.id);
+
         context.dispatch("userMethod", player);
 
-      //Check if player is bot,
-      } else if (player.id!==0){
-      //Bots turn, is about to call makeBotDecision with player.id
-        context.dispatch("makeBotDecision", player);
 
-      }
+          //Check if player is bot,
+          } else if (player.id!==0){
+            console.log("bots turn, is about to call makeBotDecision with player.id: "+player.id);
+
+            context.dispatch("makeBotDecision", player);
+
+          }
+
 
       },
       userMethod(context,player){
+          //console.log("Enter userMethod with player.id: "+player.id);
           // Waits for user-input
-        if(context.state.guessNumber==null&&context.state.time>0){ 
-          // Tidsparameter
+        if(context.state.guessNumber==null&&context.state.time>0){ // Lägg in tidparameter här
           setTimeout(function(){
              context.dispatch("userMethod",player);
             },590);
 
         } else{
-          //No longer waiting for user-input, updates updatelastGuess with latest guess.
+          console.log("App is no longer waiting for user-input");
+          console.log("is about to send player.guess to updateLastGuess mutation with player.guess: "+player.guess);
           context.commit("updateLastGuess",player.guess);
-          //Diplays response
+
           context.dispatch("response",player);
         }
 
       },
-    
-    // Bot Logic
+
     makeBotDecision(context, player) {
-      //Delay bot answer by random number of seconds
+      console.log("Enter botDecision with player.id: "+player.id)
           let randomTime = 1000 + Math.floor(Math.random() * 5000);
 
           setTimeout(function(){
 
             switch (player.id) {
+
               case 1:
                 //This bots logic: highestNumber - lowestNumber / 2
                 player.guess = context.state.lowestNumber + Math.floor((context.state.highestNumber - context.state.lowestNumber) / 2)
@@ -448,34 +478,27 @@ export const store = new Vuex.Store({
                   (context.state.highestNumber - context.state.lowestNumber) * 0.1))
                 break;
             }
-            //Updates the last guess with the new guess.
+            console.log("is about to send player.guess to updateLastGuess mutation with player.guess: "+player.guess);
             context.commit("updateLastGuess",player.guess);
-            //Sends a response
+            console.log("is about to call responseMethod with player.id: "+player.id);
             context.dispatch("response",player);
 
             },randomTime);
+
+
     },
-    //Sends appropriate response
     response(context,player){
-      //Stops timer when a guess is made.
+      console.log("enter responseMethod with player.id: "+player.id);
       context.dispatch("stopTimer");
- 
-      //Calls highLow()
+      console.log("is about to call highLowMethod");
       context.dispatch("highLow");
-      //gameState is true
         if(context.state.gameState){
         setTimeout(function(){
-
-          //Resets Moderator response
           context.commit("resetModeratorTalk");
-
-          //Resets timer
-          context.commit("resetTimer");
-
-          //Switches player turn, calls switchTurn()
+           context.commit("resetTimer");
+          console.log("is about to call switchTurnMethod with player.id: "+player.id);
           context.commit("switchTurn",player);
-
-          //Calls playGame to start new game
+          console.log("is about to call playerGame to start over");
           context.dispatch("playGame");
           },2000);
         }
@@ -483,61 +506,72 @@ export const store = new Vuex.Store({
 
 
     },
-// highLow checks answers and gives an appropriate response and sends low or high value on to store.
-    highLow(context){
-      var respons = null;
 
-      // Answer is correct
+    highLow(context){
+      console.log("Enter HighLowMethod, is about to check answer and give response, guessNUumber: "+context.state.guessNumber);
+
+      var respons = null;
       if (context.state.guessNumber == context.state.question.answer) {
+        console.log("The answer is correct!");
         respons = "Correct!";
         context.commit("setGameState");
         context.dispatch("showResult");
 
-      //Answer is too low
       } else if (context.state.guessNumber < context.state.question.answer&&context.state.guessNumber!==null) {
-        respons = "Too Low";
+        console.log("The answer is too Low!");
 
-      // Send data to method submitGuessToStore
+        respons = "Too Low";
+        console.log("Is about to call submitGuessToStore with value low ");
+        // Send data to method submitGuessToStore
         context.commit("submitGuessToStore","low");
 
-      //Answer is too high  
       } else if (context.state.guessNumber > context.state.question.answer) {
         respons = "Too High";
-
-      // Send data to method submitGuessToStore
+        console.log("The answer is too high!");
+        // Send data to method submitGuessToStore
         context.commit("submitGuessToStore","high");
-
-      //Timer has reached 0 and no guess has been made, guess = null
       } else if (context.state.guessNumber==null) {
+        console.log("The answer is null!");
         respons = "Times up!";
 
       }
+      console.log("IS about to call updateModeratorAnswer with response: "+respons);
       // Send response to moderatoranswer
        setTimeout(function(){
         context.commit("updateModeratorAnswer",respons);
         },600);
 
+
+
+
       },
 
-      // Delays moderator answers
-      delayModeratorAnswer(context,talk) {
+    delayModeratorAnswer(context,talk) {
       setTimeout(function () {
         context.commit("updateModeratorAnswer",talk)
       }, 1000)
     },
 
-    // Starts ten second count down.
     startTimer(context){
+      console.log("Start timer");
+
       context.state.timer=setInterval(()=>{
       context.commit("increaseTimer");
      },1000);
 
     },
-    // Stops ten second count down.
     stopTimer(context){
+      console.log("Stop Timer");
       clearInterval(context.state.timer);
+
     },
 
+
     }
+
+
+
+
+
 
 })
