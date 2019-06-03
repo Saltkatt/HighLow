@@ -13,7 +13,7 @@
 
             </nav>
     </header>
-
+    <!-- Round and Time  -->
     <RoundTime></RoundTime>
 
     <!-- Moderator component -->
@@ -22,7 +22,9 @@
     <!-- Player and Bots -->
     <Players></Players>
 
+    <!-- Rules for rule button -->
     <Rules></Rules>
+    
      <!-- Modal box component -->
     <WinnerBox></WinnerBox>
 
