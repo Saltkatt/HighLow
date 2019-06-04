@@ -49,7 +49,7 @@ export default {
         font-family: 'Passion One', cursive;
         margin: 0px;
         background-image: url("./assets/bg.jpg");
-        background-size: contain;
+        background-size: cover;
         color: white;
     }
     #app{

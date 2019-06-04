@@ -37,7 +37,7 @@
     <!-- Bots list -->
     <div class="text">Choose your opponents:</div>
     <div class="botWrapper">
-        
+
             <div class="bot" v-for="bot in bots" :key="bot.id" v-on:click="selectBot(bot.id)" >
                 <div :id="'bot'+bot.id">
                     <div><img class="botImage" v-bind:class="{'selected': bot.selected}" v-bind:src="bot.image"></div>
@@ -118,7 +118,6 @@ export default {
                 guesses: 0,
                 slateImage: require("@/assets/slate.png")
             };
-            // alert("preparedPlayer: " + this.preparedPlayer);
 
             // send user to store:
             this.$store.commit('addToActivePlayers', this.preparedPlayer);
@@ -158,8 +157,8 @@ export default {
         //select Bots function:
         selectBot: function(getBotId) {
 
-            
-            var botId = "bot" + getBotId;
+
+            // var botId = "bot" + getBotId;
             //document.getElementById(botId).style.animation = "none";
             for (var countI=0; countI<this.$store.state.bots.length; countI++) {
                 if (this.$store.state.bots[countI].id == getBotId) {
@@ -177,7 +176,7 @@ export default {
         // },
 
         //select Avatar function:
-        selectAvatar: function(getAvatarId, getImage, avatarImageName) {
+        selectAvatar: function(getAvatarId, getImage) { // , avatarImageName was inside the function as a paramter
             //document.getElementById("defaultAvatar").style="";
             // document.getElementById("playerAvatar").innerHTML =
             //     "<img  src='" + getImage + "' " +
@@ -268,7 +267,7 @@ export default {
 } */
 
 .main {
-    
+
     background: none;
     color:whitesmoke;
     /* display: grid;
@@ -277,7 +276,7 @@ export default {
 }
 /* Statistics Link */
 .link{
-    
+
   font-size: 3vw;
   text-decoration: none;
   color: #fff;
@@ -299,8 +298,8 @@ export default {
 
 .btn{
     font-family: 'Passion One', cursive;
-    
-    
+
+
 }
 .rulesButton{
     background-image: url("../assets/divbg.jpg");
@@ -310,6 +309,7 @@ export default {
     border-radius: 12px;
     padding: 0px 1vw;
     margin: 12px 0 0 10px;
+    cursor: pointer;
 }
 
 .rulesButton:focus { outline: none; }
@@ -347,7 +347,7 @@ export default {
 
 .avatarImage {
     width: 6vw;
-    
+
 }
 
 #defaultAvatar{
@@ -426,7 +426,7 @@ h2{
     margin-left: 25vw;
     margin-right: 25vw;
     height: 30vh;
-    
+
 
 }
 
@@ -435,7 +435,7 @@ h2{
     background-size: cover;
     background-repeat: repeat;
     /* padding: 45px; */
-    
+
     color: sienna;
     width: 12vw;
 }
@@ -532,7 +532,7 @@ label{
 /* Small screen */
 @media screen and (max-width: 500px) {
 .main {
-    
+
     background: none;
     color:whitesmoke;
     /* display: grid;
@@ -541,8 +541,8 @@ label{
 }
 .btn{
     font-family: 'Passion One', cursive;
-    
-    
+
+
 }
 .rulesButton{
     background-image: url("../assets/divbg.jpg");
@@ -552,6 +552,7 @@ label{
     border-radius: 12px;
     padding: 0px 1vw;
     margin: 12px 0 0 10px;
+    cursor: pointer;
 }
 
 .rulesButton:focus { outline: none; }
@@ -600,7 +601,7 @@ label{
 
 .avatarImage {
     width: 10vw;
-    
+    cursor: pointer;
 }
 
 #defaultAvatar{
@@ -694,7 +695,7 @@ label{
     margin-left: 10vw;
     margin-right: 10vw;
     height: 30vh;
-    
+
 
 }
 
@@ -703,7 +704,7 @@ label{
     background-size: cover;
     background-repeat: repeat;
     /* padding: 45px; */
-    
+
     color: sienna;
     width: 20vw;
     margin-top: 5vh;
@@ -755,6 +756,7 @@ label{
     background-repeat: repeat;
     border-radius: 10px;
     margin-top: 5vh;
+    cursor: pointer;
 }
 
 
